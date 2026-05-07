@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="旅遊 2026">
+<meta name="theme-color" content="#1B2A4A">
+<title>Alice & Ryan · 2026</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --pink:#FF6B9D; --pink-l:rgba(255,107,157,0.14);
+  --yellow:#FFD166; --yellow-d:#F4A300;
+  --blue:#3A86FF; --blue-l:rgba(58,134,255,0.14);
+  --green:#06D6A0; --green-l:rgba(6,214,160,0.14);
+  --purple:#9B5DE5; --purple-l:rgba(155,93,229,0.14);
+  --navy:#1B2A4A; --navy2:#243556;
+  --bg:#ECEEF5; --card:#FFFFFF;
+  --text:#1B2A4A; --muted:#8896AA;
+  --border:rgba(27,42,74,0.07);
+  --sb:env(safe-area-inset-bottom,0px);
+  --s1: 0 1px 4px rgba(27,42,74,0.04), 0 4px 14px rgba(27,42,74,0.07);
+  --s2: 0 2px 8px rgba(27,42,74,0.06), 0 8px 28px rgba(27,42,74,0.10);
+}
+html,body { height:100%; overflow:hidden; }
+body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text); }
+
+/* ── SCREENS ── */
+.screen { display:none; position:fixed; inset:0; overflow-y:auto; padding-bottom:calc(80px + var(--sb)); }
+.screen.active { display:block; animation:screenIn 0.28s ease; }
+@keyframes screenIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── BOTTOM NAV ── */
+.bnav {
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-top:1px solid rgba(255,255,255,0.7);
+  display:flex; padding-bottom:var(--sb);
+  box-shadow:0 -8px 32px rgba(27,42,74,0.08);
+}
+.bnav-btn {
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:10px 4px; gap:3px; border:none; background:none; cursor:pointer; color:var(--muted);
+  position:relative; transition:color 0.2s;
+}
+.bnav-btn .ni { font-size:20px; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.bnav-btn .nl { font-size:10px; font-weight:800; letter-spacing:0.03em; }
+.bnav-btn.active .ni { transform:scale(1.22) translateY(-1px); }
+.bnav-btn.active .nl { color:var(--pink); }
+.bnav-btn.active { color:var(--navy); }
+.bnav-btn.active::before {
+  content:''; position:absolute; top:5px;
+  width:36px; height:28px; border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,107,157,0.12),rgba(255,209,102,0.12));
+}
+
+/* ── SHARED HEADER ── */
+.page-hdr {
+  background:linear-gradient(135deg, #1B2A4A 0%, #2e1d6b 55%, #1a3a5c 100%);
+  padding:52px 20px 28px; position:relative; overflow:hidden;
+}
+.page-hdr::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 80% 10%, rgba(255,107,157,0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(58,134,255,0.18) 0%, transparent 50%);
+}
+.page-hdr::after {
+  content:attr(data-bg); position:absolute; right:-8px; bottom:-16px;
+  font-family:'Syne',sans-serif; font-size:80px; font-weight:800;
+  color:rgba(255,255,255,0.05); pointer-events:none; line-height:1;
+}
+.page-hdr h1 { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:#fff; position:relative; z-index:1; }
+.page-hdr p { font-size:13px; color:rgba(255,255,255,0.48); margin-top:3px; position:relative; z-index:1; }
+
+/* ── PILL / BADGE ── */
+.pill {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 14px; border-radius:20px; font-size:12px; font-weight:800;
+}
+.pill-pink   { background:var(--pink-l);   color:#c0275c; }
+.pill-yellow { background:rgba(255,209,102,0.28); color:#8a5e00; }
+.pill-blue   { background:var(--blue-l);   color:#1a5fa8; }
+.pill-green  { background:var(--green-l);  color:#076e50; }
+.pill-purple { background:var(--purple-l); color:#6b21a8; }
+.pill-navy   { background:var(--navy);     color:#fff; }
+
+/* ── HOME ── */
+.h-loc-bar {
+  background:rgba(27,42,74,0.96);
+  backdrop-filter:blur(8px);
+  padding:11px 20px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.h-loc { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.88); font-weight:700; }
+.h-loc .dot {
+  width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0;
+  box-shadow:0 0 6px var(--green);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow:0 0 4px var(--green); }
+  50%      { box-shadow:0 0 10px var(--green), 0 0 20px rgba(6,214,160,0.35); }
+}
+.h-prog-val { font-size:12px; font-weight:800; color:rgba(255,255,255,0.55); }
+.prog-bar { height:5px; background:rgba(255,255,255,0.08); }
+.prog-fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--pink), var(--yellow), var(--green));
+  background-size:200% 100%;
+  transition:width 1.4s ease;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer { 0% { background-position:0 0; } 100% { background-position:200% 0; } }
+
+.h-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:14px; }
+.h-card {
+  background:var(--card); border-radius:20px; padding:16px;
+  border:1px solid var(--border); position:relative; overflow:hidden;
+  box-shadow:var(--s1); transition:transform 0.18s, box-shadow 0.18s;
+}
+.h-card:active { transform:scale(0.97); }
+.h-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.h-card.hl {
+  background:linear-gradient(145deg, #1B2A4A 0%, #2c3f70 100%);
+  border-color:transparent; box-shadow:var(--s2);
+}
+.h-card.hl::before { background:linear-gradient(90deg, var(--yellow), var(--yellow-d)); }
+.h-card:nth-child(2)::before { background:linear-gradient(90deg, var(--pink), #ff4594); }
+.h-card:nth-child(3)::before { background:linear-gradient(90deg, var(--blue), #1a6eff); }
+.h-card:nth-child(4)::before { background:linear-gradient(90deg, var(--green), #00c4a7); }
+.h-card .cl { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:5px; }
+.h-card.hl .cl { color:rgba(255,255,255,0.38); }
+.h-card .cn { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--navy); }
+.h-card.hl .cn { color:var(--yellow); }
+.h-card .cs { font-size:11px; color:var(--muted); margin-top:2px; }
+.h-card.hl .cs { color:rgba(255,255,255,0.32); }
+.h-card:nth-child(2) { background:linear-gradient(150deg,#fff0f6 0%,#fff 65%); border-color:rgba(255,107,157,0.14); }
+.h-card:nth-child(2) .cn { color:#D4236E; }
+.h-card:nth-child(3) { background:linear-gradient(150deg,#eff5ff 0%,#fff 65%); border-color:rgba(58,134,255,0.14); }
+.h-card:nth-child(3) .cn { color:var(--blue); }
+.h-card:nth-child(4) { background:linear-gradient(150deg,#edfdf8 0%,#fff 65%); border-color:rgba(6,214,160,0.14); }
+.h-card:nth-child(4) .cn { color:#059678; }
+
+/* next stop teaser */
+.next-stop {
+  margin:0 14px 14px; padding:14px 16px;
+  background:var(--card); border-radius:20px; border:1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+  box-shadow:var(--s1); overflow:hidden; position:relative;
+}
+.next-stop::after {
+  content:''; position:absolute; right:-16px; top:-16px;
+  width:72px; height:72px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,107,157,0.07), transparent 70%);
+  pointer-events:none;
+}
+.next-stop .ns-flag { font-size:28px; flex-shrink:0; }
+.next-stop .ns-info { flex:1; }
+.next-stop .ns-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+.next-stop .ns-city { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; color:var(--navy); }
+.next-stop .ns-date { font-size:11px; color:var(--muted); margin-top:1px; }
+.ns-arrow { font-size:20px; color:var(--muted); }
+
+.sec-hdr { display:flex; justify-content:space-between; align-items:center; padding:4px 14px 10px; }
+.sec-ttl { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; }
+.sec-act { font-size:12px; font-weight:800; color:var(--pink); cursor:pointer; }
+
+/* ── EXPENSE LIST ── */
+.exp-list { padding:0 14px; display:flex; flex-direction:column; gap:8px; }
+.exp-item {
+  background:var(--card); border-radius:16px; padding:13px 14px;
+  display:flex; align-items:center; gap:11px; border:1px solid var(--border);
+  box-shadow:var(--s1);
+  animation:fadeUp 0.32s ease both;
+  transition:transform 0.15s;
+}
+.exp-item:active { transform:scale(0.985); }
+.exp-item:nth-child(1) { animation-delay:0s; }
+.exp-item:nth-child(2) { animation-delay:.04s; }
+.exp-item:nth-child(3) { animation-delay:.08s; }
+.exp-item:nth-child(4) { animation-delay:.12s; }
+.exp-item:nth-child(5) { animation-delay:.16s; }
+.exp-item:nth-child(n+6) { animation-delay:.20s; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.exp-ico { width:40px; height:40px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.exp-inf { flex:1; min-width:0; }
+.exp-dsc { font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.exp-met { font-size:11px; color:var(--muted); margin-top:1px; }
+.exp-pay { display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; margin-top:3px; }
+.pa { background:var(--pink-l); color:#c0275c; }
+.pr { background:var(--blue-l); color:#1a5fa8; }
+.exp-amt { text-align:right; flex-shrink:0; }
+.exp-rmb { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; }
+.exp-ori { font-size:11px; color:var(--muted); }
+.empty { text-align:center; padding:40px 20px; color:var(--muted); }
+.empty .ei { font-size:40px; display:block; margin-bottom:10px; }
+.empty p { font-size:14px; font-weight:600; }
+.del-btn {
+  background:none; border:none; cursor:pointer; font-size:15px;
+  padding:6px 4px; opacity:0.22; flex-shrink:0; transition:opacity 0.15s, transform 0.15s;
+  color:#e53e3e;
+}
+.del-btn:active { opacity:1; transform:scale(1.3); }
+
+/* ── DELETE CONFIRM MODAL ── */
+.del-modal-bg {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  align-items:flex-end; justify-content:center;
+}
+.del-modal-bg.show { display:flex; }
+.del-modal {
+  background:var(--card); border-radius:24px 24px 0 0;
+  padding:28px 20px calc(28px + var(--sb)); width:100%; max-width:480px;
+  text-align:center; box-shadow:0 -20px 60px rgba(27,42,74,0.14);
+}
+.del-modal p { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.del-modal small { font-size:12px; color:var(--muted); display:block; margin-bottom:20px; }
+.del-modal-btns { display:flex; gap:10px; }
+.del-modal-btns button { flex:1; padding:14px; border-radius:16px; border:none; font-family:'Nunito',sans-serif; font-size:15px; font-weight:800; cursor:pointer; }
+.del-cancel { background:var(--bg); color:var(--text); }
+.del-confirm { background:linear-gradient(135deg,#e53e3e,#c53030); color:#fff; box-shadow:0 4px 16px rgba(229,62,62,0.28); }
+
+/* ── EXPENSE FORM ── */
+.e-form { padding:18px 14px; }
+.fg { margin-bottom:15px; }
+.fl { display:block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:6px; }
+.fi,.fs {
+  width:100%; padding:13px 14px; background:var(--card);
+  border:1.5px solid var(--border); border-radius:14px;
+  font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; color:var(--text);
+  appearance:none; -webkit-appearance:none;
+  transition:border-color 0.2s, box-shadow 0.2s;
+  box-shadow:var(--s1);
+}
+.fi:focus,.fs:focus { outline:none; border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,107,157,0.12), var(--s1); }
+.sw { position:relative; }
+.sw::after { content:'▾'; position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; font-size:13px; }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.amt-row { display:grid; grid-template-columns:1fr 88px; gap:10px; }
+.amt-row .fi { font-size:22px; font-weight:900; }
+.cat-chips { display:flex; flex-wrap:wrap; gap:7px; }
+.cc {
+  padding:8px 13px; border-radius:20px; border:1.5px solid var(--border);
+  background:var(--card); font-size:13px; font-weight:700; color:var(--muted);
+  cursor:pointer; transition:all 0.2s; box-shadow:var(--s1);
+}
+.cc.sel { background:var(--navy); border-color:var(--navy); color:#fff; box-shadow:0 4px 14px rgba(27,42,74,0.22); }
+.payer-row { display:flex; gap:10px; }
+.pb {
+  flex:1; padding:12px; border-radius:14px; border:2px solid var(--border);
+  background:var(--card); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800;
+  cursor:pointer; color:var(--muted); transition:all 0.2s; box-shadow:var(--s1);
+}
+.pb.pa-a { background:var(--pink-l); border-color:var(--pink); color:#c0275c; box-shadow:0 4px 12px rgba(255,107,157,0.15); }
+.pb.pa-r { background:var(--blue-l); border-color:var(--blue); color:#1a5fa8; box-shadow:0 4px 12px rgba(58,134,255,0.15); }
+.rmb-prev {
+  text-align:center; padding:12px;
+  background:linear-gradient(135deg, var(--yellow), var(--yellow-d));
+  border-radius:14px; margin-bottom:14px;
+  font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--navy);
+  display:none; box-shadow:0 4px 16px rgba(255,209,102,0.32);
+}
+.rmb-prev.vis { display:block; animation:popIn 0.22s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes popIn { from { opacity:0; transform:scale(0.94); } to { opacity:1; transform:scale(1); } }
+.sub-btn {
+  width:100%; padding:17px;
+  background:linear-gradient(135deg, #1B2A4A 0%, #2d3f6b 100%);
+  color:#fff; border:none; border-radius:18px;
+  font-family:'Syne',sans-serif; font-size:17px; font-weight:800; cursor:pointer; margin-top:6px;
+  letter-spacing:0.03em;
+  transition:opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow:0 6px 22px rgba(27,42,74,0.28);
+}
+.sub-btn:active { transform:scale(0.98); box-shadow:0 2px 8px rgba(27,42,74,0.18); }
+.sub-btn:disabled { opacity:0.4; }
+
+/* ── ITINERARY ── */
+.itin-summary {
+  background:rgba(27,42,74,0.97);
+  backdrop-filter:blur(8px);
+  padding:13px 20px;
+  display:flex;
+}
+.itin-s { text-align:center; flex:1; }
+.itin-s + .itin-s { border-left:1px solid rgba(255,255,255,0.08); }
+.itin-s .isn { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--yellow); }
+.itin-s .isl { font-size:10px; color:rgba(255,255,255,0.42); text-transform:uppercase; letter-spacing:0.08em; margin-top:1px; }
+
+.itin-list { padding:14px; display:flex; flex-direction:column; gap:12px; }
+.dest-card {
+  background:var(--card); border-radius:22px;
+  border:1px solid var(--border); overflow:hidden; position:relative;
+  box-shadow:var(--s2);
+  animation:fadeUp 0.35s ease both;
+}
+.dest-card:nth-child(1){animation-delay:.05s}
+.dest-card:nth-child(2){animation-delay:.10s}
+.dest-card:nth-child(3){animation-delay:.15s}
+.dest-card:nth-child(4){animation-delay:.20s}
+.dest-card:nth-child(5){animation-delay:.25s}
+.dest-card:nth-child(6){animation-delay:.30s}
+.dest-card:nth-child(7){animation-delay:.35s}
+.dest-card.current {
+  border-color:var(--green);
+  box-shadow:0 0 0 2px rgba(6,214,160,0.18), var(--s2);
+}
+.dest-tab { height:5px; width:100%; }
+.dest-main { padding:16px 16px 0; }
+.dest-top { display:flex; align-items:flex-start; gap:12px; }
+.dest-flag { font-size:32px; flex-shrink:0; }
+.dest-info { flex:1; }
+.dest-country { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); }
+.dest-city { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; color:var(--navy); line-height:1.1; }
+.dest-dates { font-size:12px; color:var(--muted); margin-top:3px; font-weight:600; }
+.dest-here { font-size:10px; font-weight:900; padding:3px 10px; border-radius:10px; background:rgba(6,214,160,0.12); color:#076e50; border:1px solid rgba(6,214,160,0.25); }
+
+.dest-highlights { padding:10px 16px; display:flex; flex-wrap:wrap; gap:6px; }
+.hl-tag { font-size:11px; font-weight:700; padding:4px 10px; border-radius:12px; background:var(--bg); color:var(--muted); border:1px solid var(--border); }
+
+.dest-actions { padding:12px 16px 16px; display:flex; gap:8px; }
+.map-btn {
+  flex:1; padding:10px; border-radius:14px; border:1.5px solid var(--border);
+  background:var(--bg); font-family:'Nunito',sans-serif; font-size:13px; font-weight:800;
+  color:var(--navy); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
+  text-decoration:none; transition:all 0.2s; box-shadow:var(--s1);
+}
+.map-btn:active { background:var(--navy); color:#fff; transform:scale(0.97); }
+.plan-btn {
+  padding:10px 16px; border-radius:14px; border:none;
+  background:linear-gradient(135deg, #1B2A4A, #2d3f6b);
+  color:#fff; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800;
+  cursor:pointer; white-space:nowrap;
+  box-shadow:0 4px 12px rgba(27,42,74,0.22);
+  transition:transform 0.15s, box-shadow 0.15s;
+}
+.plan-btn:active { transform:scale(0.96); box-shadow:0 2px 6px rgba(27,42,74,0.18); }
+
+/* ── REPORT ── */
+.r-body { padding:14px; }
+.r-total {
+  background:linear-gradient(135deg, #FFD166 0%, #F4A300 100%);
+  border-radius:22px; padding:24px; text-align:center; margin-bottom:14px;
+  box-shadow:0 8px 28px rgba(244,163,0,0.22);
+  position:relative; overflow:hidden;
+}
+.r-total::before {
+  content:''; position:absolute; right:-24px; top:-24px;
+  width:130px; height:130px; border-radius:50%;
+  background:rgba(255,255,255,0.1); pointer-events:none;
+}
+.r-total::after {
+  content:''; position:absolute; left:-28px; bottom:-28px;
+  width:100px; height:100px; border-radius:50%;
+  background:rgba(255,255,255,0.07); pointer-events:none;
+}
+.r-total .rtl { font-size:11px; font-weight:700; color:rgba(27,42,74,0.6); text-transform:uppercase; letter-spacing:0.1em; position:relative; z-index:1; }
+.r-total .rtn { font-family:'Syne',sans-serif; font-size:52px; font-weight:800; color:var(--navy); line-height:1.1; position:relative; z-index:1; }
+.r-total .rts { font-size:13px; color:rgba(27,42,74,0.55); margin-top:4px; position:relative; z-index:1; }
+.r-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.r-stat { background:var(--card); border-radius:18px; padding:15px; border:1px solid var(--border); text-align:center; box-shadow:var(--s1); }
+.r-stat .sn { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; }
+.r-stat .sl { font-size:11px; color:var(--muted); margin-top:2px; font-weight:600; }
+.r-cats { background:var(--card); border-radius:22px; padding:18px; border:1px solid var(--border); box-shadow:var(--s1); }
+.r-cats-ttl { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; margin-bottom:14px; }
+.cat-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
+.cat-row:last-child { border-bottom:none; }
+.cat-row .cn { flex:0 0 80px; font-size:13px; font-weight:700; }
+.cat-row .cbar { flex:1; height:6px; background:var(--bg); border-radius:3px; overflow:hidden; }
+.cat-row .cfill { height:100%; border-radius:3px; background:linear-gradient(90deg, var(--navy), var(--blue)); }
+.cat-row .ca { font-family:'Syne',sans-serif; font-size:13px; font-weight:800; min-width:60px; text-align:right; }
+.ldg { text-align:center; padding:60px 20px; color:var(--muted); }
+.ldg .sp { font-size:36px; animation:spin 1s linear infinite; display:block; margin-bottom:12px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── CITY PICKER ── */
+.loc-bar-tap { cursor:pointer; }
+.loc-edit { font-size:11px; opacity:0.45; margin-left:4px; }
+.city-modal-bg {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  align-items:flex-end; justify-content:center;
+}
+.city-modal-bg.show { display:flex; }
+.city-modal {
+  background:var(--card); border-radius:24px 24px 0 0;
+  width:100%; max-width:480px;
+  box-shadow:0 -20px 60px rgba(27,42,74,0.15);
+  max-height:75vh; display:flex; flex-direction:column;
+}
+.city-modal-hdr {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 20px 12px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.city-modal-hdr span { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; }
+.city-modal-hdr button { background:none; border:none; font-size:20px; cursor:pointer; color:var(--muted); padding:4px; }
+.city-scroll { overflow-y:auto; padding:12px 16px calc(16px + var(--sb)); }
+.city-opt {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border-radius:16px; cursor:pointer;
+  transition:background 0.15s; margin-bottom:4px;
+  border:1.5px solid transparent;
+}
+.city-opt:active { background:var(--bg); }
+.city-opt.cur { background:rgba(27,42,74,0.06); border-color:var(--navy); }
+.city-opt .co-flag { font-size:22px; flex-shrink:0; }
+.city-opt .co-name { font-size:15px; font-weight:800; color:var(--navy); }
+.city-opt .co-sub  { font-size:11px; color:var(--muted); margin-top:1px; }
+.city-opt .co-here { margin-left:auto; font-size:11px; font-weight:800; color:var(--navy); background:rgba(27,42,74,0.08); padding:3px 10px; border-radius:10px; }
+
+/* ── TOAST ── */
+.toast {
+  position:fixed; bottom:calc(88px + var(--sb)); left:50%; transform:translateX(-50%) translateY(10px);
+  background:linear-gradient(135deg, #1B2A4A, #2d3f6b);
+  color:#fff; padding:12px 24px; border-radius:28px;
+  font-size:14px; font-weight:700; opacity:0; transition:all 0.28s; z-index:999;
+  white-space:nowrap; pointer-events:none;
+  box-shadow:0 8px 24px rgba(27,42,74,0.28);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.err { background:linear-gradient(135deg,#e53e3e,#c53030); box-shadow:0 8px 24px rgba(229,62,62,0.28); }
+</style>
+</head>
+<body>
+
+<!-- ── HOME ── -->
+<div class="screen active" id="s-home">
+  <div class="page-hdr" data-bg="2026">
+    <h1>Alice & Ryan · 2026</h1>
+    <p>Sabbatical 美洲大旅行</p>
+  </div>
+  <div class="h-loc-bar loc-bar-tap" onclick="openCityModal()">
+    <div class="h-loc"><span class="dot"></span><span id="loc-txt">讀取中...</span><span class="loc-edit">✎</span></div>
+    <div class="h-prog-val" id="trip-day-txt">第 — 天</div>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+
+  <div class="h-cards">
+    <div class="h-card hl">
+      <div class="cl">本週花費</div>
+      <div class="cn" id="c-week">—</div>
+      <div class="cs">RMB</div>
+    </div>
+    <div class="h-card">
+      <div class="cl">每日均消</div>
+      <div class="cn" id="c-daily">—</div>
+      <div class="cs">RMB / 天</div>
+    </div>
+    <div class="h-card">
+      <div class="cl">累計花費</div>
+      <div class="cn" id="c-total">—</div>
+      <div class="cs">RMB</div>
+    </div>
+    <div class="h-card">
+      <div class="cl">預算剩餘</div>
+      <div class="cn" id="c-left">—</div>
+      <div class="cs">/ 100,000 RMB</div>
+    </div>
+  </div>
+
+  <!-- Next stop -->
+  <div class="next-stop" id="next-stop" style="display:none">
+    <div class="ns-flag" id="ns-flag">✈️</div>
+    <div class="ns-info">
+      <div class="ns-label">下一站</div>
+      <div class="ns-city" id="ns-city">—</div>
+      <div class="ns-date" id="ns-date">—</div>
+    </div>
+    <div class="ns-arrow">›</div>
+  </div>
+
+  <div class="sec-hdr">
+    <div class="sec-ttl">最近花費</div>
+    <div class="sec-act" onclick="go('expense')">＋ 新增</div>
+  </div>
+  <div class="exp-list" id="recent-list">
+    <div class="empty"><span class="ei">✈️</span><p>還沒有記錄，來記第一筆！</p></div>
+  </div>
+</div>
+
+<!-- ── EXPENSE ── -->
+<div class="screen" id="s-expense">
+  <div class="page-hdr" data-bg="記帳">
+    <h1>記一筆</h1>
+    <p id="exp-date-lbl">今天</p>
+  </div>
+  <div class="e-form">
+    <div class="row2">
+      <div class="fg">
+        <label class="fl">日期</label>
+        <input type="date" class="fi" id="f-date">
+      </div>
+      <div class="fg">
+        <label class="fl">城市</label>
+        <div class="sw">
+          <select class="fs" id="f-city">
+            <option value="西雅圖|美國|USD">西雅圖</option>
+            <option value="溫哥華|加拿大|CAD">溫哥華</option>
+            <option value="聖地牙哥|智利|CLP">聖地牙哥</option>
+            <option value="巴塔哥尼亞|智利|CLP">巴塔哥尼亞</option>
+            <option value="Punta Arenas|智利|CLP">Punta Arenas</option>
+            <option value="里約|巴西|BRL">里約</option>
+            <option value="聖保羅|巴西|BRL">聖保羅</option>
+            <option value="Lençóis|巴西|BRL">Lençóis</option>
+            <option value="利馬|秘魯|PEN">利馬</option>
+            <option value="庫斯科|秘魯|PEN">庫斯科</option>
+            <option value="馬丘比丘|秘魯|PEN">馬丘比丘</option>
+            <option value="安地瓜|瓜地馬拉|GTQ">安地瓜</option>
+            <option value="花都湖|瓜地馬拉|GTQ">花都湖</option>
+            <option value="多倫多|加拿大|CAD">多倫多</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">類別</label>
+      <div class="cat-chips">
+        <div class="cc sel" data-cat="飲食">🍜 飲食</div>
+        <div class="cc" data-cat="住宿">🏨 住宿</div>
+        <div class="cc" data-cat="當地交通">🚌 交通</div>
+        <div class="cc" data-cat="景點活動">🎡 景點</div>
+        <div class="cc" data-cat="購物">🛍️ 購物</div>
+        <div class="cc" data-cat="機票">✈️ 機票</div>
+        <div class="cc" data-cat="雜費">📦 雜費</div>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">描述</label>
+      <input type="text" class="fi" id="f-desc" placeholder="例：派克市場的螃蟹湯">
+    </div>
+    <div class="fg">
+      <label class="fl">金額</label>
+      <div class="amt-row">
+        <input type="number" class="fi" id="f-amount" placeholder="0" inputmode="decimal" step="0.01">
+        <div class="sw">
+          <select class="fs" id="f-currency">
+            <option>USD</option><option>CAD</option><option>CLP</option>
+            <option>BRL</option><option>PEN</option><option>GTQ</option><option>RMB</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="rmb-prev" id="rmb-prev">≈ 0 RMB</div>
+    <div class="fg">
+      <label class="fl">誰付</label>
+      <div class="payer-row">
+        <button class="pb pa-a" id="pb-alice" onclick="setPayer('Alice')">👩 Alice</button>
+        <button class="pb" id="pb-ryan" onclick="setPayer('Ryan')">👨 Ryan</button>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">備註（選填）</label>
+      <input type="text" class="fi" id="f-note" placeholder="可以不填">
+    </div>
+    <button class="sub-btn" id="sub-btn" onclick="submitExp()">記帳 ✓</button>
+  </div>
+</div>
+
+<!-- ── ITINERARY ── -->
+<div class="screen" id="s-itinerary">
+  <div class="page-hdr" data-bg="行程">
+    <h1>行程總覽</h1>
+    <p>西雅圖 → 溫哥華 → 巴塔哥尼亞 → 巴西 → 秘魯 → 瓜地馬拉</p>
+  </div>
+  <div class="itin-summary">
+    <div class="itin-s"><div class="isn">53</div><div class="isl">天</div></div>
+    <div class="itin-s"><div class="isn">7</div><div class="isl">地點</div></div>
+    <div class="itin-s"><div class="isn">4</div><div class="isl">國家</div></div>
+    <div class="itin-s"><div class="isn">10萬</div><div class="isl">預算 RMB</div></div>
+  </div>
+  <div class="itin-list" id="itin-list"><!-- JS renders --></div>
+</div>
+
+<!-- ── REPORT ── -->
+<div class="screen" id="s-report">
+  <div class="page-hdr" data-bg="週報">
+    <h1>週報</h1>
+    <p>每週一早上 8 點自動發到你 Gmail</p>
+  </div>
+  <div class="r-body">
+    <div class="ldg" id="r-loading"><span class="sp">⟳</span><p>載入中...</p></div>
+    <div id="r-data" style="display:none">
+      <div class="r-total">
+        <div class="rtl">本週花費</div>
+        <div class="rtn" id="r-total-n">0</div>
+        <div class="rts" id="r-total-s">RMB · 共 0 筆</div>
+      </div>
+      <div class="r-grid">
+        <div class="r-stat"><div class="sn" id="r-daily">—</div><div class="sl">每日均消 RMB</div></div>
+        <div class="r-stat"><div class="sn" id="r-count">—</div><div class="sl">本週筆數</div></div>
+        <div class="r-stat"><div class="sn" id="r-alice">—</div><div class="sl">Alice 付 RMB</div></div>
+        <div class="r-stat"><div class="sn" id="r-ryan">—</div><div class="sl">Ryan 付 RMB</div></div>
+      </div>
+      <div class="r-cats"><div class="r-cats-ttl">分類明細</div><div id="r-cats-body"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav class="bnav">
+  <button class="bnav-btn active" id="n-home" onclick="go('home')">
+    <span class="ni">🏠</span><span class="nl">首頁</span>
+  </button>
+  <button class="bnav-btn" id="n-expense" onclick="go('expense')">
+    <span class="ni">➕</span><span class="nl">記帳</span>
+  </button>
+  <button class="bnav-btn" id="n-itinerary" onclick="go('itinerary')">
+    <span class="ni">🗺️</span><span class="nl">行程</span>
+  </button>
+  <button class="bnav-btn" id="n-report" onclick="go('report')">
+    <span class="ni">📊</span><span class="nl">週報</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbz1-2VtnN_hs8he8iKBeXh6cSo4YC3Ji8iaSmPukYz-3AUDqhdKdRxD65K_daAZiEhZ/exec';
+const BUDGET = 100000;
+const RATES  = { USD:7.25, CAD:5.30, CLP:0.0078, BRL:1.30, PEN:1.95, GTQ:0.93, RMB:1 };
+const CAT_ICO = { '飲食':'🍜','住宿':'🏨','當地交通':'🚌','景點活動':'🎡','購物':'🛍️','機票':'✈️','雜費':'📦' };
+const CAT_CLR = { '飲食':'#FFD166','住宿':'#A8D8EA','當地交通':'#B5EAD7','景點活動':'#FFB3C6','購物':'#d8b4fe','機票':'#c7d2fe','雜費':'#e2e8f0' };
+
+// ── UPDATED ITINERARY (new route) ──
+const ITINERARY = [
+  {
+    flag:'🇺🇸🇨🇦', city:'西雅圖', country:'USA',
+    start: new Date(2026,3,22), end: new Date(2026,3,28),
+    dates:'Apr 22–28', nights:6, currency:'USD',
+    color:'#A8D8EA', tabColor:'var(--blue)',
+    highlights:['探訪朋友 Janice & 貓咪 Coco','派克市場','雷尼爾山國家公園','海鮮大餐'],
+    mapQuery:'Seattle, Washington, USA',
+    cityValue:'西雅圖|美國|USD'
+  },
+  {
+    flag:'🇨🇦', city:'溫哥華', country:'Canada',
+    start: new Date(2026,3,28), end: new Date(2026,4,5),
+    dates:'Apr 28–May 5', nights:7, currency:'CAD',
+    color:'#B5EAD7', tabColor:'var(--green)',
+    highlights:['探望姑姑一家','史丹利公園','惠斯勒一日遊','Granville Island'],
+    mapQuery:'Vancouver, British Columbia, Canada',
+    cityValue:'溫哥華|加拿大|CAD'
+  },
+  {
+    flag:'🇨🇱', city:'巴塔哥尼亞 & 智利', country:'Chile',
+    start: new Date(2026,4,5), end: new Date(2026,4,15),
+    dates:'May 5–15', nights:10, currency:'CLP',
+    color:'#FFB3C6', tabColor:'var(--pink)',
+    highlights:['Torres del Paine 國家公園','冰川健行','Punta Arenas','聖地牙哥'],
+    mapQuery:'Patagonia, Chile',
+    cityValue:'巴塔哥尼亞|智利|CLP'
+  },
+  {
+    flag:'🇧🇷', city:'巴西', country:'Brazil',
+    start: new Date(2026,4,15), end: new Date(2026,4,30),
+    dates:'May 15–30', nights:15, currency:'BRL',
+    color:'#FFD166', tabColor:'var(--yellow)',
+    highlights:['里約熱內盧 & 耶穌像','Lençóis Maranhenses 白沙漠','海灘','森巴文化'],
+    mapQuery:'Rio de Janeiro, Brazil',
+    cityValue:'里約|巴西|BRL'
+  },
+  {
+    flag:'🇵🇪', city:'秘魯', country:'Peru',
+    start: new Date(2026,4,30), end: new Date(2026,5,6),
+    dates:'May 30–Jun 6', nights:7, currency:'PEN',
+    color:'#FFB3C6', tabColor:'var(--pink)',
+    highlights:['利馬美食巡禮','庫斯科古城','馬丘比丘','印加古道'],
+    mapQuery:'Lima, Peru',
+    cityValue:'利馬|秘魯|PEN'
+  },
+  {
+    flag:'🇬🇹', city:'瓜地馬拉', country:'Guatemala',
+    start: new Date(2026,5,6), end: new Date(2026,5,11),
+    dates:'Jun 6–11', nights:5, currency:'GTQ',
+    color:'#B5EAD7', tabColor:'var(--green)',
+    highlights:['安地瓜老城','帕卡亞火山健行','阿蒂特蘭湖','咖啡莊園'],
+    mapQuery:'Antigua Guatemala',
+    cityValue:'安地瓜|瓜地馬拉|GTQ'
+  },
+  {
+    flag:'🇨🇦', city:'多倫多', country:'Canada',
+    start: new Date(2026,5,11), end: new Date(2026,5,14),
+    dates:'Jun 11–14', nights:3, currency:'CAD',
+    color:'#A8D8EA', tabColor:'var(--blue)',
+    highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
+    mapQuery:'Toronto, Ontario, Canada',
+    cityValue:'多倫多|加拿大|CAD'
+  }
+];
+
+// ── FLAT JOURNEY ORDER (all individual stops) ──
+const JOURNEY = [
+  { city:'西雅圖',       flag:'🇺🇸', country:'美國',    currency:'USD', cityValue:'西雅圖|美國|USD' },
+  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'溫哥華|加拿大|CAD' },
+  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'聖地牙哥|智利|CLP' },
+  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'巴塔哥尼亞|智利|CLP' },
+  { city:'Punta Arenas', flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'Punta Arenas|智利|CLP' },
+  { city:'里約',         flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'里約|巴西|BRL' },
+  { city:'Lençóis',      flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'Lençóis|巴西|BRL' },
+  { city:'利馬',         flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'利馬|秘魯|PEN' },
+  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'庫斯科|秘魯|PEN' },
+  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'馬丘比丘|秘魯|PEN' },
+  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'安地瓜|瓜地馬拉|GTQ' },
+  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'花都湖|瓜地馬拉|GTQ' },
+  { city:'多倫多',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'多倫多|加拿大|CAD' },
+];
+
+function defaultJourneyIdx() {
+  const now = new Date();
+  if (now < new Date(2026,3,28)) return 0;
+  if (now < new Date(2026,4,5))  return 1;
+  if (now < new Date(2026,4,15)) return 2; // 聖地牙哥 first in Chile block
+  if (now < new Date(2026,4,30)) return 5;
+  if (now < new Date(2026,5,6))  return 7;
+  if (now < new Date(2026,5,11)) return 10;
+  return 12;
+}
+function getCurCityIdx() {
+  const s = localStorage.getItem('curCityIdx');
+  return s !== null ? parseInt(s) : defaultJourneyIdx();
+}
+function setCurCityIdx(idx) { localStorage.setItem('curCityIdx', idx); }
+
+// ── SEGMENTS for auto-detect (kept for itinerary) ──
+const SEG = ITINERARY.map(s => ({
+  e: s.end, city: s.city.split(' ')[0], cc: s.currency, flag: s.flag, itinIdx: ITINERARY.indexOf(s)
+}));
+
+function curSeg() {
+  const now = new Date();
+  return SEG.find(s => now <= s.e) || SEG[SEG.length - 1];
+}
+
+// ── NAVIGATION ──
+function go(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + name).classList.add('active');
+  document.getElementById('n-' + name).classList.add('active');
+  if (name === 'home')      loadHome();
+  if (name === 'report')    loadReport();
+  if (name === 'itinerary') renderItinerary();
+}
+
+// ── JSONP fetch ──
+function fetchJsonp(url) {
+  return new Promise((resolve, reject) => {
+    const cb = 'jp_' + Date.now();
+    const s  = document.createElement('script');
+    const to = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 12000);
+    const cleanup = () => { clearTimeout(to); delete window[cb]; s.remove(); };
+    window[cb] = d => { cleanup(); resolve(d); };
+    s.onerror  = () => { cleanup(); reject(new Error('error')); };
+    s.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.head.appendChild(s);
+  });
+}
+
+async function fetchExp() {
+  const res = await fetchJsonp(API);
+  return (res.data || []).slice(1).map((r, i) => ({
+    rowIdx: i + 2,
+    date:r[0], city:r[1], country:r[2], category:r[3],
+    description:r[4], amount:+r[5]||0, currency:r[6],
+    rate:+r[7]||1, rmb:+r[8]||0, payer:r[9], note:r[10]||''
+  })).filter(r => r.description);
+}
+
+function closeDelModal() {
+  document.getElementById('del-modal-bg').classList.remove('show');
+}
+
+function deleteExpense(rowIdx, desc) {
+  document.getElementById('del-modal-desc').textContent = desc;
+  document.getElementById('del-modal-bg').classList.add('show');
+  document.getElementById('del-modal-ok').onclick = async () => {
+    closeDelModal();
+    showToast('刪除中...');
+    const p = new URLSearchParams({ action:'delete', row: rowIdx, t: Date.now() });
+    await new Promise(resolve => {
+      const img = new Image();
+      const t = setTimeout(resolve, 8000);
+      img.onload = img.onerror = () => { clearTimeout(t); resolve(); };
+      img.src = API + '?' + p.toString();
+    });
+    showToast('已刪除 ✓');
+    setTimeout(() => { loadHome(); }, 1200);
+  };
+}
+
+// ── HOME ──
+async function loadHome() {
+  const cityIdx = getCurCityIdx();
+  const curCity = JOURNEY[cityIdx];
+  document.getElementById('loc-txt').textContent = curCity.flag + ' ' + curCity.city;
+
+  const start = new Date(2026,3,22), now = new Date();
+  const day = Math.max(1, Math.ceil((now - start) / 86400000));
+  const pct = Math.min(100, day / 53 * 100).toFixed(1);
+  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 53 天`;
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  // Next stop — based on JOURNEY order, not itinerary segment
+  const nextCity = JOURNEY[cityIdx + 1];
+  if (nextCity) {
+    document.getElementById('next-stop').style.display = 'flex';
+    document.getElementById('ns-flag').textContent = nextCity.flag;
+    document.getElementById('ns-city').textContent = nextCity.city;
+    document.getElementById('ns-date').textContent = nextCity.country;
+  } else {
+    document.getElementById('next-stop').style.display = 'none';
+  }
+
+  try {
+    const exps = await fetchExp();
+    const total = exps.reduce((s,e) => s + e.rmb, 0);
+    const wa    = new Date(now - 7*86400000);
+    const week  = exps.filter(e => new Date(e.date) >= wa).reduce((s,e) => s + e.rmb, 0);
+    const daily = total / Math.max(1, day);
+    document.getElementById('c-week').textContent  = Math.round(week).toLocaleString();
+    document.getElementById('c-daily').textContent = Math.round(daily).toLocaleString();
+    document.getElementById('c-total').textContent = Math.round(total).toLocaleString();
+    document.getElementById('c-left').textContent  = Math.round(BUDGET - total).toLocaleString();
+    renderRecent(exps.slice(-15).reverse());
+  } catch(e) {
+    document.getElementById('c-week').textContent = '—';
+  }
+}
+
+function renderRecent(exps) {
+  const el = document.getElementById('recent-list');
+  if (!exps.length) {
+    el.innerHTML = '<div class="empty"><span class="ei">✈️</span><p>還沒有記錄！</p></div>';
+    return;
+  }
+  el.innerHTML = exps.map(e => {
+    const ico = CAT_ICO[e.category] || '💰';
+    const clr = CAT_CLR[e.category] || '#eee';
+    const pc  = e.payer === 'Alice' ? 'pa' : 'pr';
+    const dt  = e.date ? new Date(e.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}) : '';
+    return `<div class="exp-item">
+      <div class="exp-ico" style="background:${clr}">${ico}</div>
+      <div class="exp-inf">
+        <div class="exp-dsc">${e.description}</div>
+        <div class="exp-met">${e.city} · ${dt}</div>
+        <span class="exp-pay ${pc}">${e.payer}</span>
+      </div>
+      <div class="exp-amt">
+        <div class="exp-rmb">${Math.round(e.rmb).toLocaleString()}</div>
+        <div class="exp-ori">${e.amount} ${e.currency}</div>
+      </div>
+      <button class="del-btn" onclick="deleteExpense(${e.rowIdx},'${e.description.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">🗑</button>
+    </div>`;
+  }).join('');
+}
+
+// ── ITINERARY ──
+function renderItinerary() {
+  const now = new Date();
+  const list = document.getElementById('itin-list');
+  list.innerHTML = ITINERARY.map((dest, i) => {
+    const isCurrent = now >= dest.start && now < dest.end;
+    const isPast    = now >= dest.end;
+    const mapsUrl   = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.mapQuery)}`;
+    const highlights = dest.highlights.map(h => `<span class="hl-tag">${h}</span>`).join('');
+    const badge = isCurrent ? '<span class="dest-here">📍 你在這裡</span>' : (isPast ? '<span style="font-size:11px;color:var(--muted);font-weight:700">✓ 已完成</span>' : '');
+    return `<div class="dest-card ${isCurrent ? 'current' : ''}">
+      <div class="dest-tab" style="background:${dest.tabColor}"></div>
+      <div class="dest-main">
+        <div class="dest-top">
+          <div class="dest-flag">${dest.flag}</div>
+          <div class="dest-info">
+            <div class="dest-country">${dest.country}</div>
+            <div class="dest-city">${dest.city}</div>
+            <div class="dest-dates">${dest.dates} · ${dest.nights} 晚</div>
+          </div>
+          ${badge}
+        </div>
+      </div>
+      <div class="dest-highlights">${highlights}</div>
+      <div class="dest-actions">
+        <a class="map-btn" href="${mapsUrl}" target="_blank">🗺️ Google Maps</a>
+        <button class="plan-btn" onclick="setExpenseCity('${dest.cityValue}')">記帳 ›</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setExpenseCity(val) {
+  go('expense');
+  setTimeout(() => {
+    const cs = document.getElementById('f-city');
+    for (let o of cs.options) { if (o.value === val) { o.selected = true; break; } }
+    syncCurrencyFromCity();
+  }, 100);
+}
+
+// ── EXPENSE FORM ──
+let selCat = '飲食', selPayer = 'Alice';
+
+function initForm() {
+  const now = new Date();
+  document.getElementById('f-date').value = now.toISOString().split('T')[0];
+  document.getElementById('exp-date-lbl').textContent =
+    now.toLocaleDateString('zh-TW', { month:'long', day:'numeric', weekday:'short' });
+
+  const seg = curSeg();
+  const cs  = document.getElementById('f-city');
+  for (let o of cs.options) { if (o.value.startsWith(seg.city)) { o.selected = true; break; } }
+  syncCurrencyFromCity();
+  cs.addEventListener('change', syncCurrencyFromCity);
+
+  document.querySelectorAll('.cc').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.cc').forEach(x => x.classList.remove('sel'));
+      c.classList.add('sel'); selCat = c.dataset.cat;
+    });
+  });
+  document.getElementById('f-amount').addEventListener('input', updateRmb);
+  document.getElementById('f-currency').addEventListener('change', updateRmb);
+}
+
+function syncCurrencyFromCity() {
+  const parts = document.getElementById('f-city').value.split('|');
+  if (parts[2]) document.getElementById('f-currency').value = parts[2];
+  updateRmb();
+}
+
+function updateRmb() {
+  const amt = parseFloat(document.getElementById('f-amount').value) || 0;
+  const cur = document.getElementById('f-currency').value;
+  const prev = document.getElementById('rmb-prev');
+  if (amt > 0) {
+    prev.textContent = '≈ ' + Math.round(amt * (RATES[cur]||1)).toLocaleString() + ' RMB';
+    prev.classList.add('vis');
+  } else { prev.classList.remove('vis'); }
+}
+
+function setPayer(p) {
+  selPayer = p;
+  document.getElementById('pb-alice').className = 'pb' + (p==='Alice' ? ' pa-a' : '');
+  document.getElementById('pb-ryan').className  = 'pb' + (p==='Ryan'  ? ' pa-r' : '');
+}
+
+async function submitExp() {
+  const amt  = parseFloat(document.getElementById('f-amount').value);
+  const desc = document.getElementById('f-desc').value.trim();
+  if (!amt || amt <= 0) { toast('請輸入金額', true); return; }
+  if (!desc)            { toast('請輸入描述', true); return; }
+
+  const btn = document.getElementById('sub-btn');
+  btn.disabled = true; btn.textContent = '送出中...';
+
+  const date  = document.getElementById('f-date').value;
+  const parts = document.getElementById('f-city').value.split('|');
+  const cur   = document.getElementById('f-currency').value;
+  const rate  = RATES[cur]||1;
+  const rmb   = parseFloat((amt * rate).toFixed(2));
+  const note  = document.getElementById('f-note').value.trim();
+
+  const p = new URLSearchParams({
+    action:'add', date, city:parts[0], country:parts[1]||'',
+    category:selCat, description:desc, amount:amt,
+    currency:cur, rate, rmb, payer:selPayer, note
+  });
+
+  try {
+    await new Promise(resolve => {
+      const img = new Image();
+      const t = setTimeout(resolve, 8000);
+      img.onload = img.onerror = () => { clearTimeout(t); resolve(); };
+      img.src = API + '?' + p.toString() + '&t=' + Date.now();
+    });
+    toast('✓ 記帳成功！');
+    document.getElementById('f-amount').value = '';
+    document.getElementById('f-desc').value   = '';
+    document.getElementById('f-note').value   = '';
+    document.getElementById('rmb-prev').classList.remove('vis');
+    loadHome();
+  } catch(e) { toast('網路錯誤，請重試', true); }
+  finally { btn.disabled = false; btn.textContent = '記帳 ✓'; }
+}
+
+// ── REPORT ──
+async function loadReport() {
+  document.getElementById('r-loading').style.display = 'block';
+  document.getElementById('r-data').style.display    = 'none';
+  try {
+    const exps = await fetchExp();
+    const now  = new Date(), wa = new Date(now - 7*86400000);
+    const wk   = exps.filter(e => new Date(e.date) >= wa);
+    const tot  = wk.reduce((s,e) => s+e.rmb, 0);
+    const alc  = wk.filter(e=>e.payer==='Alice').reduce((s,e)=>s+e.rmb,0);
+    const ryn  = wk.filter(e=>e.payer==='Ryan').reduce((s,e)=>s+e.rmb,0);
+    const byCat = {};
+    wk.forEach(e => { byCat[e.category] = (byCat[e.category]||0) + e.rmb; });
+    const mx = Math.max(...Object.values(byCat), 1);
+
+    document.getElementById('r-total-n').textContent = Math.round(tot).toLocaleString();
+    document.getElementById('r-total-s').textContent = `RMB · 共 ${wk.length} 筆`;
+    document.getElementById('r-daily').textContent   = Math.round(tot/7).toLocaleString();
+    document.getElementById('r-count').textContent   = wk.length;
+    document.getElementById('r-alice').textContent   = Math.round(alc).toLocaleString();
+    document.getElementById('r-ryan').textContent    = Math.round(ryn).toLocaleString();
+
+    document.getElementById('r-cats-body').innerHTML =
+      Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([cat,v]) =>
+        `<div class="cat-row">
+          <div class="cn">${CAT_ICO[cat]||'💰'} ${cat}</div>
+          <div class="cbar"><div class="cfill" style="width:${(v/mx*100).toFixed(0)}%"></div></div>
+          <div class="ca">${Math.round(v).toLocaleString()}</div>
+        </div>`
+      ).join('');
+
+    document.getElementById('r-loading').style.display = 'none';
+    document.getElementById('r-data').style.display    = 'block';
+  } catch(e) {
+    document.getElementById('r-loading').innerHTML = '<p style="color:var(--muted)">載入失敗，檢查網路</p>';
+  }
+}
+
+// ── CITY PICKER ──
+function openCityModal() {
+  const cur = getCurCityIdx();
+  const list = document.getElementById('city-list');
+  list.innerHTML = JOURNEY.map((c, i) => `
+    <div class="city-opt ${i === cur ? 'cur' : ''}" onclick="selectCity(${i})">
+      <span class="co-flag">${c.flag}</span>
+      <div>
+        <div class="co-name">${c.city}</div>
+        <div class="co-sub">${c.country}</div>
+      </div>
+      ${i === cur ? '<span class="co-here">📍 我在這</span>' : ''}
+    </div>`).join('');
+  document.getElementById('city-modal-bg').classList.add('show');
+}
+function closeCityModal() {
+  document.getElementById('city-modal-bg').classList.remove('show');
+}
+function selectCity(idx) {
+  setCurCityIdx(idx);
+  closeCityModal();
+  loadHome();
+}
+
+// ── TOAST ──
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+  setTimeout(() => { t.className = 'toast'; }, 2600);
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  initForm();
+  loadHome();
+  renderItinerary();
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+});
+</script>
+
+<!-- City Picker Modal -->
+<div class="city-modal-bg" id="city-modal-bg" onclick="closeCityModal()">
+  <div class="city-modal" onclick="event.stopPropagation()">
+    <div class="city-modal-hdr">
+      <span>我現在在哪？</span>
+      <button onclick="closeCityModal()">✕</button>
+    </div>
+    <div class="city-scroll" id="city-list"></div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="del-modal-bg" id="del-modal-bg">
+  <div class="del-modal">
+    <p>確定要刪除這筆記錄？</p>
+    <small id="del-modal-desc"></small>
+    <div class="del-modal-btns">
+      <button class="del-cancel" onclick="closeDelModal()">取消</button>
+      <button class="del-confirm" id="del-modal-ok">刪除</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

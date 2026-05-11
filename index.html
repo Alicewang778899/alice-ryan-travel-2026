@@ -10,7 +10,7 @@
 <title>Alice & Ryan · 2026</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 :root {
@@ -386,6 +386,111 @@ body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text);
 .ldg .sp { font-size:36px; animation:spin 1s linear infinite; display:block; margin-bottom:12px; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
+/* ── TRIP PLAN SCREEN ── */
+.plan-screen {
+  display:none; position:fixed; inset:0; z-index:300;
+  background:var(--bg); overflow-y:auto;
+}
+.plan-screen.open { display:block; animation:slideIn 0.3s cubic-bezier(0.4,0,0.2,1); }
+@keyframes slideIn { from { transform:translateX(100%); } to { transform:translateX(0); } }
+.plan-hdr {
+  background:linear-gradient(135deg, #1B2A4A 0%, #2e1d6b 55%, #1a3a5c 100%);
+  padding:52px 20px 20px; position:sticky; top:0; z-index:10;
+  position:relative; overflow:hidden;
+}
+.plan-hdr::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 80% 10%, rgba(255,107,157,0.2) 0%, transparent 50%);
+}
+.plan-back {
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+  border-radius:12px; color:#fff; font-size:13px; font-weight:800;
+  cursor:pointer; padding:7px 14px; position:relative; z-index:1;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.plan-hdr h2 { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; color:#fff; margin-top:10px; position:relative; z-index:1; }
+.plan-hdr p { font-size:12px; color:rgba(255,255,255,0.5); margin-top:3px; position:relative; z-index:1; }
+.plan-body { padding:14px; }
+
+/* weather summary strip */
+.plan-weather-strip {
+  display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:14px;
+  scrollbar-width:none;
+}
+.plan-weather-strip::-webkit-scrollbar { display:none; }
+.pw-chip {
+  flex-shrink:0; background:var(--card); border-radius:14px; padding:8px 12px;
+  text-align:center; border:1px solid var(--border); box-shadow:var(--s1);
+  min-width:70px;
+}
+.pw-chip.bad  { background:#fff0f0; border-color:rgba(229,62,62,0.2); }
+.pw-chip.good { background:#f0fdf8; border-color:rgba(6,214,160,0.2); }
+.pw-date { font-size:10px; font-weight:800; color:var(--muted); }
+.pw-icon { font-size:18px; margin:2px 0; }
+.pw-temp { font-size:11px; font-weight:800; color:var(--navy); }
+
+/* day plan card */
+.plan-day {
+  background:var(--card); border-radius:20px; margin-bottom:12px;
+  border:1px solid var(--border); overflow:hidden; box-shadow:var(--s1);
+  animation:fadeUp 0.3s ease both;
+}
+.plan-day:nth-child(1){animation-delay:.05s}
+.plan-day:nth-child(2){animation-delay:.09s}
+.plan-day:nth-child(3){animation-delay:.13s}
+.plan-day:nth-child(4){animation-delay:.17s}
+.plan-day:nth-child(5){animation-delay:.21s}
+.plan-day:nth-child(6){animation-delay:.25s}
+.plan-day:nth-child(7){animation-delay:.29s}
+.plan-day-hdr {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+}
+.plan-day-num {
+  width:38px; height:38px; border-radius:12px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:#fff;
+}
+.plan-day-info { flex:1; }
+.plan-day-date { font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+.plan-day-title { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:var(--navy); margin-top:1px; line-height:1.25; }
+.plan-day-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+.plan-day-wx { font-size:11px; color:var(--muted); margin-top:4px; padding:4px 8px; background:var(--bg); border-radius:8px; display:inline-block; }
+.plan-intensity {
+  font-size:10px; font-weight:800; padding:3px 9px; border-radius:10px; white-space:nowrap; flex-shrink:0;
+}
+.pi-high   { background:rgba(229,62,62,0.12);   color:#c62828; }
+.pi-mid    { background:rgba(255,152,0,0.12);    color:#e65100; }
+.pi-low    { background:rgba(6,214,160,0.12);    color:#076e50; }
+.pi-travel { background:rgba(58,134,255,0.12);   color:#1565c0; }
+
+.plan-acts { padding:0 16px 14px; border-top:1px solid var(--border); }
+.plan-act {
+  display:flex; gap:10px; padding:9px 0;
+  border-bottom:1px dashed rgba(27,42,74,0.07);
+}
+.plan-act:last-child { border-bottom:none; }
+.pa-time { font-size:11px; color:var(--muted); min-width:68px; padding-top:1px; font-weight:600; }
+.pa-ico  { font-size:16px; min-width:20px; }
+.pa-body { flex:1; }
+.pa-name { font-size:13px; font-weight:700; color:var(--navy); }
+.pa-detail { font-size:11px; color:#555; margin-top:2px; line-height:1.5; }
+.pa-cost { font-size:11px; font-weight:700; color:#059678; margin-top:3px; }
+.plan-backup {
+  margin:8px 16px 14px; padding:10px 12px;
+  background:var(--bg); border-left:3px solid var(--muted);
+  border-radius:0 10px 10px 0; font-size:11px; color:#555; line-height:1.5;
+}
+
+/* budget summary */
+.plan-budget {
+  background:linear-gradient(135deg, var(--yellow), var(--yellow-d));
+  border-radius:20px; padding:18px; margin-bottom:14px;
+  box-shadow:0 6px 20px rgba(244,163,0,0.2);
+}
+.plan-budget h4 { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:var(--navy); margin-bottom:10px; }
+.budget-row { display:flex; justify-content:space-between; font-size:12px; padding:3px 0; color:rgba(27,42,74,0.8); }
+.budget-total { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; color:var(--navy); margin-top:8px; padding-top:8px; border-top:1px solid rgba(27,42,74,0.15); }
+
 /* ── CITY PICKER ── */
 .loc-bar-tap { cursor:pointer; }
 .loc-edit { font-size:11px; opacity:0.45; margin-left:4px; }
@@ -435,6 +540,81 @@ body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text);
 }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 .toast.err { background:linear-gradient(135deg,#e53e3e,#c53030); box-shadow:0 8px 24px rgba(229,62,62,0.28); }
+
+/* ── MAP SCREEN ── */
+#s-map { overflow:hidden; background:#080C14; padding-bottom:0; }
+#s-map.active { display:flex; flex-direction:column; animation:none; }
+.map-stars { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+.map-star { position:absolute; border-radius:50%; background:#fff; animation:msTwinkle var(--d,3s) ease-in-out infinite; }
+@keyframes msTwinkle { 0%,100%{opacity:var(--lo,.1)} 50%{opacity:var(--hi,.5)} }
+.mhd {
+  flex-shrink:0; padding:14px 20px 10px; position:relative; z-index:10;
+  background:linear-gradient(to bottom,rgba(8,12,20,0.98),rgba(8,12,20,0.7));
+  border-bottom:1px solid rgba(201,168,76,0.15);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.mhd-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#EAE6DC; }
+.mhd-title em { font-style:italic; color:#C9A84C; }
+.mhd-km { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:500; color:#C9A84C; text-shadow:0 0 28px rgba(201,168,76,0.4); line-height:1; text-align:right; }
+.mhd-sub { font-size:9px; color:#5C6478; font-family:'JetBrains Mono',monospace; margin-top:2px; text-align:right; }
+.mtabs { flex-shrink:0; display:flex; border-bottom:1px solid rgba(255,255,255,0.05); position:relative; z-index:10; background:rgba(8,12,20,0.9); }
+.mtab { flex:1; padding:9px; border:none; background:none; cursor:pointer; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#5C6478; border-bottom:2px solid transparent; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; }
+.mtab.active { color:#C9A84C; border-bottom-color:#C9A84C; }
+.map-vp { flex:1; position:relative; overflow:hidden; }
+.map-vp svg { width:100%; height:100%; display:block; }
+.map-vp::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to bottom,rgba(8,12,20,0.5) 0%,transparent 15%,transparent 72%,rgba(8,12,20,0.88) 100%); z-index:2; }
+.map-ctrl { position:absolute; bottom:0; left:0; right:0; z-index:10; display:flex; align-items:center; gap:10px; padding:8px 14px 10px; background:linear-gradient(to top,rgba(8,12,20,0.95) 50%,transparent); }
+.mplay-btn { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.28); color:#C9A84C; border-radius:100px; padding:6px 14px; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; white-space:nowrap; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; }
+.mplay-btn:disabled { opacity:0.4; }
+.msdots { display:flex; gap:5px; flex-wrap:wrap; flex:1; justify-content:flex-end; }
+.msdot { width:8px; height:8px; border-radius:50%; cursor:pointer; border:1px solid rgba(255,255,255,0.15); transition:all 0.2s; }
+.msdot.on { border-color:transparent; transform:scale(1.3); }
+.mtip { position:absolute; z-index:20; pointer-events:none; background:rgba(13,20,32,0.97); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:7px 12px; font-size:11px; white-space:nowrap; box-shadow:0 8px 24px rgba(0,0,0,0.4); opacity:0; transition:opacity 0.15s; font-family:'Nunito',sans-serif; color:#EAE6DC; }
+.mtip.show { opacity:1; }
+.mlist { flex:1; overflow-y:auto; padding:0 16px calc(66px + env(safe-area-inset-bottom,0px)); scrollbar-width:thin; scrollbar-color:#374054 transparent; background:#080C14; }
+.mlist::-webkit-scrollbar { width:3px; }
+.mlist::-webkit-scrollbar-thumb { background:#374054; }
+.mstat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:12px 0 10px; }
+.msc { background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.12); border-radius:10px; padding:10px 6px 8px; text-align:center; position:relative; overflow:hidden; }
+.msc::before { content:''; position:absolute; top:0; left:15%; right:15%; height:1px; background:linear-gradient(to right,transparent,var(--mc,#C9A84C),transparent); }
+.msc-v { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; color:var(--mc,#C9A84C); }
+.msc-u { font-size:9px; color:#5C6478; margin-top:2px; }
+.msc-l { font-size:9px; color:#374054; margin-top:3px; }
+.mtype-row { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:10px; }
+.mtype-chip { display:flex; align-items:center; gap:5px; background:rgba(255,255,255,0.04); border:1px solid; border-radius:100px; padding:4px 10px; font-size:10px; }
+.mleg-card { display:flex; align-items:center; gap:9px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); border-left:2px solid; border-radius:10px; padding:10px 11px; margin-bottom:7px; transition:background 0.2s; }
+.mleg-card:hover { background:rgba(255,255,255,0.06); }
+.mleg-ico { font-size:17px; flex-shrink:0; width:26px; text-align:center; }
+.mleg-body { flex:1; min-width:0; }
+.mleg-cities { display:flex; align-items:center; gap:5px; }
+.mleg-from { font-weight:700; font-size:13px; color:#EAE6DC; }
+.mleg-arr { color:#374054; font-size:11px; }
+.mleg-to { font-weight:700; font-size:13px; }
+.mleg-chips { display:flex; gap:4px; margin-top:3px; flex-wrap:wrap; }
+.mlchip { font-size:9px; font-family:'JetBrains Mono',monospace; color:#5C6478; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); padding:2px 6px; border-radius:6px; }
+.mleg-dist { text-align:right; flex-shrink:0; }
+.mleg-dn { display:block; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; line-height:1; }
+.mleg-du { font-size:9px; color:#5C6478; }
+.mrm { background:none; border:none; color:#374054; font-size:17px; cursor:pointer; padding:2px 4px; transition:color 0.2s; }
+.mrm:hover { color:#E05A5A; }
+.mlist-head { display:flex; justify-content:space-between; align-items:center; padding:12px 0 8px; position:sticky; top:0; background:#080C14; z-index:5; }
+.mlist-lbl { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:#5C6478; font-family:'JetBrains Mono',monospace; }
+.madd-btn { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.28); color:#C9A84C; border-radius:100px; padding:5px 12px; font-size:10px; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; transition:all 0.2s; }
+.madd-btn.cel { background:rgba(94,203,200,0.18); border-color:rgba(94,203,200,0.35); color:#5ECBC8; }
+.moverlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; }
+.mmodal { background:#121922; border:1px solid rgba(201,168,76,0.2); border-radius:16px; padding:24px 22px; width:100%; max-width:400px; box-shadow:0 24px 80px rgba(0,0,0,0.6); }
+.mmodal-title { font-family:'Playfair Display',serif; font-size:19px; color:#EAE6DC; margin-bottom:16px; }
+.mflbl { display:block; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#5C6478; margin-bottom:5px; margin-top:13px; font-family:'JetBrains Mono',monospace; }
+.mfsel,.mfinp { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#EAE6DC; padding:9px 12px; font-size:13px; font-family:'Nunito',sans-serif; outline:none; }
+.mfsel option { background:#121922; }
+.mtpills { display:flex; gap:7px; }
+.mtpill { flex:1; border-radius:100px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#5C6478; padding:8px 4px; font-size:11px; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; text-align:center; }
+.mtpill.af { background:rgba(201,168,76,0.15); border-color:rgba(201,168,76,0.4); color:#C9A84C; }
+.mtpill.ab { background:rgba(94,203,200,0.12); border-color:rgba(94,203,200,0.35); color:#5ECBC8; }
+.mtpill.at { background:rgba(167,139,250,0.12); border-color:rgba(167,139,250,0.35); color:#A78BFA; }
+.mmbtns { display:flex; gap:8px; margin-top:18px; justify-content:flex-end; }
+.mmbtn-c { background:none; border:1px solid rgba(255,255,255,0.1); color:#8a8070; border-radius:8px; padding:8px 14px; font-size:12px; cursor:pointer; font-family:'Nunito',sans-serif; }
+.mmbtn-ok { background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3); color:#C9A84C; border-radius:8px; padding:8px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; }
 </style>
 </head>
 <body>
@@ -612,6 +792,39 @@ body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text);
   </div>
 </div>
 
+<!-- ── MAP ── -->
+<div class="screen" id="s-map">
+  <div class="map-stars" id="mstars"></div>
+  <div class="mhd">
+    <div class="mhd-title">我走了 <em>多遠</em></div>
+    <div>
+      <div class="mhd-km"><span id="mhd-km">0</span> <span style="font-size:10px;color:#5C6478;font-family:inherit">km</span></div>
+      <div class="mhd-sub" id="mhd-sub"></div>
+    </div>
+  </div>
+  <div class="mtabs">
+    <button class="mtab active" onclick="mSwitchTab('map',this)">🗺 地圖</button>
+    <button class="mtab" onclick="mSwitchTab('list',this)">📋 行程清單</button>
+  </div>
+  <div class="map-vp" id="mMapVp">
+    <svg id="mMapSvg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="map-ctrl">
+      <button class="mplay-btn" id="mPlayBtn" onclick="mPlayAnim()">▶ 播放路線</button>
+      <div class="msdots" id="mStepDots"></div>
+    </div>
+    <div class="mtip" id="mTip"></div>
+  </div>
+  <div class="mlist" id="mListVp" style="display:none">
+    <div class="mlist-head">
+      <span class="mlist-lbl">行程紀錄</span>
+      <button class="madd-btn" id="mAddBtn" onclick="mOpenModal()">＋ 新增</button>
+    </div>
+    <div class="mstat-grid" id="mStatGrid"></div>
+    <div class="mtype-row" id="mTypeRow"></div>
+    <div id="mLegList"></div>
+  </div>
+</div>
+
 <!-- ── NAV ── -->
 <nav class="bnav">
   <button class="bnav-btn active" id="n-home" onclick="go('home')">
@@ -622,6 +835,9 @@ body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text);
   </button>
   <button class="bnav-btn" id="n-itinerary" onclick="go('itinerary')">
     <span class="ni">🗺️</span><span class="nl">行程</span>
+  </button>
+  <button class="bnav-btn" id="n-map" onclick="go('map')">
+    <span class="ni">🌍</span><span class="nl">足跡</span>
   </button>
   <button class="bnav-btn" id="n-report" onclick="go('report')">
     <span class="ni">📊</span><span class="nl">週報</span>
@@ -704,6 +920,95 @@ const ITINERARY = [
   }
 ];
 
+// ── TRIP PLAN DATA ──
+const TRIP_PLANS = {
+  2: { // 巴塔哥尼亞 & 智利 (ITINERARY index 2)
+    title:'巴塔哥尼亞・7天行程',
+    sub:'Puerto Natales / Torres del Paine / Punta Arenas',
+    weather:[
+      { date:'5/9',  icon:'⛅', temp:'5°C/1°C',  cls:'' },
+      { date:'5/10', icon:'🌤️', temp:'6°C/2°C',  cls:'good' },
+      { date:'5/11', icon:'☀️', temp:'4°C/0°C',  cls:'good' },
+      { date:'5/12', icon:'🌨️', temp:'3°C/0°C',  cls:'bad' },
+      { date:'5/13', icon:'⛅', temp:'4°C/-1°C', cls:'' },
+      { date:'5/14', icon:'🌤️', temp:'5°C/1°C',  cls:'good' },
+      { date:'5/15', icon:'🌧️', temp:'3°C/-1°C', cls:'bad' },
+    ],
+    days:[
+      { n:1, color:'#1565c0', date:'5月9日（週六）', intensity:'travel',
+        title:'抵達・Puerto Natales 初探',
+        sub:'蓬塔阿雷納斯機場 → 波多·納塔萊斯',
+        wx:'⛅ 多雲偶雨・5°C / 1°C',
+        acts:[
+          { t:'全天',   i:'✈️', n:'飛抵蓬塔阿雷納斯（PUQ）', d:'Buses Fernández 或 Bus Sur 前往 Puerto Natales，約3-4小時', c:'USD $10-15／人' },
+          { t:'傍晚',   i:'🏘️', n:'Costanera 海濱漫步', d:'沿海步道、Felipe Molina 廣場、工藝品市場', c:'免費' },
+          { t:'晚餐',   i:'🍖', n:'烤羔羊排 / 蟹肉料理', d:'推薦：Afrigonia、El Asador Patagónico', c:'USD $20-35／人' },
+        ], backup:null },
+      { n:2, color:'#2e7d32', date:'5月10日（週日）', intensity:'mid',
+        title:'塞拉諾 & 巴爾馬塞達冰川船遊',
+        sub:'Turismo 21 de Mayo 全日峽灣冰川之旅（週日確認出發）',
+        wx:'🌤️ 局部晴間多雲・6°C / 2°C・降雨28%',
+        acts:[
+          { t:'09:00',   i:'🚢', n:'Serrano / Balmaceda 冰川船遊', d:'Señoret峽灣 → Balmaceda冰川 → Serrano冰川（可登岸靠近冰壁），沿途觀海豹、禿鷹', c:'USD $90-130（含部分餐點）' },
+          { t:'~19:30',  i:'🍺', n:"返回 PN・Nick's Bar 晚餐", d:'當地精釀啤酒、烤羊，背包客聚集地', c:'' },
+        ], backup:'⛔ 備用（天氣取消）：Torres del Paine 觀光車遊 + Milodón洞穴半日遊' },
+      { n:3, color:'#c62828', date:'5月11日（週一）', intensity:'high',
+        title:'Base Torres 單日健行 ★ 最佳天氣日',
+        sub:'低季強制跟嚮導，週一 / 三 / 五出發',
+        wx:'☀️ 晴/局部多雲・4°C / 0°C・降雨22% ✅ 最佳！',
+        acts:[
+          { t:'08:30',   i:'🥾', n:'Base Torres 健行（嚮導帶隊）', d:'19km來回・900m爬升・約8-9小時｜Las Torres → Ascencio峽谷 → 三塔倒影湖｜⚠️ 低季必須跟嚮導，提前預訂', c:'嚮導 USD $60-90 + 公園票 USD $50' },
+          { t:'~17:30',  i:'🏘️', n:'返回 Puerto Natales', d:'大量補充蛋白質，早點休息', c:'' },
+        ], backup:'⛔ 備用（天氣差）：公園觀光車遊（Lago Grey、Salto Grande瀑布），Base Torres 改至週三5/13' },
+      { n:4, color:'#388e3c', date:'5月12日（週二）', intensity:'low',
+        title:'休息恢復 + Milodón洞穴 + 市區漫遊',
+        sub:'高強度健行後必要恢復日（預計雨天）',
+        wx:'🌨️ 雨/混合降水・3°C / 0°C・降雨68%',
+        acts:[
+          { t:'上午',   i:'🦴', n:'Cueva del Milodón 米羅敦洞穴', d:'距PN約24km，洞穴高30m，發現巨型地懶化石，輕鬆步道約2小時', c:'門票 USD $10 + 交通 $15-25' },
+          { t:'午後',   i:'🏘️', n:'Puerto Natales 市區慢遊', d:'Costanera・工藝品市場・Museo Histórico Municipal（免費）', c:'基本免費' },
+          { t:'晚上',   i:'🍺', n:"Nick's Bar", d:'背包客聚集地，精釀啤酒', c:'USD $10-20' },
+        ], backup:null },
+      { n:5, color:'#0277bd', date:'5月13日（週三）', intensity:'mid',
+        title:'格雷冰川 + 轉移蓬塔阿雷納斯',
+        sub:'上午冰川遊覽，下午啟程前往PA（隔日企鵝行程）',
+        wx:'⛅ 好轉，多雲間晴・4°C / -1°C・降雨33%',
+        acts:[
+          { t:'上午',       i:'🧊', n:'Grey Glacier 船遊（週三確認班次）', d:'從Lago Grey搭船靠近冰壁，約4小時。備選：公園觀景車遊（Lago Grey → Salto Grande → 看動物）', c:'USD $90-120 + 公園票 $50' },
+          { t:'14:00-15:00',i:'🚌', n:'巴士往蓬塔阿雷納斯', d:'Bus Sur / Buses Fernández，約3.5-4小時，建議訂下午班', c:'USD $10-15' },
+          { t:'晚上',       i:'🏨', n:'蓬塔阿雷納斯入住 + 晚餐', d:'住市中心（武器廣場附近），確認明日企鵝行程集合時間', c:'' },
+        ], backup:'⚠️ 若Base Torres週一因天氣取消：今日改做健行，下午巴士調至18:00，仍可趕到PA' },
+      { n:6, color:'#3949ab', date:'5月14日（週四）', intensity:'low',
+        title:'王企鵝 & 火地島全日行程 🐧',
+        sub:'從蓬塔阿雷納斯出發，穿越麥哲倫海峽前往火地島',
+        wx:'🌤️ 局部晴・5°C / 1°C・降雨28% ✅',
+        acts:[
+          { t:'07:00',   i:'🐧', n:'王企鵝火地島全日行程', d:'PA飯店接送 → 渡輪穿越麥哲倫海峽 → Parque Pingüino Rey｜觀35-90隻王企鵝（全球第二大），公園開放至17:00', c:'USD $130-200（含交通、渡輪、導遊）' },
+          { t:'~19:30',  i:'🏨', n:'返回蓬塔阿雷納斯', d:'推薦：Centro Español 或 La Luna（海鮮料理）', c:'' },
+        ], backup:'推薦業者：Nomades、Far South Expeditions、Gray Line Chile。公園週四開放，務必提前預訂。' },
+      { n:7, color:'#6a1b9a', date:'5月15日（週五）', intensity:'travel',
+        title:'蓬塔阿雷納斯市區 + 返國離境',
+        sub:'麥哲倫遺跡探訪，搭機返國',
+        wx:'🌧️ 雨/強風・3°C / -1°C・降雨58%',
+        acts:[
+          { t:'上午',   i:'⛪', n:'蓬塔阿雷納斯精華景點', d:'武器廣場+麥哲倫雕像・市立公墓（探險家長眠地）・Nao Victoria博物館（麥哲倫帆船複製品）・海峽眺望台', c:'博物館 USD $8-15，其餘免費' },
+          { t:'午後',   i:'✈️', n:'蓬塔阿雷納斯機場（PUQ）離境', d:'提前2-2.5小時抵達', c:'' },
+        ], backup:null },
+    ],
+    budget:[
+      { label:'住宿（7晚）',    val:'USD $400–700' },
+      { label:'Base Torres健行', val:'USD $110–140' },
+      { label:'Serrano冰川船遊', val:'USD $90–130' },
+      { label:'Grey Glacier船遊',val:'USD $90–120' },
+      { label:'王企鵝行程',      val:'USD $130–200' },
+      { label:'Milodón洞穴',    val:'USD $25–35' },
+      { label:'餐飲（7天）',    val:'USD $140–280' },
+      { label:'交通（巴士）',   val:'USD $40–60' },
+    ],
+    budgetTotal:'USD $1,100–1,800／人（不含機票）',
+  }
+};
+
 // ── FLAT JOURNEY ORDER (all individual stops) ──
 const JOURNEY = [
   { city:'西雅圖',       flag:'🇺🇸', country:'美國',    currency:'USD', cityValue:'西雅圖|美國|USD' },
@@ -756,6 +1061,7 @@ function go(name) {
   if (name === 'home')      loadHome();
   if (name === 'report')    loadReport();
   if (name === 'itinerary') renderItinerary();
+  if (name === 'map')       initMap();
 }
 
 // ── JSONP fetch ──
@@ -895,7 +1201,8 @@ function renderItinerary() {
       </div>
       <div class="dest-highlights">${highlights}</div>
       <div class="dest-actions">
-        <a class="map-btn" href="${mapsUrl}" target="_blank">🗺️ Google Maps</a>
+        <a class="map-btn" href="${mapsUrl}" target="_blank">🗺️ Maps</a>
+        ${TRIP_PLANS[i] ? `<button class="map-btn" onclick="openTripDetail(${i})" style="background:rgba(27,42,74,0.06);border-color:var(--navy);color:var(--navy);">📋 行程詳情</button>` : ''}
         <button class="plan-btn" onclick="setExpenseCity('${dest.cityValue}')">記帳 ›</button>
       </div>
     </div>`;
@@ -1035,6 +1342,79 @@ async function loadReport() {
   }
 }
 
+// ── TRIP PLAN DETAIL ──
+const INTENSITY_MAP = {
+  high:'pi-high', mid:'pi-mid', low:'pi-low', travel:'pi-travel'
+};
+const INTENSITY_LABEL = {
+  high:'🥾 高強度', mid:'⛵ 中等', low:'😌 輕鬆', travel:'🛫 交通日'
+};
+
+function openTripDetail(itinIdx) {
+  const plan = TRIP_PLANS[itinIdx];
+  if (!plan) return;
+  const screen = document.getElementById('plan-screen');
+  document.getElementById('plan-hdr-title').textContent = plan.title;
+  document.getElementById('plan-hdr-sub').textContent   = plan.sub;
+
+  // weather strip
+  const wx = plan.weather.map(w =>
+    `<div class="pw-chip ${w.cls}">
+      <div class="pw-date">${w.date}</div>
+      <div class="pw-icon">${w.icon}</div>
+      <div class="pw-temp">${w.temp}</div>
+    </div>`).join('');
+
+  // day cards
+  const days = plan.days.map(d => {
+    const acts = d.acts.map(a =>
+      `<div class="plan-act">
+        <div class="pa-time">${a.t}</div>
+        <div class="pa-ico">${a.i}</div>
+        <div class="pa-body">
+          <div class="pa-name">${a.n}</div>
+          ${a.d ? `<div class="pa-detail">${a.d}</div>` : ''}
+          ${a.c ? `<div class="pa-cost">💰 ${a.c}</div>` : ''}
+        </div>
+      </div>`).join('');
+    const backup = d.backup ? `<div class="plan-backup">${d.backup}</div>` : '';
+    return `<div class="plan-day">
+      <div class="plan-day-hdr">
+        <div class="plan-day-num" style="background:${d.color}">${d.n}</div>
+        <div class="plan-day-info">
+          <div class="plan-day-date">${d.date}</div>
+          <div class="plan-day-title">${d.title}</div>
+          <div class="plan-day-sub">${d.sub}</div>
+          <div class="plan-day-wx">${d.wx}</div>
+        </div>
+        <span class="plan-intensity ${INTENSITY_MAP[d.intensity]}">${INTENSITY_LABEL[d.intensity]}</span>
+      </div>
+      <div class="plan-acts">${acts}</div>
+      ${backup}
+    </div>`;
+  }).join('');
+
+  // budget
+  const budgetRows = plan.budget.map(b =>
+    `<div class="budget-row"><span>${b.label}</span><span>${b.val}</span></div>`).join('');
+
+  document.getElementById('plan-body').innerHTML =
+    `<div class="plan-weather-strip">${wx}</div>
+     ${days}
+     <div class="plan-budget">
+       <h4>💰 預算估計（7天／人）</h4>
+       ${budgetRows}
+       <div class="budget-total">${plan.budgetTotal}</div>
+     </div>`;
+
+  screen.classList.add('open');
+  screen.scrollTop = 0;
+}
+
+function closeTripDetail() {
+  document.getElementById('plan-screen').classList.remove('open');
+}
+
 // ── CITY PICKER ──
 function openCityModal() {
   const cur = getCurCityIdx();
@@ -1066,6 +1446,99 @@ function toast(msg, err=false) {
   setTimeout(() => { t.className = 'toast'; }, 2600);
 }
 
+// ══════════════════════════════════════════════════
+// TRAVEL MAP
+// ══════════════════════════════════════════════════
+const MPLACES = {
+  PVG:{city:"上海",lat:31.1434,lon:121.8052}, SEA:{city:"西雅圖",lat:47.4502,lon:-122.3088},
+  YVR:{city:"溫哥華",lat:49.1967,lon:-123.1815}, ATL:{city:"亞特蘭大",lat:33.6407,lon:-84.4277},
+  SCL:{city:"聖地牙哥(智利)",lat:-33.3928,lon:-70.7858}, PMC:{city:"蒙特港",lat:-41.4389,lon:-73.0944},
+  PUQ:{city:"彭塔阿雷納斯",lat:-53.0024,lon:-70.8545}, PNT:{city:"納塔萊斯港",lat:-51.7226,lon:-72.4897},
+  SEA_STN:{city:"西雅圖(站)",lat:47.5990,lon:-122.3306}, YVR_STN:{city:"溫哥華(站)",lat:49.2749,lon:-123.0982},
+  NRT:{city:"東京",lat:35.7653,lon:140.3857}, LIM:{city:"利馬",lat:-12.0219,lon:-77.1143},
+  GRU:{city:"聖保羅",lat:-23.4356,lon:-46.4731}, YYZ:{city:"多倫多",lat:43.6777,lon:-79.6248},
+};
+const MTYPE = {
+  FLY:{icon:"✈️",label:"飛機",color:"#C9A84C",dashed:false},
+  BUS:{icon:"🚌",label:"巴士",color:"#5ECBC8",dashed:true},
+  TRAIN:{icon:"🚆",label:"火車",color:"#A78BFA",dashed:true},
+};
+let mTrip = [
+  {id:1,type:"FLY",  from:"PVG",    to:"SEA",    date:"2026-04-22",label:"出發！上海→西雅圖"},
+  {id:2,type:"TRAIN",from:"SEA_STN",to:"YVR_STN",date:"2026-04-25",label:"Amtrak Cascades"},
+  {id:3,type:"FLY",  from:"YVR",    to:"SEA",    date:"2026-05-05",label:"溫哥華→西雅圖（轉機）"},
+  {id:4,type:"FLY",  from:"SEA",    to:"ATL",    date:"2026-05-05",label:"→亞特蘭大（轉機）"},
+  {id:5,type:"FLY",  from:"ATL",    to:"SCL",    date:"2026-05-05",label:"亞特蘭大→聖地牙哥"},
+  {id:6,type:"FLY",  from:"SCL",    to:"PMC",    date:"2026-05-08",label:"→蒙特港"},
+  {id:7,type:"FLY",  from:"PMC",    to:"PUQ",    date:"2026-05-08",label:"跑道壞掉改降彭塔！"},
+  {id:8,type:"BUS",  from:"PUQ",    to:"PNT",    date:"2026-05-08",label:"→納塔萊斯港 3.5h 🚌"},
+];
+const MW=800,MH=420,MEARTH=40075;
+let mSegs=[],mStep=0,mPlaying=false,mTimer=null,mInited=false,mFormType='FLY';
+
+function mHav(la1,lo1,la2,lo2){const R=6371,dL=((la2-la1)*Math.PI)/180,dO=((lo2-lo1)*Math.PI)/180;const a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dO/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function mProj(lat,lon){return[((lon+180)/360)*MW,((90-lat)/180)*MH];}
+function mGC(la1,lo1,la2,lo2,n=80){const r=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;const f1=r(la1),l1=r(lo1),f2=r(la2),l2=r(lo2);const d=Math.acos(Math.min(1,Math.sin(f1)*Math.sin(f2)+Math.cos(f1)*Math.cos(f2)*Math.cos(l2-l1)));if(d<0.0001)return[[la1,lo1],[la2,lo2]];const pts=[];for(let i=0;i<=n;i++){const t=i/n,A=Math.sin((1-t)*d)/Math.sin(d),B=Math.sin(t*d)/Math.sin(d);const x=A*Math.cos(f1)*Math.cos(l1)+B*Math.cos(f2)*Math.cos(l2);const y=A*Math.cos(f1)*Math.sin(l1)+B*Math.cos(f2)*Math.sin(l2);const z=A*Math.sin(f1)+B*Math.sin(f2);pts.push([deg(Math.atan2(z,Math.sqrt(x*x+y*y))),deg(Math.atan2(y,x))]);}return pts;}
+function mSplit(pts){const s=[];let c=[pts[0]];for(let i=1;i<pts.length;i++){if(Math.abs(pts[i][1]-pts[i-1][1])>180){s.push(c);c=[pts[i]];}else c.push(pts[i]);}s.push(c);return s;}
+function mPD(pts){return pts.map((p,i)=>{const[x,y]=mProj(p[0],p[1]);return`${i?'L':'M'}${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');}
+function mSD(la1,lo1,la2,lo2){const[x1,y1]=mProj(la1,lo1),[x2,y2]=mProj(la2,lo2);return`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`;}
+
+function mBuild(){mSegs=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to];if(!a||!b)return null;const dist=Math.round(mHav(a.lat,a.lon,b.lat,b.lon));const t=MTYPE[leg.type]||MTYPE.FLY;const paths=leg.type==='FLY'?mSplit(mGC(a.lat,a.lon,b.lat,b.lon,80)).map(s=>mPD(s)):[mSD(a.lat,a.lon,b.lat,b.lon)];return{...leg,a,b,dist,t,paths,toXY:mProj(b.lat,b.lon)};}).filter(Boolean);}
+function mFlyKm(){return mSegs.filter(s=>s.type==='FLY').reduce((s,x)=>s+x.dist,0);}
+function mAllKm(){return mSegs.reduce((s,x)=>s+x.dist,0);}
+function mUpdateHdr(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mhd-km').textContent=ak.toLocaleString();document.getElementById('mhd-sub').textContent=`✈️ ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;}
+
+const MNS='http://www.w3.org/2000/svg';
+function mel(tag,a={}){const e=document.createElementNS(MNS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
+function mtx(tag,t,a={}){const e=mel(tag,a);e.textContent=t;return e;}
+
+function mRenderMap(){
+  const svg=document.getElementById('mMapSvg');svg.innerHTML='';
+  const defs=mel('defs');const rg=mel('radialGradient',{id:'mog',cx:'50%',cy:'45%',r:'60%'});
+  [[0,'#0a1628'],[0.6,'#080f1e'],[1,'#060a14']].forEach(([o,c])=>{const s=mel('stop',{'offset':o,'stop-color':c});rg.appendChild(s);});
+  defs.appendChild(rg);svg.appendChild(defs);
+  svg.appendChild(mel('rect',{width:MW,height:MH,fill:'url(#mog)'}));
+  const gg=mel('g',{opacity:'0.05'});
+  [-60,-30,0,30,60].forEach(lat=>{const[,y]=mProj(lat,0);gg.appendChild(mel('line',{x1:0,y1:y,x2:MW,y2:y,stroke:'#7aa0c8','stroke-width':'0.5'}));});
+  [-120,-60,0,60,120].forEach(lon=>{const[x]=mProj(0,lon);gg.appendChild(mel('line',{x1:x,y1:0,x2:x,y2:MH,stroke:'#7aa0c8','stroke-width':'0.5'}));});
+  svg.appendChild(gg);
+  const lf='#131e2f',ls='rgba(120,160,210,0.1)';
+  ['110,35 155,30 175,55 180,90 160,105 145,130 130,155 105,155 90,130 95,80 100,55',
+   '130,155 155,155 165,175 170,210 160,250 140,270 120,265 110,240 108,200 115,175',
+   '225,40 265,35 275,50 270,70 255,75 240,70 225,65',
+   '240,75 275,70 290,90 295,130 285,175 265,195 245,190 230,165 225,130 228,95',
+   '270,30 380,25 420,40 430,70 400,90 370,80 330,85 300,75 275,65 268,50',
+   '360,185 405,175 420,195 415,225 395,240 370,238 350,220 348,200',
+   '265,195 285,185 295,195 300,230 295,280 280,310 260,315 248,290 245,250 252,215',
+   '550,220 590,215 605,235 600,265 575,275 555,265 542,248',
+  ].forEach(pts=>svg.appendChild(mel('polygon',{points:pts,fill:lf,stroke:ls,'stroke-width':'0.5'})));
+  const cset={};mTrip.forEach(l=>{if(MPLACES[l.from])cset[l.from]=MPLACES[l.from];if(MPLACES[l.to])cset[l.to]=MPLACES[l.to];});
+  const vis=new Set(mSegs.slice(0,mStep).flatMap(s=>[s.from,s.to]));
+  const cg=mel('g');
+  Object.entries(cset).forEach(([code,a])=>{const[x,y]=mProj(a.lat,a.lon),col=vis.has(code)?'#C9A84C':'rgba(255,255,255,0.18)';cg.appendChild(mel('circle',{cx:x,cy:y,r:4,fill:'none',stroke:col,'stroke-width':'0.8',opacity:'0.7'}));cg.appendChild(mel('circle',{cx:x,cy:y,r:2,fill:col}));const t=mtx('text',a.city,{x:x+5,y:y-3,fontSize:'7',fill:vis.has(code)?'rgba(201,168,76,0.8)':'rgba(255,255,255,0.2)',fontFamily:"'JetBrains Mono',monospace"});t.style.userSelect='none';cg.appendChild(t);});
+  const sg=mel('g');
+  mSegs.slice(0,mStep).forEach(seg=>{const g2=mel('g');g2.style.cursor='default';seg.paths.forEach(d=>{g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':'8','stroke-opacity':'0.05','stroke-linecap':'round'}));g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':'3','stroke-opacity':'0.14','stroke-linecap':'round'}));g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':seg.type==='FLY'?'1.8':'1.4','stroke-linecap':'round','stroke-dasharray':seg.t.dashed?'6 4':'none','stroke-opacity':'0.88'}));});const[dx,dy]=seg.toXY;g2.appendChild(mel('circle',{cx:dx,cy:dy,r:5,fill:seg.t.color,opacity:'0.08'}));g2.appendChild(mel('circle',{cx:dx,cy:dy,r:2.5,fill:seg.t.color,opacity:'0.92'}));const hit=mel('path',{d:seg.paths[0]||'',fill:'none',stroke:'transparent','stroke-width':'12'});hit.addEventListener('mouseenter',e=>mShowTip(seg,e));hit.addEventListener('mousemove',mMoveTip);hit.addEventListener('mouseleave',mHideTip);g2.appendChild(hit);sg.appendChild(g2);});
+  const lg=mel('g');mSegs.slice(0,mStep).forEach((seg,i)=>{const y0=MH-8-i*16;lg.appendChild(mel('rect',{x:6,y:y0-11,width:230,height:13,rx:2,fill:'rgba(6,10,18,0.65)'}));const ic=mtx('text',seg.t.icon,{x:10,y:y0,fontSize:'8'});ic.style.userSelect='none';lg.appendChild(ic);lg.appendChild(mel('rect',{x:23,y:y0-5,width:10,height:2,rx:1,fill:seg.t.color}));const lbl=mtx('text',`${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}  ${seg.dist.toLocaleString()}km`,{x:37,y:y0,fontSize:'7.5',fill:'rgba(255,255,255,0.4)',fontFamily:"'JetBrains Mono',monospace"});lbl.style.userSelect='none';lg.appendChild(lbl);});
+  const tlg=mel('g');Object.entries(MTYPE).forEach(([k,t],i)=>{const y0=10+i*16;tlg.appendChild(mel('rect',{x:MW-108,y:y0,width:100,height:13,rx:2,fill:'rgba(6,10,18,0.65)'}));const ic=mtx('text',t.icon,{x:MW-104,y:y0+10,fontSize:'8'});ic.style.userSelect='none';tlg.appendChild(ic);tlg.appendChild(mel('rect',{x:MW-91,y:y0+5,width:10,height:2,rx:1,fill:t.color}));const lbl=mtx('text',t.label,{x:MW-78,y:y0+10,fontSize:'7.5',fill:'rgba(255,255,255,0.4)',fontFamily:"'JetBrains Mono',monospace"});lbl.style.userSelect='none';tlg.appendChild(lbl);});
+  svg.appendChild(sg);svg.appendChild(cg);svg.appendChild(lg);svg.appendChild(tlg);
+  mRenderDots();
+}
+function mRenderDots(){const c=document.getElementById('mStepDots');c.innerHTML='';mSegs.forEach((seg,i)=>{const d=document.createElement('div');d.className='msdot'+(i<mStep?' on':'');d.style.background=i<mStep?seg.t.color:'transparent';d.title=`${seg.t.icon} ${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}`;d.onclick=()=>{clearTimeout(mTimer);mPlaying=false;mStep=i+1;mRenderMap();mUpdPlayBtn();};c.appendChild(d);});}
+function mPlayAnim(){clearTimeout(mTimer);mStep=0;mPlaying=true;mUpdPlayBtn();mRenderMap();const tick=()=>{mStep++;mRenderMap();if(mStep<mSegs.length){mTimer=setTimeout(tick,900);}else{mPlaying=false;mUpdPlayBtn();}};mTimer=setTimeout(tick,350);}
+function mUpdPlayBtn(){const b=document.getElementById('mPlayBtn');b.textContent=mPlaying?'播放中…':'▶ 播放路線';b.disabled=mPlaying;}
+function mShowTip(seg,e){const tip=document.getElementById('mTip');tip.innerHTML=`<span style="color:${seg.t.color}">${seg.t.icon} ${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}</span><span style="color:#5C6478;margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:10px">${seg.dist.toLocaleString()}km · ${seg.date||''}</span>${seg.label?`<br><span style="color:#8a8a9a;font-size:10px">${seg.label}</span>`:''}`;mMoveTip(e);tip.classList.add('show');}
+function mMoveTip(e){const tip=document.getElementById('mTip'),r=document.getElementById('mMapVp').getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top-10;if(x+220>r.width)x=e.clientX-r.left-230;tip.style.left=x+'px';tip.style.top=y+'px';}
+function mHideTip(){document.getElementById('mTip').classList.remove('show');}
+function mSwitchTab(name,btn){document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('mMapVp').style.display=name==='map'?'':'none';document.getElementById('mListVp').style.display=name==='list'?'':'none';if(name==='map'){mStep=mSegs.length;mRenderMap();}if(name==='list')mRenderList();}
+function mRenderList(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mStatGrid').innerHTML=[{l:'總移動距離',v:ak.toLocaleString(),u:'km',c:'#C9A84C'},{l:'飛行距離',v:fk.toLocaleString(),u:'km',c:'#E07A5A'},{l:'繞地球',v:(fk/MEARTH).toFixed(2),u:'圈',c:'#5ECBC8'},{l:'行程段數',v:mSegs.length,u:'段',c:'#A78BFA'},].map(s=>`<div class="msc" style="--mc:${s.c}"><div class="msc-v">${s.v}</div><div class="msc-u">${s.u}</div><div class="msc-l">${s.l}</div></div>`).join('');document.getElementById('mTypeRow').innerHTML=Object.entries(MTYPE).map(([k,t])=>{const legs=mSegs.filter(s=>s.type===k);if(!legs.length)return'';const km=legs.reduce((s,l)=>s+l.dist,0);return`<div class="mtype-chip" style="border-color:${t.color}44">${t.icon} <span style="color:${t.color};font-weight:700">${t.label}</span> <span style="color:#5C6478;font-size:10px">${legs.length}段·${km.toLocaleString()}km</span></div>`;}).join('');document.getElementById('mLegList').innerHTML=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to],t=MTYPE[leg.type]||MTYPE.FLY;const dist=a&&b?Math.round(mHav(a.lat,a.lon,b.lat,b.lon)):0;return`<div class="mleg-card" style="border-left-color:${t.color}"><div class="mleg-ico">${t.icon}</div><div class="mleg-body"><div class="mleg-cities"><span class="mleg-from">${a?.city||leg.from}</span><span class="mleg-arr">→</span><span class="mleg-to" style="color:${t.color}">${b?.city||leg.to}</span></div><div class="mleg-chips">${leg.date?`<span class="mlchip">${leg.date}</span>`:''}<span class="mlchip" style="border-color:${t.color}44;color:${t.color}">${t.label}</span>${leg.label?`<span class="mlchip">${leg.label}</span>`:''}</div></div><div class="mleg-dist"><span class="mleg-dn" style="color:${t.color}">${dist.toLocaleString()}</span><span class="mleg-du">km</span></div><button class="mrm" onclick="mRemoveLeg(${leg.id})">×</button></div>`;}).join('');}
+function mRemoveLeg(id){mTrip=mTrip.filter(l=>l.id!==id);mBuild();mStep=mSegs.length;mUpdateHdr();mRenderList();}
+function mOpenModal(){document.getElementById('mOverlay').style.display='flex';['mFrom','mTo'].forEach(id=>{document.getElementById(id).innerHTML=Object.entries(MPLACES).map(([c,a])=>`<option value="${c}">${a.city} (${c})</option>`).join('');});}
+function mCloseModal(){document.getElementById('mOverlay').style.display='none';}
+function mSelType(k,btn){mFormType=k;document.querySelectorAll('.mtpill').forEach(b=>{b.className='mtpill';});btn.className='mtpill a'+k[0].toLowerCase();document.getElementById('mOkBtn').textContent=MTYPE[k].icon+' 加入';}
+function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;mTrip.push({id:Date.now(),type:mFormType,from,to,date,label});mTrip.sort((a,b)=>a.date.localeCompare(b.date));mBuild();mStep=mSegs.length;mCloseModal();mUpdateHdr();mRenderList();const ab=document.getElementById('mAddBtn');ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增';},1400);}
+function mMakeStars(){const c=document.getElementById('mstars');c.innerHTML='';for(let i=0;i<80;i++){const s=document.createElement('div');s.className='map-star';const sz=Math.random()*1.3+0.4;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--lo:${0.04+Math.random()*0.08};--hi:${0.2+Math.random()*0.4};animation-delay:${Math.random()*4}s`;c.appendChild(s);}}
+function initMap(){if(!mInited){mMakeStars();mBuild();mStep=mSegs.length;mInited=true;}else{mBuild();mStep=mSegs.length;}mUpdateHdr();mRenderMap();}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   initForm();
@@ -1074,6 +1547,41 @@ document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 });
 </script>
+
+<!-- Trip Plan Screen -->
+<div class="plan-screen" id="plan-screen">
+  <div class="plan-hdr">
+    <button class="plan-back" onclick="closeTripDetail()">← 返回行程</button>
+    <h2 id="plan-hdr-title"></h2>
+    <p id="plan-hdr-sub"></p>
+  </div>
+  <div class="plan-body" id="plan-body"></div>
+</div>
+
+<!-- Map Add Modal -->
+<div class="moverlay" id="mOverlay" style="display:none" onclick="mCloseModal()">
+  <div class="mmodal" onclick="event.stopPropagation()">
+    <div class="mmodal-title">新增行程段</div>
+    <label class="mflbl">交通方式</label>
+    <div class="mtpills">
+      <button class="mtpill af" onclick="mSelType('FLY',this)">✈️ 飛機</button>
+      <button class="mtpill" onclick="mSelType('BUS',this)">🚌 巴士</button>
+      <button class="mtpill" onclick="mSelType('TRAIN',this)">🚆 火車</button>
+    </div>
+    <label class="mflbl">出發地</label>
+    <select class="mfsel" id="mFrom"></select>
+    <label class="mflbl">目的地</label>
+    <select class="mfsel" id="mTo"></select>
+    <label class="mflbl">日期</label>
+    <input type="date" class="mfinp" id="mDate">
+    <label class="mflbl">備註（選填）</label>
+    <input type="text" class="mfinp" id="mNote" placeholder="例：跑道壞掉">
+    <div class="mmbtns">
+      <button class="mmbtn-c" onclick="mCloseModal()">取消</button>
+      <button class="mmbtn-ok" id="mOkBtn" onclick="mAddLeg()">✈️ 加入</button>
+    </div>
+  </div>
+</div>
 
 <!-- City Picker Modal -->
 <div class="city-modal-bg" id="city-modal-bg" onclick="closeCityModal()">

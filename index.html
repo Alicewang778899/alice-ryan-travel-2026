@@ -615,6 +615,24 @@ body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text);
 .mmbtns { display:flex; gap:8px; margin-top:18px; justify-content:flex-end; }
 .mmbtn-c { background:none; border:1px solid rgba(255,255,255,0.1); color:#8a8070; border-radius:8px; padding:8px 14px; font-size:12px; cursor:pointer; font-family:'Nunito',sans-serif; }
 .mmbtn-ok { background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3); color:#C9A84C; border-radius:8px; padding:8px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; }
+
+/* ── MAP MOBILE ── */
+@media (max-width: 600px) {
+  #s-map { overflow-y: auto !important; }
+  .mhd { padding-top: max(env(safe-area-inset-top, 0px), 12px); }
+  .mhd-title { font-size: 15px; }
+  .mhd-km { font-size: 17px; }
+  .mhd-sub { font-size: 8px; }
+  .map-vp {
+    flex: none !important;
+    height: calc(100vw * 0.68);
+    min-height: 200px;
+    max-height: 56vw;
+  }
+  .mlist { flex: none; overflow-y: visible; padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .mstat-grid { grid-template-columns: repeat(2, 1fr); }
+  .msc-v { font-size: 16px; }
+}
 </style>
 </head>
 <body>

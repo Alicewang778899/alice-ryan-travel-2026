@@ -42,13 +42,19 @@ html,body { height:100%; overflow:hidden; }
 body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:var(--ink); }
 
 /* ── SCREENS ── */
-.screen { display:none; position:fixed; inset:0; overflow-y:auto; padding-bottom:calc(96px + var(--sb)); }
+.screen { display:none; position:fixed; inset:0; overflow-y:auto; padding-bottom:calc(110px + var(--sb)); }
 .screen.active { display:block; animation:screenIn 0.28s ease; }
 @keyframes screenIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 
 /* ── FLOATING PILL NAV ── */
+.bnav-shelf {
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:var(--cream);
+  padding:10px 16px calc(10px + var(--sb));
+  /* subtle fade so content scrolls under gracefully */
+  box-shadow:0 -1px 0 rgba(28,37,34,0.06);
+}
 .bnav {
-  position:fixed; bottom:calc(14px + var(--sb)); left:16px; right:16px; z-index:200;
   background:var(--dark);
   border-radius:999px;
   padding:8px 10px;
@@ -572,7 +578,7 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
 
 /* ── TOAST ── */
 .toast {
-  position:fixed; bottom:calc(96px + var(--sb)); left:50%; transform:translateX(-50%) translateY(10px);
+  position:fixed; bottom:calc(110px + var(--sb)); left:50%; transform:translateX(-50%) translateY(10px);
   background:var(--dark);
   color:var(--cream); padding:12px 24px; border-radius:999px;
   font-size:14px; font-weight:600; opacity:0; transition:all 0.28s; z-index:999;
@@ -906,23 +912,25 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
 </div>
 
 <!-- ── NAV ── -->
-<nav class="bnav">
-  <button class="bnav-btn active" id="n-home" onclick="go('home')">
-    <span class="nl">首頁</span><span class="ni">🏠</span>
-  </button>
-  <button class="bnav-btn" id="n-expense" onclick="go('expense')">
-    <span class="nl">記帳</span><span class="ni">➕</span>
-  </button>
-  <button class="bnav-btn" id="n-itinerary" onclick="go('itinerary')">
-    <span class="nl">行程</span><span class="ni">🗺️</span>
-  </button>
-  <button class="bnav-btn" id="n-map" onclick="go('map')">
-    <span class="nl">足跡</span><span class="ni">🌍</span>
-  </button>
-  <button class="bnav-btn" id="n-report" onclick="go('report')">
-    <span class="nl">週報</span><span class="ni">📊</span>
-  </button>
-</nav>
+<div class="bnav-shelf">
+  <nav class="bnav">
+    <button class="bnav-btn active" id="n-home" onclick="go('home')">
+      <span class="nl">首頁</span><span class="ni">🏠</span>
+    </button>
+    <button class="bnav-btn" id="n-expense" onclick="go('expense')">
+      <span class="nl">記帳</span><span class="ni">➕</span>
+    </button>
+    <button class="bnav-btn" id="n-itinerary" onclick="go('itinerary')">
+      <span class="nl">行程</span><span class="ni">🗺️</span>
+    </button>
+    <button class="bnav-btn" id="n-map" onclick="go('map')">
+      <span class="nl">足跡</span><span class="ni">🌍</span>
+    </button>
+    <button class="bnav-btn" id="n-report" onclick="go('report')">
+      <span class="nl">週報</span><span class="ni">📊</span>
+    </button>
+  </nav>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -1039,25 +1047,25 @@ const TRIP_PLANS = {
         acts:[
           { t:'08:30',   i:'🥾', n:'Base Torres 健行（嚮導帶隊）', d:'19km來回・900m爬升・約8-9小時｜Las Torres → Ascencio峽谷 → 三塔倒影湖｜⚠️ 低季必須跟嚮導，提前預訂', c:'嚮導 USD $60-90 + 公園票 USD $50' },
           { t:'~17:30',  i:'🏘️', n:'返回 Puerto Natales', d:'大量補充蛋白質，早點休息', c:'' },
-        ], backup:'⛔ 備用（天氣差）：公園觀光車遊（Lago Grey、Salto Grande瀑布），Base Torres 改至週三5/13' },
+        ], backup:'✅ 已改至週三 5/13 出發，Base Torres 確認成行' },
       { n:4, color:'#388e3c', date:'5月12日（週二）', intensity:'low',
-        title:'休息恢復 + Milodón洞穴 + 市區漫遊',
-        sub:'高強度健行後必要恢復日（預計雨天）',
-        wx:'🌨️ 雨/混合降水・3°C / 0°C・降雨68%',
+        title:'租車慢遊・開車探索公園',
+        sub:'已租車 + 換 Airbnb，自駕前往 Torres del Paine 公園區隨意逛',
+        wx:'🌨️ 雨/混合降水・3°C / 0°C',
         acts:[
-          { t:'上午',   i:'🦴', n:'Cueva del Milodón 米羅敦洞穴', d:'距PN約24km，洞穴高30m，發現巨型地懶化石，輕鬆步道約2小時', c:'門票 USD $10 + 交通 $15-25' },
-          { t:'午後',   i:'🏘️', n:'Puerto Natales 市區慢遊', d:'Costanera・工藝品市場・Museo Histórico Municipal（免費）', c:'基本免費' },
-          { t:'晚上',   i:'🍺', n:"Nick's Bar", d:'背包客聚集地，精釀啤酒', c:'USD $10-20' },
+          { t:'上午',   i:'🚗', n:'自駕出發前往 Torres del Paine', d:'從 Puerto Natales 開車約1.5小時進公園，沿路風景，不趕時間', c:'公園票 CLP $15,000／人（5月低季）' },
+          { t:'白天',   i:'🏔️', n:'公園隨意逛・Lago Sarmiento / Portería', d:'開車沿 Y-290 公路兜風，看山、看湖、看動物（羊駝、禿鷹），不做健行', c:'免費' },
+          { t:'傍晚',   i:'🏡', n:'返回・入住新 Airbnb', d:'早一點回去，整理行裝，為明天 Base Torres 做準備，早睡', c:'' },
         ], backup:null },
-      { n:5, color:'#0277bd', date:'5月13日（週三）', intensity:'mid',
-        title:'格雷冰川 + 轉移蓬塔阿雷納斯',
-        sub:'上午冰川遊覽，下午啟程前往PA（隔日企鵝行程）',
-        wx:'⛅ 好轉，多雲間晴・4°C / -1°C・降雨33%',
+      { n:5, color:'#c62828', date:'5月13日（週三）', intensity:'high',
+        title:'Base Torres del Paine 全日健行 🥾',
+        sub:'週三出發，跟嚮導一日來回三塔倒影湖',
+        wx:'⛅ 多雲間晴・4°C / -1°C',
         acts:[
-          { t:'上午',       i:'🧊', n:'Grey Glacier 船遊（週三確認班次）', d:'從Lago Grey搭船靠近冰壁，約4小時。備選：公園觀景車遊（Lago Grey → Salto Grande → 看動物）', c:'USD $90-120 + 公園票 $50' },
-          { t:'14:00-15:00',i:'🚌', n:'巴士往蓬塔阿雷納斯', d:'Bus Sur / Buses Fernández，約3.5-4小時，建議訂下午班', c:'USD $10-15' },
-          { t:'晚上',       i:'🏨', n:'蓬塔阿雷納斯入住 + 晚餐', d:'住市中心（武器廣場附近），確認明日企鵝行程集合時間', c:'' },
-        ], backup:'⚠️ 若Base Torres週一因天氣取消：今日改做健行，下午巴士調至18:00，仍可趕到PA' },
+          { t:'08:00',  i:'🥾', n:'Base Torres 全日健行', d:'Las Torres 登山口出發 → Ascencio峽谷 → 三塔倒影湖｜19km來回・900m爬升・約8-9小時，低季需跟嚮導', c:'CLP $90,000／人（已確認）+ 公園票' },
+          { t:'~17:30', i:'🚗', n:'下山・開車返回', d:'已有租車，直接自駕回 Airbnb，不用等巴士', c:'' },
+          { t:'晚上',   i:'🍖', n:'大吃補充體力', d:'烤肉或餐廳，犒賞自己', c:'' },
+        ], backup:null },
       { n:6, color:'#3949ab', date:'5月14日（週四）', intensity:'low',
         title:'王企鵝 & 火地島全日行程 🐧',
         sub:'從蓬塔阿雷納斯出發，穿越麥哲倫海峽前往火地島',

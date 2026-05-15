@@ -42,18 +42,15 @@ html,body { height:100%; overflow:hidden; }
 body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:var(--ink); }
 
 /* ── SCREENS ── */
-.screen { display:none; position:fixed; inset:0; overflow-y:auto; padding-bottom:calc(84px + var(--sb)); }
+.screen { display:none; position:fixed; inset:0; overflow-y:auto; padding-bottom:calc(90px + env(safe-area-inset-bottom, 0px)); }
 .screen.active { display:block; animation:screenIn 0.28s ease; }
 @keyframes screenIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 
 /* ── FLOATING PILL NAV ── */
-.bnav-shelf {
-  position:fixed; bottom:0; left:0; right:0; z-index:200;
-  background:var(--cream);
-  padding:8px 14px var(--sb);
-  box-shadow:0 -1px 0 rgba(28,37,34,0.06);
-}
 .bnav {
+  position:fixed;
+  bottom:max(14px, env(safe-area-inset-bottom, 14px));
+  left:16px; right:16px; z-index:200;
   background:var(--dark);
   border-radius:999px;
   padding:8px 10px;
@@ -911,8 +908,7 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
 </div>
 
 <!-- ── NAV ── -->
-<div class="bnav-shelf">
-  <nav class="bnav">
+<nav class="bnav">
     <button class="bnav-btn active" id="n-home" onclick="go('home')">
       <span class="nl">首頁</span><span class="ni">🏠</span>
     </button>
@@ -928,8 +924,7 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
     <button class="bnav-btn" id="n-report" onclick="go('report')">
       <span class="nl">週報</span><span class="ni">📊</span>
     </button>
-  </nav>
-</div>
+</nav>
 
 <div class="toast" id="toast"></div>
 

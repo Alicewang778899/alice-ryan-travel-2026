@@ -692,9 +692,12 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
   </div>
 
   <!-- Location bar -->
-  <div class="h-loc-bar loc-bar-tap" onclick="openCityModal()">
-    <div class="h-loc"><span class="dot"></span><span id="loc-txt">讀取中...</span><span class="loc-edit">✎</span></div>
-    <div class="h-prog-val">進度</div>
+  <div class="h-loc-bar">
+    <div class="h-loc loc-bar-tap" onclick="openCityModal()"><span class="dot"></span><span id="loc-txt">讀取中...</span><span class="loc-edit">✎</span></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button onclick="autoDetectLocation(true)" style="background:none;border:none;color:rgba(251,244,228,0.7);font-size:16px;cursor:pointer;padding:0" title="重新定位">📍</button>
+      <div class="h-prog-val">進度</div>
+    </div>
   </div>
   <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
 
@@ -1095,19 +1098,19 @@ const TRIP_PLANS = {
 
 // ── FLAT JOURNEY ORDER (all individual stops) ──
 const JOURNEY = [
-  { city:'西雅圖',       flag:'🇺🇸', country:'美國',    currency:'USD', cityValue:'西雅圖|美國|USD' },
-  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'溫哥華|加拿大|CAD' },
-  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'聖地牙哥|智利|CLP' },
-  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'巴塔哥尼亞|智利|CLP' },
-  { city:'Punta Arenas', flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'Punta Arenas|智利|CLP' },
-  { city:'里約',         flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'里約|巴西|BRL' },
-  { city:'Lençóis',      flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'Lençóis|巴西|BRL' },
-  { city:'利馬',         flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'利馬|秘魯|PEN' },
-  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'庫斯科|秘魯|PEN' },
-  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'馬丘比丘|秘魯|PEN' },
-  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'安地瓜|瓜地馬拉|GTQ' },
-  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'花都湖|瓜地馬拉|GTQ' },
-  { city:'多倫多',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'多倫多|加拿大|CAD' },
+  { city:'西雅圖',       flag:'🇺🇸', country:'美國',    currency:'USD', cityValue:'西雅圖|美國|USD',       coords:[47.61,-122.33] },
+  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'溫哥華|加拿大|CAD',     coords:[49.28,-123.12] },
+  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'聖地牙哥|智利|CLP',     coords:[-33.46,-70.65] },
+  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'巴塔哥尼亞|智利|CLP',   coords:[-51.73,-72.52] },
+  { city:'Punta Arenas', flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'Punta Arenas|智利|CLP', coords:[-53.16,-70.91] },
+  { city:'里約',         flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'里約|巴西|BRL',         coords:[-22.91,-43.17] },
+  { city:'Lençóis',      flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'Lençóis|巴西|BRL',      coords:[-12.56,-41.39] },
+  { city:'利馬',         flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'利馬|秘魯|PEN',         coords:[-12.05,-77.04] },
+  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'庫斯科|秘魯|PEN',       coords:[-13.53,-71.97] },
+  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'馬丘比丘|秘魯|PEN',     coords:[-13.16,-72.55] },
+  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'安地瓜|瓜地馬拉|GTQ', coords:[14.56,-90.73] },
+  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'花都湖|瓜地馬拉|GTQ', coords:[14.69,-91.19] },
+  { city:'多倫多',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'多倫多|加拿大|CAD',     coords:[43.65,-79.38] },
 ];
 
 function defaultJourneyIdx() {
@@ -1125,6 +1128,56 @@ function getCurCityIdx() {
   return s !== null ? parseInt(s) : defaultJourneyIdx();
 }
 function setCurCityIdx(idx) { localStorage.setItem('curCityIdx', idx); }
+
+// ── AUTO GEOLOCATION ──
+let geoLocName = null; // real city name from Nominatim
+
+async function autoDetectLocation(force = false) {
+  if (!navigator.geolocation) return;
+  const el = document.getElementById('loc-txt');
+  if (el) el.textContent = '📍 定位中...';
+
+  navigator.geolocation.getCurrentPosition(async pos => {
+    const { latitude: lat, longitude: lon } = pos.coords;
+
+    // Find closest JOURNEY city by distance
+    let bestIdx = 0, bestDist = Infinity;
+    JOURNEY.forEach((j, i) => {
+      const d = Math.sqrt((lat - j.coords[0])**2 + (lon - j.coords[1])**2);
+      if (d < bestDist) { bestDist = d; bestIdx = i; }
+    });
+    setCurCityIdx(bestIdx);
+
+    // Sync f-city selector
+    const cs = document.getElementById('f-city');
+    if (cs) {
+      for (const opt of cs.options) {
+        if (opt.value === JOURNEY[bestIdx].cityValue) { cs.value = opt.value; break; }
+      }
+    }
+
+    // Reverse geocode → real city name
+    try {
+      const r = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+        { headers: { 'Accept-Language': 'zh-TW,zh;q=0.9', 'User-Agent': 'AliceRyanTravel/2026' } }
+      );
+      const d = await r.json();
+      const name = d.address.city || d.address.town || d.address.village || d.address.county || JOURNEY[bestIdx].city;
+      geoLocName = JOURNEY[bestIdx].flag + ' ' + name;
+    } catch {
+      geoLocName = JOURNEY[bestIdx].flag + ' ' + JOURNEY[bestIdx].city;
+    }
+
+    if (el) el.textContent = geoLocName;
+    updateCurrency && updateCurrency();
+  }, () => {
+    // Permission denied / error — fall back to stored
+    geoLocName = null;
+    const j = JOURNEY[getCurCityIdx()];
+    if (el) el.textContent = j.flag + ' ' + j.city;
+  }, { timeout: 8000, maximumAge: force ? 0 : 300000 });
+}
 
 // ── SEGMENTS for auto-detect (kept for itinerary) ──
 const SEG = ITINERARY.map(s => ({
@@ -1198,7 +1251,7 @@ function deleteExpense(rowIdx, desc) {
 async function loadHome() {
   const cityIdx = getCurCityIdx();
   const curCity = JOURNEY[cityIdx];
-  document.getElementById('loc-txt').textContent = curCity.flag + ' ' + curCity.city;
+  document.getElementById('loc-txt').textContent = geoLocName || (curCity.flag + ' ' + curCity.city);
 
   const start = new Date(2026,3,22), now = new Date();
   const day = Math.max(1, Math.ceil((now - start) / 86400000));
@@ -1521,6 +1574,7 @@ function closeCityModal() {
   document.getElementById('city-modal-bg').classList.remove('show');
 }
 function selectCity(idx) {
+  geoLocName = null; // manual override clears geolocation name
   setCurCityIdx(idx);
   closeCityModal();
   loadHome();
@@ -1629,6 +1683,7 @@ function initMap(){if(!mInited){mMakeStars();mBuild();mStep=mSegs.length;mInited
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   initForm();
+  autoDetectLocation(); // 自動定位，會在拿到位置後更新 loc-txt & 城市
   loadHome();
   renderItinerary();
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});

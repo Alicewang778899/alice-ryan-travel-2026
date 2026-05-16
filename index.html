@@ -1371,19 +1371,22 @@ async function submitExp() {
   });
 
   try {
-    await new Promise(resolve => {
-      const img = new Image();
-      const t = setTimeout(resolve, 8000);
-      img.onload = img.onerror = () => { clearTimeout(t); resolve(); };
-      img.src = API + '?' + p.toString() + '&t=' + Date.now();
-    });
+    // Use real JSONP so we get actual confirmation back from GAS
+    const res = await Promise.race([
+      fetchJsonp(API + '?' + p.toString() + '&t=' + Date.now()),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000))
+    ]);
+    if (res && res.result === 'error') throw new Error(res.message || 'GAS error');
     toast('✓ 記帳成功！');
     document.getElementById('f-amount').value = '';
     document.getElementById('f-desc').value   = '';
     document.getElementById('f-note').value   = '';
     document.getElementById('rmb-prev').classList.remove('vis');
     loadHome();
-  } catch(e) { toast('網路錯誤，請重試', true); }
+  } catch(e) {
+    const msg = e.message === 'timeout' ? '連線逾時，請重試' : '寫入失敗，請重試';
+    toast(msg, true);
+  }
   finally { btn.disabled = false; btn.textContent = '記帳 ✓'; }
 }
 

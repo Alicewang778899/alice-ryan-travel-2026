@@ -751,7 +751,7 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
   </div>
 
   <div class="sec-hdr">
-    <div class="sec-ttl">最近花費</div>
+    <div class="sec-ttl">全部花費</div>
     <div class="sec-act" onclick="go('expense')">＋ 新增</div>
   </div>
   <div class="exp-list" id="recent-list">
@@ -960,27 +960,45 @@ const ITINERARY = [
     cityValue:'溫哥華|加拿大|CAD'
   },
   {
-    flag:'🇨🇱', city:'巴塔哥尼亞 & 智利', country:'Chile',
-    start: new Date(2026,4,5), end: new Date(2026,4,15),
-    dates:'May 5–15', nights:10, currency:'CLP',
+    flag:'🇨🇱', city:'巴塔哥尼亞', country:'Chile',
+    start: new Date(2026,4,5), end: new Date(2026,4,17),
+    dates:'May 5–17', nights:12, currency:'CLP',
     color:'#FFB3C6', tabColor:'var(--pink)',
-    highlights:['Torres del Paine 國家公園','冰川健行','Punta Arenas','聖地牙哥'],
+    highlights:['Torres del Paine 國家公園','Base Torres 健行 36,589步','冰川健行','Puerto Natales'],
     mapQuery:'Patagonia, Chile',
     cityValue:'巴塔哥尼亞|智利|CLP'
   },
   {
+    flag:'🇨🇱', city:'Punta Arenas', country:'Chile',
+    start: new Date(2026,4,17), end: new Date(2026,4,18),
+    dates:'May 17–18', nights:1, currency:'CLP',
+    color:'#e6b8a2', tabColor:'var(--coral)',
+    highlights:['LA268 PNT→PUQ 15:18','LA266 PUQ→SCL 15:06','轉機過境'],
+    mapQuery:'Punta Arenas, Chile',
+    cityValue:'Punta Arenas|智利|CLP'
+  },
+  {
+    flag:'🇨🇱', city:'聖地牙哥', country:'Chile',
+    start: new Date(2026,4,18), end: new Date(2026,4,21),
+    dates:'May 18–21', nights:3, currency:'CLP',
+    color:'#c8e6c9', tabColor:'var(--teal)',
+    highlights:['LA266 抵達 16:49','市區探索','TK216 SCL→GRU 5/21 10:15'],
+    mapQuery:'Santiago, Chile',
+    cityValue:'聖地牙哥|智利|CLP'
+  },
+  {
     flag:'🇧🇷', city:'巴西', country:'Brazil',
-    start: new Date(2026,4,15), end: new Date(2026,4,30),
-    dates:'May 15–30', nights:15, currency:'BRL',
-    color:'#FFD166', tabColor:'var(--yellow)',
-    highlights:['里約熱內盧 & 耶穌像','Lençóis Maranhenses 白沙漠','海灘','森巴文化'],
+    start: new Date(2026,4,21), end: new Date(2026,5,5),
+    dates:'May 21–Jun 5', nights:15, currency:'BRL',
+    color:'#FFD166', tabColor:'var(--mustard)',
+    highlights:['TK216 抵達聖保羅','里約熱內盧 & 耶穌像','Lençóis Maranhenses 白沙漠','海灘','森巴文化'],
     mapQuery:'Rio de Janeiro, Brazil',
     cityValue:'里約|巴西|BRL'
   },
   {
     flag:'🇵🇪', city:'秘魯', country:'Peru',
-    start: new Date(2026,4,30), end: new Date(2026,5,6),
-    dates:'May 30–Jun 6', nights:7, currency:'PEN',
+    start: new Date(2026,5,5), end: new Date(2026,5,12),
+    dates:'Jun 5–12', nights:7, currency:'PEN',
     color:'#FFB3C6', tabColor:'var(--pink)',
     highlights:['利馬美食巡禮','庫斯科古城','馬丘比丘','印加古道'],
     mapQuery:'Lima, Peru',
@@ -988,18 +1006,18 @@ const ITINERARY = [
   },
   {
     flag:'🇬🇹', city:'瓜地馬拉', country:'Guatemala',
-    start: new Date(2026,5,6), end: new Date(2026,5,11),
-    dates:'Jun 6–11', nights:5, currency:'GTQ',
-    color:'#B5EAD7', tabColor:'var(--green)',
+    start: new Date(2026,5,12), end: new Date(2026,5,17),
+    dates:'Jun 12–17', nights:5, currency:'GTQ',
+    color:'#B5EAD7', tabColor:'var(--teal)',
     highlights:['安地瓜老城','帕卡亞火山健行','阿蒂特蘭湖','咖啡莊園'],
     mapQuery:'Antigua Guatemala',
     cityValue:'安地瓜|瓜地馬拉|GTQ'
   },
   {
     flag:'🇨🇦', city:'多倫多', country:'Canada',
-    start: new Date(2026,5,11), end: new Date(2026,5,14),
-    dates:'Jun 11–14', nights:3, currency:'CAD',
-    color:'#A8D8EA', tabColor:'var(--blue)',
+    start: new Date(2026,5,17), end: new Date(2026,5,20),
+    dates:'Jun 17–20', nights:3, currency:'CAD',
+    color:'#A8D8EA', tabColor:'var(--sky)',
     highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
     mapQuery:'Toronto, Ontario, Canada',
     cityValue:'多倫多|加拿大|CAD'
@@ -1255,8 +1273,8 @@ async function loadHome() {
 
   const start = new Date(2026,3,22), now = new Date();
   const day = Math.max(1, Math.ceil((now - start) / 86400000));
-  const pct = Math.min(100, day / 53 * 100).toFixed(1);
-  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 53 天`;
+  const pct = Math.min(100, day / 59 * 100).toFixed(1);
+  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 59 天`;
   document.getElementById('prog-fill').style.width = pct + '%';
 
   // Next stop — based on JOURNEY order, not itinerary segment
@@ -1280,7 +1298,9 @@ async function loadHome() {
     document.getElementById('c-daily').textContent = Math.round(daily).toLocaleString();
     document.getElementById('c-total').textContent = Math.round(total).toLocaleString();
     document.getElementById('c-left').textContent  = Math.round(BUDGET - total).toLocaleString();
-    renderRecent(exps.slice(-15).reverse());
+    const allExp = exps.slice().reverse();
+    document.querySelector('#s-home .sec-ttl').textContent = `全部花費（共 ${allExp.length} 筆）`;
+    renderRecent(allExp);
   } catch(e) {
     document.getElementById('c-week').textContent = '—';
   }

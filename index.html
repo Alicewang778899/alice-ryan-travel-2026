@@ -227,10 +227,6 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
   color:var(--ink);
 }
 .exp-item:active { transform:scale(0.985); }
-.exp-item:nth-child(odd)  { background:var(--coral);   color:var(--cream); }
-.exp-item:nth-child(even) { background:var(--mustard);  color:var(--ink); }
-.exp-item:nth-child(3n)   { background:var(--lavender); color:var(--ink); }
-.exp-item:nth-child(4n)   { background:var(--paper); border:1.5px solid var(--rule); color:var(--ink); }
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(14px); }
   to   { opacity:1; transform:translateY(0); }
@@ -775,20 +771,42 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
         <label class="fl">城市</label>
         <div class="sw">
           <select class="fs" id="f-city">
-            <option value="西雅圖|美國|USD">西雅圖</option>
-            <option value="溫哥華|加拿大|CAD">溫哥華</option>
-            <option value="聖地牙哥|智利|CLP">聖地牙哥</option>
-            <option value="巴塔哥尼亞|智利|CLP">巴塔哥尼亞</option>
-            <option value="Punta Arenas|智利|CLP">Punta Arenas</option>
-            <option value="里約|巴西|BRL">里約</option>
-            <option value="聖保羅|巴西|BRL">聖保羅</option>
-            <option value="Lençóis|巴西|BRL">Lençóis</option>
-            <option value="利馬|秘魯|PEN">利馬</option>
-            <option value="庫斯科|秘魯|PEN">庫斯科</option>
-            <option value="馬丘比丘|秘魯|PEN">馬丘比丘</option>
-            <option value="安地瓜|瓜地馬拉|GTQ">安地瓜</option>
-            <option value="花都湖|瓜地馬拉|GTQ">花都湖</option>
-            <option value="多倫多|加拿大|CAD">多倫多</option>
+            <option value="西雅圖|美國🇺🇸|USD">西雅圖</option>
+            <option value="溫哥華|加拿大🇨🇦|CAD">溫哥華</option>
+            <option value="聖地牙哥|智利🇨🇱|CLP">聖地牙哥</option>
+            <option value="巴塔哥尼亞|智利🇨🇱|CLP">巴塔哥尼亞</option>
+            <option value="Punta Arenas|智利🇨🇱|CLP">Punta Arenas</option>
+            <option value="Puerto Montt|智利🇨🇱|CLP">Puerto Montt</option>
+            <option value="里約|巴西🇧🇷|BRL">里約</option>
+            <option value="聖保羅|巴西🇧🇷|BRL">聖保羅</option>
+            <option value="Lençóis|巴西🇧🇷|BRL">Lençóis</option>
+            <option value="利馬|秘魯🇵🇪|PEN">利馬</option>
+            <option value="庫斯科|秘魯🇵🇪|PEN">庫斯科</option>
+            <option value="馬丘比丘|秘魯🇵🇪|PEN">馬丘比丘</option>
+            <option value="安地瓜|瓜地馬拉🇬🇹|GTQ">安地瓜</option>
+            <option value="花都湖|瓜地馬拉🇬🇹|GTQ">花都湖</option>
+            <option value="多倫多|加拿大🇨🇦|CAD">多倫多</option>
+            <option value="__custom__">📝 自訂城市...</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- Custom city row — shown only when 自訂 is selected -->
+    <div id="custom-city-row" style="display:none;margin-top:-8px;margin-bottom:8px">
+      <div class="row2">
+        <div class="fg" style="margin-bottom:0">
+          <label class="fl">城市名稱</label>
+          <input type="text" class="fi" id="f-city-custom" placeholder="例：Puerto Montt">
+        </div>
+        <div class="fg sw" style="margin-bottom:0">
+          <label class="fl">國家</label>
+          <select class="fs" id="f-country-custom">
+            <option value="美國🇺🇸|USD">美國🇺🇸</option>
+            <option value="加拿大🇨🇦|CAD">加拿大🇨🇦</option>
+            <option value="智利🇨🇱|CLP" selected>智利🇨🇱</option>
+            <option value="巴西🇧🇷|BRL">巴西🇧🇷</option>
+            <option value="秘魯🇵🇪|PEN">秘魯🇵🇪</option>
+            <option value="瓜地馬拉🇬🇹|GTQ">瓜地馬拉🇬🇹</option>
           </select>
         </div>
       </div>
@@ -797,12 +815,14 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
       <label class="fl">類別</label>
       <div class="cat-chips">
         <div class="cc sel" data-cat="飲食">🍜 飲食</div>
-        <div class="cc" data-cat="住宿">🏨 住宿</div>
+        <div class="cc" data-cat="酒店">🏨 酒店</div>
         <div class="cc" data-cat="當地交通">🚌 交通</div>
-        <div class="cc" data-cat="景點活動">🎡 景點</div>
+        <div class="cc" data-cat="景點">🎡 景點</div>
         <div class="cc" data-cat="購物">🛍️ 購物</div>
         <div class="cc" data-cat="紀念品">🪆 紀念品</div>
         <div class="cc" data-cat="機票">✈️ 機票</div>
+        <div class="cc" data-cat="簽證">📋 簽證</div>
+        <div class="cc" data-cat="藥品">💊 藥品</div>
         <div class="cc" data-cat="雜費">📦 雜費</div>
       </div>
     </div>
@@ -936,8 +956,21 @@ body { font-family:'Inter',system-ui,sans-serif; background:var(--cream); color:
 const API = 'https://script.google.com/macros/s/AKfycbz1-2VtnN_hs8he8iKBeXh6cSo4YC3Ji8iaSmPukYz-3AUDqhdKdRxD65K_daAZiEhZ/exec';
 const BUDGET = 100000;
 const RATES  = { USD:7.25, CAD:5.30, CLP:0.0078, BRL:1.30, PEN:1.95, GTQ:0.93, RMB:1 };
-const CAT_ICO = { '飲食':'🍜','住宿':'🏨','當地交通':'🚌','景點活動':'🎡','購物':'🛍️','紀念品':'🪆','機票':'✈️','雜費':'📦' };
-const CAT_CLR = { '飲食':'#FFD166','住宿':'#A8D8EA','當地交通':'#B5EAD7','景點活動':'#FFB3C6','購物':'#d8b4fe','紀念品':'#f4c14a','機票':'#c7d2fe','雜費':'#e2e8f0' };
+const CAT_ICO = { '飲食':'🍜','酒店':'🏨','當地交通':'🚌','景點':'🎡','購物':'🛍️','紀念品':'🪆','機票':'✈️','簽證':'📋','藥品':'💊','雜費':'📦' };
+const CAT_CLR = { '飲食':'#FFD166','酒店':'#A8D8EA','當地交通':'#B5EAD7','景點':'#FFB3C6','購物':'#d8b4fe','紀念品':'#f4c14a','機票':'#c7d2fe','簽證':'#fde68a','藥品':'#bbf7d0','雜費':'#e2e8f0' };
+// Category-based item colors (bg + text)
+const CAT_STYLE = {
+  '飲食':     { bg:'#FFD166', text:'#1c2522' },
+  '酒店':     { bg:'#A8D8EA', text:'#1c2522' },
+  '當地交通': { bg:'#B5EAD7', text:'#1c2522' },
+  '景點':     { bg:'#FFB3C6', text:'#1c2522' },
+  '購物':     { bg:'#d8b4fe', text:'#1c2522' },
+  '紀念品':   { bg:'#f4c14a', text:'#1c2522' },
+  '機票':     { bg:'#c7d2fe', text:'#1c2522' },
+  '簽證':     { bg:'#fde68a', text:'#1c2522' },
+  '藥品':     { bg:'#bbf7d0', text:'#1c2522' },
+  '雜費':     { bg:'#e2e8f0', text:'#1c2522' },
+};
 
 // ── UPDATED ITINERARY (new route) ──
 const ITINERARY = [
@@ -948,7 +981,7 @@ const ITINERARY = [
     color:'#A8D8EA', tabColor:'var(--blue)',
     highlights:['探訪朋友 Janice & 貓咪 Coco','派克市場','雷尼爾山國家公園','海鮮大餐'],
     mapQuery:'Seattle, Washington, USA',
-    cityValue:'西雅圖|美國|USD'
+    cityValue:'西雅圖|美國🇺🇸|USD'
   },
   {
     flag:'🇨🇦', city:'溫哥華', country:'Canada',
@@ -957,7 +990,7 @@ const ITINERARY = [
     color:'#B5EAD7', tabColor:'var(--green)',
     highlights:['探望姑姑一家','史丹利公園','惠斯勒一日遊','Granville Island'],
     mapQuery:'Vancouver, British Columbia, Canada',
-    cityValue:'溫哥華|加拿大|CAD'
+    cityValue:'溫哥華|加拿大🇨🇦|CAD'
   },
   {
     flag:'🇨🇱', city:'巴塔哥尼亞', country:'Chile',
@@ -966,7 +999,7 @@ const ITINERARY = [
     color:'#FFB3C6', tabColor:'var(--pink)',
     highlights:['Torres del Paine 國家公園','Base Torres 健行 36,589步','冰川健行','Puerto Natales'],
     mapQuery:'Patagonia, Chile',
-    cityValue:'巴塔哥尼亞|智利|CLP'
+    cityValue:'巴塔哥尼亞|智利🇨🇱|CLP'
   },
   {
     flag:'🇨🇱', city:'Punta Arenas', country:'Chile',
@@ -975,7 +1008,7 @@ const ITINERARY = [
     color:'#e6b8a2', tabColor:'var(--coral)',
     highlights:['LA268 PNT→PUQ 15:18','LA266 PUQ→SCL 15:06','轉機過境'],
     mapQuery:'Punta Arenas, Chile',
-    cityValue:'Punta Arenas|智利|CLP'
+    cityValue:'Punta Arenas|智利🇨🇱|CLP'
   },
   {
     flag:'🇨🇱', city:'聖地牙哥', country:'Chile',
@@ -984,7 +1017,7 @@ const ITINERARY = [
     color:'#c8e6c9', tabColor:'var(--teal)',
     highlights:['LA266 抵達 16:49','市區探索','TK216 SCL→GRU 5/21 10:15'],
     mapQuery:'Santiago, Chile',
-    cityValue:'聖地牙哥|智利|CLP'
+    cityValue:'聖地牙哥|智利🇨🇱|CLP'
   },
   {
     flag:'🇧🇷', city:'巴西', country:'Brazil',
@@ -993,7 +1026,7 @@ const ITINERARY = [
     color:'#FFD166', tabColor:'var(--mustard)',
     highlights:['TK216 抵達聖保羅','里約熱內盧 & 耶穌像','Lençóis Maranhenses 白沙漠','海灘','森巴文化'],
     mapQuery:'Rio de Janeiro, Brazil',
-    cityValue:'里約|巴西|BRL'
+    cityValue:'里約|巴西🇧🇷|BRL'
   },
   {
     flag:'🇵🇪', city:'秘魯', country:'Peru',
@@ -1002,7 +1035,7 @@ const ITINERARY = [
     color:'#FFB3C6', tabColor:'var(--pink)',
     highlights:['利馬美食巡禮','庫斯科古城','馬丘比丘','印加古道'],
     mapQuery:'Lima, Peru',
-    cityValue:'利馬|秘魯|PEN'
+    cityValue:'利馬|秘魯🇵🇪|PEN'
   },
   {
     flag:'🇬🇹', city:'瓜地馬拉', country:'Guatemala',
@@ -1011,7 +1044,7 @@ const ITINERARY = [
     color:'#B5EAD7', tabColor:'var(--teal)',
     highlights:['安地瓜老城','帕卡亞火山健行','阿蒂特蘭湖','咖啡莊園'],
     mapQuery:'Antigua Guatemala',
-    cityValue:'安地瓜|瓜地馬拉|GTQ'
+    cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ'
   },
   {
     flag:'🇨🇦', city:'多倫多', country:'Canada',
@@ -1020,7 +1053,7 @@ const ITINERARY = [
     color:'#A8D8EA', tabColor:'var(--sky)',
     highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
     mapQuery:'Toronto, Ontario, Canada',
-    cityValue:'多倫多|加拿大|CAD'
+    cityValue:'多倫多|加拿大🇨🇦|CAD'
   }
 ];
 
@@ -1116,30 +1149,33 @@ const TRIP_PLANS = {
 
 // ── FLAT JOURNEY ORDER (all individual stops) ──
 const JOURNEY = [
-  { city:'西雅圖',       flag:'🇺🇸', country:'美國',    currency:'USD', cityValue:'西雅圖|美國|USD',       coords:[47.61,-122.33] },
-  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'溫哥華|加拿大|CAD',     coords:[49.28,-123.12] },
-  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'聖地牙哥|智利|CLP',     coords:[-33.46,-70.65] },
-  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'巴塔哥尼亞|智利|CLP',   coords:[-51.73,-72.52] },
-  { city:'Punta Arenas', flag:'🇨🇱', country:'智利',    currency:'CLP', cityValue:'Punta Arenas|智利|CLP', coords:[-53.16,-70.91] },
-  { city:'里約',         flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'里約|巴西|BRL',         coords:[-22.91,-43.17] },
-  { city:'Lençóis',      flag:'🇧🇷', country:'巴西',    currency:'BRL', cityValue:'Lençóis|巴西|BRL',      coords:[-12.56,-41.39] },
-  { city:'利馬',         flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'利馬|秘魯|PEN',         coords:[-12.05,-77.04] },
-  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'庫斯科|秘魯|PEN',       coords:[-13.53,-71.97] },
-  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯',    currency:'PEN', cityValue:'馬丘比丘|秘魯|PEN',     coords:[-13.16,-72.55] },
-  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'安地瓜|瓜地馬拉|GTQ', coords:[14.56,-90.73] },
-  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉', currency:'GTQ', cityValue:'花都湖|瓜地馬拉|GTQ', coords:[14.69,-91.19] },
-  { city:'多倫多',       flag:'🇨🇦', country:'加拿大',  currency:'CAD', cityValue:'多倫多|加拿大|CAD',     coords:[43.65,-79.38] },
+  { city:'西雅圖',       flag:'🇺🇸', country:'美國🇺🇸',      currency:'USD', cityValue:'西雅圖|美國🇺🇸|USD',         coords:[47.61,-122.33] },
+  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'溫哥華|加拿大🇨🇦|CAD',       coords:[49.28,-123.12] },
+  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'聖地牙哥|智利🇨🇱|CLP',       coords:[-33.46,-70.65] },
+  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'巴塔哥尼亞|智利🇨🇱|CLP',     coords:[-51.73,-72.52] },
+  { city:'Punta Arenas', flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Punta Arenas|智利🇨🇱|CLP',   coords:[-53.16,-70.91] },
+  { city:'Puerto Montt', flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Puerto Montt|智利🇨🇱|CLP',   coords:[-41.47,-72.94] },
+  { city:'里約',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'里約|巴西🇧🇷|BRL',           coords:[-22.91,-43.17] },
+  { city:'Lençóis',      flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Lençóis|巴西🇧🇷|BRL',        coords:[-12.56,-41.39] },
+  { city:'利馬',         flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'利馬|秘魯🇵🇪|PEN',           coords:[-12.05,-77.04] },
+  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'庫斯科|秘魯🇵🇪|PEN',         coords:[-13.53,-71.97] },
+  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'馬丘比丘|秘魯🇵🇪|PEN',       coords:[-13.16,-72.55] },
+  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ',    coords:[14.56,-90.73] },
+  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'花都湖|瓜地馬拉🇬🇹|GTQ',    coords:[14.69,-91.19] },
+  { city:'多倫多',       flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'多倫多|加拿大🇨🇦|CAD',       coords:[43.65,-79.38] },
 ];
 
 function defaultJourneyIdx() {
   const now = new Date();
-  if (now < new Date(2026,3,28)) return 0;
-  if (now < new Date(2026,4,5))  return 1;
-  if (now < new Date(2026,4,15)) return 2; // 聖地牙哥 first in Chile block
-  if (now < new Date(2026,4,30)) return 5;
-  if (now < new Date(2026,5,6))  return 7;
-  if (now < new Date(2026,5,11)) return 10;
-  return 12;
+  if (now < new Date(2026,3,28)) return 0;  // 西雅圖
+  if (now < new Date(2026,4,5))  return 1;  // 溫哥華
+  if (now < new Date(2026,4,17)) return 3;  // 巴塔哥尼亞
+  if (now < new Date(2026,4,18)) return 4;  // Punta Arenas
+  if (now < new Date(2026,4,21)) return 2;  // 聖地牙哥（回程）
+  if (now < new Date(2026,5,5))  return 6;  // 里約
+  if (now < new Date(2026,5,12)) return 8;  // 利馬
+  if (now < new Date(2026,5,17)) return 11; // 安地瓜
+  return 13; // 多倫多
 }
 function getCurCityIdx() {
   const s = localStorage.getItem('curCityIdx');
@@ -1313,12 +1349,12 @@ function renderRecent(exps) {
     return;
   }
   el.innerHTML = exps.map(e => {
-    const ico = CAT_ICO[e.category] || '💰';
-    const clr = CAT_CLR[e.category] || '#eee';
-    const pc  = e.payer === 'Alice' ? 'pa' : 'pr';
-    const dt  = e.date ? new Date(e.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}) : '';
-    return `<div class="exp-item">
-      <div class="exp-ico" style="background:${clr}">${ico}</div>
+    const ico   = CAT_ICO[e.category] || '💰';
+    const style = CAT_STYLE[e.category] || { bg:'#e2e8f0', text:'#1c2522' };
+    const pc    = e.payer === 'Alice' ? 'pa' : 'pr';
+    const dt    = e.date ? new Date(e.date).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}) : '';
+    return `<div class="exp-item" style="background:${style.bg};color:${style.text}">
+      <div class="exp-ico" style="background:rgba(255,255,255,0.35)">${ico}</div>
       <div class="exp-inf">
         <div class="exp-dsc">${e.description}</div>
         <div class="exp-met">${e.city} · ${dt}</div>
@@ -1398,11 +1434,27 @@ function initForm() {
   });
   document.getElementById('f-amount').addEventListener('input', updateRmb);
   document.getElementById('f-currency').addEventListener('change', updateRmb);
+  document.getElementById('f-country-custom').addEventListener('change', () => {
+    if (document.getElementById('f-city').value === '__custom__') {
+      const cp = document.getElementById('f-country-custom').value.split('|');
+      if (cp[1]) document.getElementById('f-currency').value = cp[1];
+      updateRmb();
+    }
+  });
 }
 
 function syncCurrencyFromCity() {
-  const parts = document.getElementById('f-city').value.split('|');
-  if (parts[2]) document.getElementById('f-currency').value = parts[2];
+  const val = document.getElementById('f-city').value;
+  const customRow = document.getElementById('custom-city-row');
+  if (val === '__custom__') {
+    if (customRow) customRow.style.display = 'block';
+    const cp = (document.getElementById('f-country-custom')?.value || '').split('|');
+    if (cp[1]) document.getElementById('f-currency').value = cp[1];
+  } else {
+    if (customRow) customRow.style.display = 'none';
+    const parts = val.split('|');
+    if (parts[2]) document.getElementById('f-currency').value = parts[2];
+  }
   updateRmb();
 }
 
@@ -1431,15 +1483,23 @@ async function submitExp() {
   const btn = document.getElementById('sub-btn');
   btn.disabled = true; btn.textContent = '送出中...';
 
-  const date  = document.getElementById('f-date').value;
-  const parts = document.getElementById('f-city').value.split('|');
+  const date     = document.getElementById('f-date').value;
+  const cityVal  = document.getElementById('f-city').value;
+  const parts    = cityVal.split('|');
+  const isCustom = parts[0] === '__custom__';
+  const cityName  = isCustom
+    ? (document.getElementById('f-city-custom').value.trim() || '自訂')
+    : parts[0];
+  const countryName = isCustom
+    ? (document.getElementById('f-country-custom').value.split('|')[0] || '')
+    : (parts[1] || '');
   const cur   = document.getElementById('f-currency').value;
   const rate  = RATES[cur]||1;
   const rmb   = parseFloat((amt * rate).toFixed(2));
   const note  = document.getElementById('f-note').value.trim();
 
   const p = new URLSearchParams({
-    action:'add', date, city:parts[0], country:parts[1]||'',
+    action:'add', date, city:cityName, country:countryName,
     category:selCat, description:desc, amount:amt,
     currency:cur, rate, rmb, payer:selPayer, note
   });

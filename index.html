@@ -333,61 +333,112 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .sub-btn:disabled { opacity:0.4; }
 
 /* ── ITINERARY ── */
+/* ── ITINERARY SUMMARY ── */
 .itin-summary {
-  background:var(--paper); border-bottom:1.5px solid var(--rule);
-  padding:12px 20px;
-  display:flex;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:0; padding:0 16px 16px;
 }
-.itin-s { text-align:center; flex:1; }
-.itin-s + .itin-s { border-left:1px solid var(--rule); }
-.itin-s .isn { font-family:"DM Serif Display","Noto Serif TC",serif; font-size:22px; font-weight:700; color:var(--coral); }
-.itin-s .isl { font-size:10px; color:var(--ink2); text-transform:uppercase; letter-spacing:0.08em; margin-top:1px; font-weight:600; }
+.itin-s {
+  text-align:center; padding:14px 6px;
+  border-radius:16px;
+}
+.itin-s .isn {
+  font-family:"DM Serif Display","Noto Serif TC",serif; font-style:italic;
+  font-size:26px; font-weight:400; line-height:1;
+}
+.itin-s .isl {
+  font-size:9px; color:var(--ink2); text-transform:uppercase;
+  letter-spacing:0.12em; margin-top:4px; font-weight:700;
+}
+/* 4-direction semantic colors for the 4 stats */
+.itin-s:nth-child(1) .isn { color:var(--coral); }
+.itin-s:nth-child(2) .isn { color:var(--mustard-dk); }
+.itin-s:nth-child(3) .isn { color:var(--teal); }
+.itin-s:nth-child(4) .isn { color:var(--lavender-dk); }
 
-.itin-list { padding:14px; display:flex; flex-direction:column; gap:12px; }
+/* ── DESTINATION CARDS ── */
+.itin-list { padding:0 14px 14px; display:flex; flex-direction:column; gap:10px; }
 .dest-card {
-  background:var(--paper); border-radius:24px;
-  border:1.5px solid var(--rule); overflow:hidden; position:relative;
+  background:var(--paper); border-radius:18px;
+  border:1.5px solid var(--rule); overflow:hidden;
+  display:flex; align-items:stretch;
   box-shadow:var(--s1);
-  animation:fadeUp 0.35s ease both;
+  animation:fadeUp 0.32s ease both;
+  transition:opacity 0.2s;
 }
-.dest-card:nth-child(1){animation-delay:.05s}
-.dest-card:nth-child(2){animation-delay:.10s}
-.dest-card:nth-child(3){animation-delay:.15s}
-.dest-card:nth-child(4){animation-delay:.20s}
-.dest-card:nth-child(5){animation-delay:.25s}
-.dest-card:nth-child(6){animation-delay:.30s}
-.dest-card:nth-child(7){animation-delay:.35s}
-.dest-card.current {
-  border-color:var(--teal);
-  box-shadow:0 0 0 2px rgba(43,106,91,0.15);
+.dest-card:nth-child(1){animation-delay:.04s}
+.dest-card:nth-child(2){animation-delay:.08s}
+.dest-card:nth-child(3){animation-delay:.12s}
+.dest-card:nth-child(4){animation-delay:.16s}
+.dest-card:nth-child(5){animation-delay:.20s}
+.dest-card:nth-child(6){animation-delay:.24s}
+.dest-card:nth-child(7){animation-delay:.28s}
+.dest-card:nth-child(8){animation-delay:.32s}
+.dest-card:nth-child(9){animation-delay:.36s}
+.dest-card.current { border-color:var(--coral); box-shadow:0 0 0 2px rgba(220,103,73,0.12),var(--s1); }
+.dest-card.past { opacity:0.72; }
+
+/* left accent bar */
+.dest-accent { width:4px; flex-shrink:0; align-self:stretch; }
+/* main content wrapper */
+.dest-body { flex:1; min-width:0; }
+
+.dest-main { padding:14px 14px 0; }
+.dest-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.dest-meta { flex:1; min-width:0; }
+/* kicker: flag + country */
+.dest-country {
+  font-size:9px; font-weight:700; text-transform:uppercase;
+  letter-spacing:0.14em; color:var(--ink2); margin-bottom:4px;
 }
-.dest-tab { height:5px; width:100%; }
-.dest-main { padding:16px 16px 0; }
-.dest-top { display:flex; align-items:flex-start; gap:12px; }
-.dest-flag { font-size:32px; flex-shrink:0; }
-.dest-info { flex:1; }
-.dest-country { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink2); }
-.dest-city { font-family:"DM Serif Display","Noto Serif TC",serif; font-size:20px; font-weight:700; color:var(--ink); line-height:1.1; letter-spacing:-0.01em; }
-.dest-dates { font-size:12px; color:var(--ink2); margin-top:3px; font-weight:500; }
-.dest-here { font-size:10px; font-weight:700; padding:3px 10px; border-radius:10px; background:rgba(43,106,91,0.1); color:var(--teal); border:1px solid rgba(43,106,91,0.2); }
+/* big italic city name — DM Serif Display */
+.dest-city {
+  font-family:"DM Serif Display","Noto Serif TC",serif;
+  font-style:italic; font-size:24px; font-weight:400;
+  color:var(--ink); line-height:1.1; letter-spacing:-0.01em;
+}
+.dest-dates { font-size:11px; color:var(--ink2); margin-top:4px; font-weight:500; }
+.dest-nights {
+  display:inline-block; font-size:10px; font-weight:700;
+  padding:2px 7px; border-radius:999px;
+  background:var(--cream); color:var(--ink2); border:1px solid var(--rule);
+}
+/* status badges */
+.dest-here {
+  flex-shrink:0; font-size:10px; font-weight:700;
+  padding:4px 11px; border-radius:999px;
+  background:var(--coral); color:var(--paper); border:none;
+  white-space:nowrap;
+}
+.dest-done {
+  flex-shrink:0; font-size:10px; font-weight:700;
+  padding:4px 10px; border-radius:999px;
+  background:rgba(43,74,61,0.1); color:var(--teal);
+  border:1px solid rgba(43,74,61,0.18); white-space:nowrap;
+}
 
-.dest-highlights { padding:10px 16px; display:flex; flex-wrap:wrap; gap:6px; }
-.hl-tag { font-size:11px; font-weight:600; padding:4px 11px; border-radius:999px; background:var(--cream); color:var(--ink2); border:1px solid var(--rule); }
+.dest-highlights { padding:10px 14px 0; display:flex; flex-wrap:wrap; gap:5px; }
+.hl-tag {
+  font-size:11px; font-weight:500; padding:3px 10px;
+  border-radius:999px; background:var(--cream); color:var(--ink2);
+  border:1px solid var(--rule);
+}
 
-.dest-actions { padding:12px 16px 16px; display:flex; gap:8px; }
+.dest-actions { padding:10px 14px 14px; display:flex; gap:7px; }
 .map-btn {
-  flex:1; padding:10px; border-radius:14px; border:1.5px solid var(--rule);
-  background:var(--cream); font-family:'Noto Sans TC',system-ui,sans-serif; font-size:13px; font-weight:700;
-  color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
-  text-decoration:none; transition:all 0.2s;
+  padding:8px 13px; border-radius:11px; border:1.5px solid var(--rule);
+  background:var(--cream); font-family:'Noto Sans TC',system-ui,sans-serif;
+  font-size:12px; font-weight:700; color:var(--ink);
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px;
+  text-decoration:none; transition:all 0.18s;
 }
-.map-btn:active { background:var(--dark); color:var(--cream); transform:scale(0.97); }
+.map-btn:active { background:var(--dark); color:var(--paper); transform:scale(0.97); }
 .plan-btn {
-  padding:10px 16px; border-radius:14px; border:none;
-  background:var(--dark);
-  color:var(--cream); font-family:'Noto Sans TC',system-ui,sans-serif; font-size:13px; font-weight:700;
+  padding:8px 14px; border-radius:11px; border:none;
+  background:var(--coral); color:var(--paper);
+  font-family:'Noto Sans TC',system-ui,sans-serif; font-size:12px; font-weight:700;
   cursor:pointer; white-space:nowrap;
-  box-shadow:0 4px 12px rgba(28,37,34,0.18);
+  box-shadow:0 3px 10px rgba(220,103,73,0.28);
   transition:transform 0.15s;
 }
 .plan-btn:active { transform:scale(0.96); }
@@ -874,9 +925,10 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 <!-- ── ITINERARY ── -->
 <div class="screen" id="s-itinerary">
   <div class="page-hdr">
-    <h1>行程總覽</h1>
-    <p>西雅圖 → 溫哥華 → 巴塔哥尼亞 → Punta Arenas → 聖地牙哥 → 巴西 → 秘魯 → 瓜地馬拉 → 多倫多</p>
+    <h1>行程</h1>
+    <p>找尋方向 · 一直在路上</p>
   </div>
+  <!-- 4-stat strip: N=天(coral) E=地點(mustard) S=國家(forest) W=預算(lilac) -->
   <div class="itin-summary">
     <div class="itin-s"><div class="isn">59</div><div class="isl">天</div></div>
     <div class="itin-s"><div class="isn">9</div><div class="isl">地點</div></div>
@@ -1018,7 +1070,7 @@ const ITINERARY = [
     flag:'🇺🇸🇨🇦', city:'西雅圖', country:'USA',
     start: new Date(2026,3,22), end: new Date(2026,3,28),
     dates:'Apr 22–28', nights:6, currency:'USD',
-    color:'#A8D8EA', tabColor:'var(--blue)',
+    color:'#A6C7D2', tabColor:'var(--sky)',
     highlights:['探訪朋友 Janice & 貓咪 Coco','派克市場','雷尼爾山國家公園','海鮮大餐'],
     mapQuery:'Seattle, Washington, USA',
     cityValue:'西雅圖|美國🇺🇸|USD'
@@ -1027,7 +1079,7 @@ const ITINERARY = [
     flag:'🇨🇦', city:'溫哥華', country:'Canada',
     start: new Date(2026,3,28), end: new Date(2026,4,5),
     dates:'Apr 28–May 5', nights:7, currency:'CAD',
-    color:'#B5EAD7', tabColor:'var(--green)',
+    color:'#A6C7D2', tabColor:'var(--sky)',
     highlights:['探望姑姑一家','史丹利公園','惠斯勒一日遊','Granville Island'],
     mapQuery:'Vancouver, British Columbia, Canada',
     cityValue:'溫哥華|加拿大🇨🇦|CAD'
@@ -1036,7 +1088,7 @@ const ITINERARY = [
     flag:'🇨🇱', city:'巴塔哥尼亞', country:'Chile',
     start: new Date(2026,4,5), end: new Date(2026,4,17),
     dates:'May 5–17', nights:12, currency:'CLP',
-    color:'#FFB3C6', tabColor:'var(--pink)',
+    color:'#DC6749', tabColor:'var(--coral)',
     highlights:['Torres del Paine 國家公園','Base Torres 健行 36,589步','冰川健行','Puerto Natales'],
     mapQuery:'Patagonia, Chile',
     cityValue:'巴塔哥尼亞|智利🇨🇱|CLP'
@@ -1045,7 +1097,7 @@ const ITINERARY = [
     flag:'🇨🇱', city:'Punta Arenas', country:'Chile',
     start: new Date(2026,4,17), end: new Date(2026,4,18),
     dates:'May 17–18', nights:1, currency:'CLP',
-    color:'#e6b8a2', tabColor:'var(--coral)',
+    color:'#DC6749', tabColor:'var(--coral)',
     highlights:['LA268 PNT→PUQ 15:18','LA266 PUQ→SCL 15:06','轉機過境'],
     mapQuery:'Punta Arenas, Chile',
     cityValue:'Punta Arenas|智利🇨🇱|CLP'
@@ -1054,7 +1106,7 @@ const ITINERARY = [
     flag:'🇨🇱', city:'聖地牙哥', country:'Chile',
     start: new Date(2026,4,18), end: new Date(2026,4,21),
     dates:'May 18–21', nights:3, currency:'CLP',
-    color:'#c8e6c9', tabColor:'var(--teal)',
+    color:'#DCAA40', tabColor:'var(--mustard)',
     highlights:['LA266 抵達 16:49','市區探索','TK216 SCL→GRU 5/21 10:15'],
     mapQuery:'Santiago, Chile',
     cityValue:'聖地牙哥|智利🇨🇱|CLP'
@@ -1063,7 +1115,7 @@ const ITINERARY = [
     flag:'🇧🇷', city:'巴西', country:'Brazil',
     start: new Date(2026,4,21), end: new Date(2026,5,5),
     dates:'May 21–Jun 5', nights:15, currency:'BRL',
-    color:'#FFD166', tabColor:'var(--mustard)',
+    color:'#DCAA40', tabColor:'var(--mustard)',
     highlights:['TK216 抵達聖保羅','里約熱內盧 & 耶穌像','Lençóis Maranhenses 白沙漠','海灘','森巴文化'],
     mapQuery:'Rio de Janeiro, Brazil',
     cityValue:'里約|巴西🇧🇷|BRL'
@@ -1072,7 +1124,7 @@ const ITINERARY = [
     flag:'🇵🇪', city:'秘魯', country:'Peru',
     start: new Date(2026,5,5), end: new Date(2026,5,12),
     dates:'Jun 5–12', nights:7, currency:'PEN',
-    color:'#FFB3C6', tabColor:'var(--pink)',
+    color:'#2B4A3D', tabColor:'var(--teal)',
     highlights:['利馬美食巡禮','庫斯科古城','馬丘比丘','印加古道'],
     mapQuery:'Lima, Peru',
     cityValue:'利馬|秘魯🇵🇪|PEN'
@@ -1081,7 +1133,7 @@ const ITINERARY = [
     flag:'🇬🇹', city:'瓜地馬拉', country:'Guatemala',
     start: new Date(2026,5,12), end: new Date(2026,5,17),
     dates:'Jun 12–17', nights:5, currency:'GTQ',
-    color:'#B5EAD7', tabColor:'var(--teal)',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
     highlights:['安地瓜老城','帕卡亞火山健行','阿蒂特蘭湖','咖啡莊園'],
     mapQuery:'Antigua Guatemala',
     cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ'
@@ -1090,7 +1142,7 @@ const ITINERARY = [
     flag:'🇨🇦', city:'多倫多', country:'Canada',
     start: new Date(2026,5,17), end: new Date(2026,5,20),
     dates:'Jun 17–20', nights:3, currency:'CAD',
-    color:'#A8D8EA', tabColor:'var(--sky)',
+    color:'#A6C7D2', tabColor:'var(--sky)',
     highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
     mapQuery:'Toronto, Ontario, Canada',
     cityValue:'多倫多|加拿大🇨🇦|CAD'
@@ -1418,25 +1470,31 @@ function renderItinerary() {
     const isPast    = now >= dest.end;
     const mapsUrl   = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.mapQuery)}`;
     const highlights = dest.highlights.map(h => `<span class="hl-tag">${h}</span>`).join('');
-    const badge = isCurrent ? '<span class="dest-here">📍 你在這裡</span>' : (isPast ? '<span style="font-size:11px;color:var(--muted);font-weight:700">✓ 已完成</span>' : '');
-    return `<div class="dest-card ${isCurrent ? 'current' : ''}">
-      <div class="dest-tab" style="background:${dest.tabColor}"></div>
-      <div class="dest-main">
-        <div class="dest-top">
-          <div class="dest-flag">${dest.flag}</div>
-          <div class="dest-info">
-            <div class="dest-country">${dest.country}</div>
-            <div class="dest-city">${dest.city}</div>
-            <div class="dest-dates">${dest.dates} · ${dest.nights} 晚</div>
+    // strip flag emojis from country string for display
+    const countryLabel = dest.country.replace(/[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/g, '').trim();
+    const badge = isCurrent
+      ? '<span class="dest-here">📍 你在這裡</span>'
+      : (isPast ? '<span class="dest-done">✓ 走過了</span>' : '');
+    const accentColor = isCurrent ? 'var(--coral)' : (isPast ? 'var(--teal)' : dest.color);
+    return `<div class="dest-card ${isCurrent ? 'current' : (isPast ? 'past' : '')}">
+      <div class="dest-accent" style="background:${accentColor}"></div>
+      <div class="dest-body">
+        <div class="dest-main">
+          <div class="dest-top">
+            <div class="dest-meta">
+              <div class="dest-country">${dest.flag} ${countryLabel}</div>
+              <div class="dest-city">${dest.city}</div>
+              <div class="dest-dates">${dest.dates} · <span class="dest-nights">${dest.nights} 晚</span></div>
+            </div>
+            ${badge}
           </div>
-          ${badge}
         </div>
-      </div>
-      <div class="dest-highlights">${highlights}</div>
-      <div class="dest-actions">
-        <a class="map-btn" href="${mapsUrl}" target="_blank">🗺️ Maps</a>
-        ${TRIP_PLANS[i] ? `<button class="map-btn" onclick="openTripDetail(${i})" style="background:rgba(27,42,74,0.06);border-color:var(--navy);color:var(--navy);">📋 行程詳情</button>` : ''}
-        <button class="plan-btn" onclick="setExpenseCity('${dest.cityValue}')">記帳 ›</button>
+        <div class="dest-highlights">${highlights}</div>
+        <div class="dest-actions">
+          <a class="map-btn" href="${mapsUrl}" target="_blank">🗺 Maps</a>
+          ${TRIP_PLANS[i] ? `<button class="map-btn" onclick="openTripDetail(${i})">📋 詳情</button>` : ''}
+          <button class="plan-btn" onclick="setExpenseCity('${dest.cityValue}')">記帳 ›</button>
+        </div>
       </div>
     </div>`;
   }).join('');

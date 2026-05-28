@@ -1392,16 +1392,18 @@ function deleteExpense(rowIdx, desc) {
   document.getElementById('del-modal-bg').classList.add('show');
   document.getElementById('del-modal-ok').onclick = async () => {
     closeDelModal();
-    showToast('刪除中...');
+    toast('刪除中...');
     const p = new URLSearchParams({ action:'delete', row: rowIdx, t: Date.now() });
-    await new Promise(resolve => {
-      const img = new Image();
-      const t = setTimeout(resolve, 8000);
-      img.onload = img.onerror = () => { clearTimeout(t); resolve(); };
-      img.src = API + '?' + p.toString();
-    });
-    showToast('已刪除 ✓');
-    setTimeout(() => { loadHome(); }, 1200);
+    try {
+      await Promise.race([
+        fetchJsonp(API + '?' + p.toString()),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000))
+      ]);
+      toast('已刪除 ✓');
+    } catch(e) {
+      toast('刪除失敗，請重試', true);
+    }
+    loadHome();
   };
 }
 
@@ -1544,6 +1546,7 @@ function setExpenseCity(val) {
 
 // ── EXPENSE FORM ──
 let selCat = '飲食', selPayer = 'Alice';
+let _submitting = false; // guard against double-tap
 
 function initForm() {
   const now = new Date();
@@ -1606,11 +1609,13 @@ function setPayer(p) {
 }
 
 async function submitExp() {
+  if (_submitting) return;
   const amt  = parseFloat(document.getElementById('f-amount').value);
   const desc = document.getElementById('f-desc').value.trim();
   if (!amt || amt <= 0) { toast('請輸入金額', true); return; }
   if (!desc)            { toast('請輸入描述', true); return; }
 
+  _submitting = true;
   const btn = document.getElementById('sub-btn');
   btn.disabled = true; btn.textContent = '送出中...';
 
@@ -1652,7 +1657,7 @@ async function submitExp() {
     const msg = e.message === 'timeout' ? '連線逾時，請重試' : '寫入失敗，請重試';
     toast(msg, true);
   }
-  finally { btn.disabled = false; btn.textContent = '記帳 ✓'; }
+  finally { btn.disabled = false; btn.textContent = '記帳 ✓'; _submitting = false; }
 }
 
 // ── REPORT ──
@@ -1893,6 +1898,13 @@ function initMap(){if(!mInited){mMakeStars();mBuild();mStep=mSegs.length;mInited
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
+  // 自動清除過期的城市 localStorage（日期往前走了就更新）
+  const dateIdx   = defaultJourneyIdx();
+  const cachedIdx = localStorage.getItem('curCityIdx');
+  if (cachedIdx === null || parseInt(cachedIdx) < dateIdx) {
+    localStorage.setItem('curCityIdx', dateIdx);
+  }
+
   initForm();
   autoDetectLocation(); // 自動定位，會在拿到位置後更新 loc-txt & 城市
   loadHome();

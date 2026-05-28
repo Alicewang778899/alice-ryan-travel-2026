@@ -847,21 +847,23 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
         <label class="fl">城市</label>
         <div class="sw">
           <select class="fs" id="f-city">
-            <option value="西雅圖|美國🇺🇸|USD">西雅圖</option>
-            <option value="溫哥華|加拿大🇨🇦|CAD">溫哥華</option>
-            <option value="聖地牙哥|智利🇨🇱|CLP">聖地牙哥</option>
-            <option value="巴塔哥尼亞|智利🇨🇱|CLP">巴塔哥尼亞</option>
-            <option value="Punta Arenas|智利🇨🇱|CLP">Punta Arenas</option>
-            <option value="Puerto Montt|智利🇨🇱|CLP">Puerto Montt</option>
-            <option value="里約|巴西🇧🇷|BRL">里約</option>
-            <option value="聖保羅|巴西🇧🇷|BRL">聖保羅</option>
-            <option value="Lençóis|巴西🇧🇷|BRL">Lençóis</option>
-            <option value="利馬|秘魯🇵🇪|PEN">利馬</option>
-            <option value="庫斯科|秘魯🇵🇪|PEN">庫斯科</option>
-            <option value="馬丘比丘|秘魯🇵🇪|PEN">馬丘比丘</option>
-            <option value="安地瓜|瓜地馬拉🇬🇹|GTQ">安地瓜</option>
-            <option value="花都湖|瓜地馬拉🇬🇹|GTQ">花都湖</option>
-            <option value="多倫多|加拿大🇨🇦|CAD">多倫多</option>
+            <option value="西雅圖|美國🇺🇸|USD">🇺🇸 西雅圖</option>
+            <option value="溫哥華|加拿大🇨🇦|CAD">🇨🇦 溫哥華</option>
+            <option value="聖地牙哥|智利🇨🇱|CLP">🇨🇱 聖地牙哥</option>
+            <option value="巴塔哥尼亞|智利🇨🇱|CLP">🇨🇱 巴塔哥尼亞</option>
+            <option value="Punta Arenas|智利🇨🇱|CLP">🇨🇱 Punta Arenas</option>
+            <option value="Puerto Montt|智利🇨🇱|CLP">🇨🇱 Puerto Montt</option>
+            <option value="聖保羅|巴西🇧🇷|BRL">🇧🇷 聖保羅</option>
+            <option value="里約|巴西🇧🇷|BRL">🇧🇷 里約</option>
+            <option value="Bonito|巴西🇧🇷|BRL">🇧🇷 Bonito</option>
+            <option value="伊瓜蘇|巴西🇧🇷|BRL">🇧🇷 伊瓜蘇瀑布</option>
+            <option value="Lençóis|巴西🇧🇷|BRL">🇧🇷 Lençóis</option>
+            <option value="利馬|秘魯🇵🇪|PEN">🇵🇪 利馬</option>
+            <option value="庫斯科|秘魯🇵🇪|PEN">🇵🇪 庫斯科</option>
+            <option value="馬丘比丘|秘魯🇵🇪|PEN">🇵🇪 馬丘比丘</option>
+            <option value="安地瓜|瓜地馬拉🇬🇹|GTQ">🇬🇹 安地瓜</option>
+            <option value="阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ">🇬🇹 阿蒂特蘭湖</option>
+            <option value="多倫多|加拿大🇨🇦|CAD">🇨🇦 多倫多</option>
             <option value="__custom__">📝 自訂城市...</option>
           </select>
         </div>
@@ -942,8 +944,8 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
   </div>
   <!-- 4-stat strip: N=天(coral) E=地點(mustard) S=國家(forest) W=預算(lilac) -->
   <div class="itin-summary">
-    <div class="itin-s"><div class="isn">59</div><div class="isl">天</div></div>
-    <div class="itin-s"><div class="isn">9</div><div class="isl">地點</div></div>
+    <div class="itin-s"><div class="isn">80</div><div class="isl">天</div></div>
+    <div class="itin-s"><div class="isn">17</div><div class="isl">地點</div></div>
     <div class="itin-s"><div class="isn">6</div><div class="isl">國家</div></div>
     <div class="itin-s"><div class="isn">10萬</div><div class="isl">預算 RMB</div></div>
   </div>
@@ -1076,10 +1078,10 @@ const CAT_STYLE = {
   '雜費':     { bg:'#F8F1DD', text:'#1F1A14' },  // paper
 };
 
-// ── UPDATED ITINERARY (new route) ──
+// ── UPDATED ITINERARY (extended route, ~80 days) ──
 const ITINERARY = [
   {
-    flag:'🇺🇸🇨🇦', city:'西雅圖', country:'USA',
+    flag:'🇺🇸', city:'西雅圖', country:'USA',
     start: new Date(2026,3,22), end: new Date(2026,3,28),
     dates:'Apr 22–28', nights:6, currency:'USD',
     color:'#A6C7D2', tabColor:'var(--sky)',
@@ -1101,7 +1103,7 @@ const ITINERARY = [
     start: new Date(2026,4,5), end: new Date(2026,4,17),
     dates:'May 5–17', nights:12, currency:'CLP',
     color:'#DC6749', tabColor:'var(--coral)',
-    highlights:['Torres del Paine 國家公園','Base Torres 健行 36,589步','冰川健行','Puerto Natales'],
+    highlights:['Torres del Paine 國家公園','Base Torres 健行 36,589步','Grey 冰川','Puerto Natales'],
     mapQuery:'Patagonia, Chile',
     cityValue:'巴塔哥尼亞|智利🇨🇱|CLP'
   },
@@ -1124,36 +1126,108 @@ const ITINERARY = [
     cityValue:'聖地牙哥|智利🇨🇱|CLP'
   },
   {
-    flag:'🇧🇷', city:'里約 & Lençóis', country:'Brazil',
-    start: new Date(2026,4,21), end: new Date(2026,5,5),
-    dates:'May 21–Jun 5', nights:15, currency:'BRL',
+    flag:'🇧🇷', city:'聖保羅', country:'Brazil',
+    start: new Date(2026,4,21), end: new Date(2026,4,24),
+    dates:'May 21–24', nights:3, currency:'BRL',
     color:'#2B8A5F', tabColor:'var(--teal)',
-    highlights:['里約熱內盧・耶穌像','科帕卡巴納海灘','Lençóis Maranhenses 白沙漠','森巴文化 & 街頭藝術'],
+    highlights:['TK216 抵達聖保羅','市區過境探索','高級商場・Cristallo咖啡'],
+    mapQuery:'São Paulo, Brazil',
+    cityValue:'聖保羅|巴西🇧🇷|BRL'
+  },
+  {
+    flag:'🇧🇷', city:'里約', country:'Brazil',
+    start: new Date(2026,4,24), end: new Date(2026,4,29),
+    dates:'May 24–29', nights:5, currency:'BRL',
+    color:'#2B8A5F', tabColor:'var(--teal)',
+    highlights:['基督山・耶穌像','麵包山纜車','科帕卡巴納海灘','Farm Rio 購物'],
     mapQuery:'Rio de Janeiro, Brazil',
     cityValue:'里約|巴西🇧🇷|BRL'
   },
   {
-    flag:'🇵🇪', city:'秘魯', country:'Peru',
-    start: new Date(2026,5,5), end: new Date(2026,5,12),
-    dates:'Jun 5–12', nights:7, currency:'PEN',
-    color:'#2B4A3D', tabColor:'var(--teal)',
-    highlights:['利馬美食巡禮','庫斯科古城','馬丘比丘','印加古道'],
-    mapQuery:'Lima, Peru',
+    flag:'🇧🇷', city:'Bonito', country:'Brazil',
+    start: new Date(2026,4,29), end: new Date(2026,5,1),
+    dates:'May 29–Jun 1', nights:2, currency:'BRL',
+    color:'#2B8A5F', tabColor:'var(--teal)',
+    highlights:['Rio da Prata 透明河浮潛','Gruta do Lago Azul 藍色湖穴','Abismo Anhumas 水晶洞垂降'],
+    mapQuery:'Bonito, Mato Grosso do Sul, Brazil',
+    cityValue:'Bonito|巴西🇧🇷|BRL'
+  },
+  {
+    flag:'🇧🇷', city:'伊瓜蘇瀑布', country:'Brazil',
+    start: new Date(2026,5,1), end: new Date(2026,5,4),
+    dates:'Jun 1–4', nights:3, currency:'BRL',
+    color:'#2B8A5F', tabColor:'var(--teal)',
+    highlights:['巴西側全景步道','阿根廷側 Devil\'s Throat','跨越邊境（帶護照）','IGU→GRU→SLZ 夜班轉機'],
+    mapQuery:'Foz do Iguaçu, Paraná, Brazil',
+    cityValue:'伊瓜蘇|巴西🇧🇷|BRL'
+  },
+  {
+    flag:'🇧🇷', city:'Lençóis Maranhenses', country:'Brazil',
+    start: new Date(2026,5,4), end: new Date(2026,5,10),
+    dates:'Jun 4–10', nights:6, currency:'BRL',
+    color:'#2B8A5F', tabColor:'var(--teal)',
+    highlights:['白沙丘間藍綠色雨水湖','4WD Jeep 深入沙丘','日落在沙丘頂','獨木舟 Preguiças 河'],
+    mapQuery:'Lençóis Maranhenses National Park, Brazil',
+    cityValue:'Lençóis|巴西🇧🇷|BRL'
+  },
+  {
+    flag:'🇧🇷', city:'聖保羅（緩衝）', country:'Brazil',
+    start: new Date(2026,5,10), end: new Date(2026,5,15),
+    dates:'Jun 10–15', nights:5, currency:'BRL',
+    color:'#2B8A5F', tabColor:'var(--teal)',
+    highlights:['SLZ→GRU 返回','打包整理','準備飛秘魯','GRU→LIM 6/15'],
+    mapQuery:'São Paulo, Brazil',
+    cityValue:'聖保羅|巴西🇧🇷|BRL'
+  },
+  {
+    flag:'🇵🇪', city:'利馬', country:'Peru',
+    start: new Date(2026,5,15), end: new Date(2026,5,17),
+    dates:'Jun 15–17', nights:2, currency:'PEN',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
+    highlights:['Miraflores 海岸區','Barranco 藝術區','Central・Maido 世界級餐廳'],
+    mapQuery:'Lima, Miraflores, Peru',
     cityValue:'利馬|秘魯🇵🇪|PEN'
   },
   {
-    flag:'🇬🇹', city:'瓜地馬拉', country:'Guatemala',
-    start: new Date(2026,5,12), end: new Date(2026,5,17),
-    dates:'Jun 12–17', nights:5, currency:'GTQ',
+    flag:'🇵🇪', city:'馬丘比丘', country:'Peru',
+    start: new Date(2026,5,17), end: new Date(2026,5,19),
+    dates:'Jun 17–19', nights:2, currency:'PEN',
     color:'#C2B0D6', tabColor:'var(--lavender)',
-    highlights:['安地瓜老城','帕卡亞火山健行','阿蒂特蘭湖','咖啡莊園'],
+    highlights:['馬丘比丘遺址','聖谷 Sacred Valley','Ollantaytambo 印加要塞','Vistadome 觀景火車'],
+    mapQuery:'Machu Picchu, Cusco, Peru',
+    cityValue:'馬丘比丘|秘魯🇵🇪|PEN'
+  },
+  {
+    flag:'🇵🇪', city:'庫斯科', country:'Peru',
+    start: new Date(2026,5,19), end: new Date(2026,5,25),
+    dates:'Jun 19–25', nights:6, currency:'PEN',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
+    highlights:['3,400m 高海拔古城','⭐ Inti Raymi 太陽節 6/24','薩克塞瓦曼歷史重演','冬至慶典週 6/21'],
+    mapQuery:'Cusco, Peru',
+    cityValue:'庫斯科|秘魯🇵🇪|PEN'
+  },
+  {
+    flag:'🇬🇹', city:'安地瓜', country:'Guatemala',
+    start: new Date(2026,5,26), end: new Date(2026,5,28),
+    dates:'Jun 26–28', nights:2, currency:'GTQ',
+    color:'#DCAA40', tabColor:'var(--mustard)',
+    highlights:['殖民古城 UNESCO遺產','咖啡莊園','Acatenango 火山健行','彩色鵝卵石街道'],
     mapQuery:'Antigua Guatemala',
     cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ'
   },
   {
+    flag:'🇬🇹', city:'阿蒂特蘭湖', country:'Guatemala',
+    start: new Date(2026,5,28), end: new Date(2026,6,5),
+    dates:'Jun 28–Jul 5', nights:7, currency:'GTQ',
+    color:'#DCAA40', tabColor:'var(--mustard)',
+    highlights:['三火山環繞火山口湖','馬雅村落 Lancha 快艇','San Marcos 靈修・瑜伽','Santiago Atitlán 傳統文化'],
+    mapQuery:'Lake Atitlan, Guatemala',
+    cityValue:'阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ'
+  },
+  {
     flag:'🇨🇦', city:'多倫多', country:'Canada',
-    start: new Date(2026,5,17), end: new Date(2026,5,20),
-    dates:'Jun 17–20', nights:3, currency:'CAD',
+    start: new Date(2026,6,5), end: new Date(2026,6,10),
+    dates:'Jul 5–10', nights:5, currency:'CAD',
     color:'#A6C7D2', tabColor:'var(--sky)',
     highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
     mapQuery:'Toronto, Ontario, Canada',
@@ -1251,22 +1325,28 @@ const TRIP_PLANS = {
   }
 };
 
-// ── FLAT JOURNEY ORDER (all individual stops) ──
+// ── FLAT JOURNEY ORDER (all individual stops, chronological) ──
+// idx: 0=西雅圖 1=溫哥華 2=聖地牙哥 3=巴塔哥尼亞 4=PuntaArenas 5=PuertoMontt
+//      6=聖保羅 7=里約 8=Bonito 9=伊瓜蘇 10=Lençóis 11=利馬 12=庫斯科
+//      13=馬丘比丘 14=安地瓜 15=阿蒂特蘭湖 16=多倫多
 const JOURNEY = [
-  { city:'西雅圖',       flag:'🇺🇸', country:'美國🇺🇸',      currency:'USD', cityValue:'西雅圖|美國🇺🇸|USD',         coords:[47.61,-122.33] },
-  { city:'溫哥華',       flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'溫哥華|加拿大🇨🇦|CAD',       coords:[49.28,-123.12] },
-  { city:'聖地牙哥',     flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'聖地牙哥|智利🇨🇱|CLP',       coords:[-33.46,-70.65] },
-  { city:'巴塔哥尼亞',   flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'巴塔哥尼亞|智利🇨🇱|CLP',     coords:[-51.73,-72.52] },
-  { city:'Punta Arenas', flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Punta Arenas|智利🇨🇱|CLP',   coords:[-53.16,-70.91] },
-  { city:'Puerto Montt', flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Puerto Montt|智利🇨🇱|CLP',   coords:[-41.47,-72.94] },
-  { city:'里約',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'里約|巴西🇧🇷|BRL',           coords:[-22.91,-43.17] },
-  { city:'Lençóis',      flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Lençóis|巴西🇧🇷|BRL',        coords:[-12.56,-41.39] },
-  { city:'利馬',         flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'利馬|秘魯🇵🇪|PEN',           coords:[-12.05,-77.04] },
-  { city:'庫斯科',       flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'庫斯科|秘魯🇵🇪|PEN',         coords:[-13.53,-71.97] },
-  { city:'馬丘比丘',     flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'馬丘比丘|秘魯🇵🇪|PEN',       coords:[-13.16,-72.55] },
-  { city:'安地瓜',       flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ',    coords:[14.56,-90.73] },
-  { city:'花都湖',       flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'花都湖|瓜地馬拉🇬🇹|GTQ',    coords:[14.69,-91.19] },
-  { city:'多倫多',       flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'多倫多|加拿大🇨🇦|CAD',       coords:[43.65,-79.38] },
+  { city:'西雅圖',         flag:'🇺🇸', country:'美國🇺🇸',      currency:'USD', cityValue:'西雅圖|美國🇺🇸|USD',           coords:[47.61,-122.33] },
+  { city:'溫哥華',         flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'溫哥華|加拿大🇨🇦|CAD',         coords:[49.28,-123.12] },
+  { city:'聖地牙哥',       flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'聖地牙哥|智利🇨🇱|CLP',         coords:[-33.46,-70.65] },
+  { city:'巴塔哥尼亞',     flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'巴塔哥尼亞|智利🇨🇱|CLP',       coords:[-51.73,-72.52] },
+  { city:'Punta Arenas',   flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Punta Arenas|智利🇨🇱|CLP',     coords:[-53.16,-70.91] },
+  { city:'Puerto Montt',   flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Puerto Montt|智利🇨🇱|CLP',     coords:[-41.47,-72.94] },
+  { city:'聖保羅',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'聖保羅|巴西🇧🇷|BRL',           coords:[-23.55,-46.63] },
+  { city:'里約',           flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'里約|巴西🇧🇷|BRL',             coords:[-22.91,-43.17] },
+  { city:'Bonito',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Bonito|巴西🇧🇷|BRL',           coords:[-21.12,-56.48] },
+  { city:'伊瓜蘇',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'伊瓜蘇|巴西🇧🇷|BRL',           coords:[-25.69,-54.44] },
+  { city:'Lençóis',        flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Lençóis|巴西🇧🇷|BRL',          coords:[-2.49,-43.12]  },
+  { city:'利馬',           flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'利馬|秘魯🇵🇪|PEN',             coords:[-12.05,-77.04] },
+  { city:'庫斯科',         flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'庫斯科|秘魯🇵🇪|PEN',           coords:[-13.53,-71.97] },
+  { city:'馬丘比丘',       flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'馬丘比丘|秘魯🇵🇪|PEN',         coords:[-13.16,-72.55] },
+  { city:'安地瓜',         flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ',      coords:[14.56,-90.73]  },
+  { city:'阿蒂特蘭湖',     flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ',  coords:[14.69,-91.19]  },
+  { city:'多倫多',         flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'多倫多|加拿大🇨🇦|CAD',         coords:[43.65,-79.38]  },
 ];
 
 function defaultJourneyIdx() {
@@ -1276,10 +1356,18 @@ function defaultJourneyIdx() {
   if (now < new Date(2026,4,17)) return 3;  // 巴塔哥尼亞
   if (now < new Date(2026,4,18)) return 4;  // Punta Arenas
   if (now < new Date(2026,4,21)) return 2;  // 聖地牙哥（回程）
-  if (now < new Date(2026,5,5))  return 6;  // 里約
-  if (now < new Date(2026,5,12)) return 8;  // 利馬
-  if (now < new Date(2026,5,17)) return 11; // 安地瓜
-  return 13; // 多倫多
+  if (now < new Date(2026,4,24)) return 6;  // 聖保羅
+  if (now < new Date(2026,4,29)) return 7;  // 里約
+  if (now < new Date(2026,5,1))  return 8;  // Bonito
+  if (now < new Date(2026,5,4))  return 9;  // 伊瓜蘇
+  if (now < new Date(2026,5,10)) return 10; // Lençóis
+  if (now < new Date(2026,5,15)) return 6;  // 聖保羅（緩衝）
+  if (now < new Date(2026,5,17)) return 11; // 利馬
+  if (now < new Date(2026,5,19)) return 13; // 馬丘比丘
+  if (now < new Date(2026,5,25)) return 12; // 庫斯科
+  if (now < new Date(2026,5,28)) return 14; // 安地瓜
+  if (now < new Date(2026,6,5))  return 15; // 阿蒂特蘭湖
+  return 16; // 多倫多
 }
 function getCurCityIdx() {
   const s = localStorage.getItem('curCityIdx');
@@ -1415,8 +1503,8 @@ async function loadHome() {
 
   const start = new Date(2026,3,22), now = new Date();
   const day = Math.max(1, Math.ceil((now - start) / 86400000));
-  const pct = Math.min(100, day / 59 * 100).toFixed(1);
-  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 59 天`;
+  const pct = Math.min(100, day / 80 * 100).toFixed(1);
+  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 80 天`;
   document.getElementById('prog-fill').style.width = pct + '%';
 
   // Next stop — based on JOURNEY order, not itinerary segment

@@ -855,7 +855,6 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
             <option value="Puerto Montt|智利🇨🇱|CLP">🇨🇱 Puerto Montt</option>
             <option value="聖保羅|巴西🇧🇷|BRL">🇧🇷 聖保羅</option>
             <option value="里約|巴西🇧🇷|BRL">🇧🇷 里約</option>
-            <option value="Bonito|巴西🇧🇷|BRL">🇧🇷 Bonito</option>
             <option value="伊瓜蘇|巴西🇧🇷|BRL">🇧🇷 伊瓜蘇瀑布</option>
             <option value="Lençóis|巴西🇧🇷|BRL">🇧🇷 Lençóis</option>
             <option value="利馬|秘魯🇵🇪|PEN">🇵🇪 利馬</option>
@@ -1144,13 +1143,13 @@ const ITINERARY = [
     cityValue:'里約|巴西🇧🇷|BRL'
   },
   {
-    flag:'🇧🇷', city:'Bonito', country:'Brazil',
+    flag:'🇧🇷', city:'聖保羅', country:'Brazil',
     start: new Date(2026,4,29), end: new Date(2026,5,1),
     dates:'May 29–Jun 1', nights:2, currency:'BRL',
     color:'#2B8A5F', tabColor:'var(--teal)',
-    highlights:['Rio da Prata 透明河浮潛','Gruta do Lago Azul 藍色湖穴','Abismo Anhumas 水晶洞垂降'],
-    mapQuery:'Bonito, Mato Grosso do Sul, Brazil',
-    cityValue:'Bonito|巴西🇧🇷|BRL'
+    highlights:['里約返聖保羅','休息整頓','準備伊瓜蘇'],
+    mapQuery:'São Paulo, Brazil',
+    cityValue:'聖保羅|巴西🇧🇷|BRL'
   },
   {
     flag:'🇧🇷', city:'伊瓜蘇瀑布', country:'Brazil',
@@ -1338,7 +1337,6 @@ const JOURNEY = [
   { city:'Puerto Montt',   flag:'🇨🇱', country:'智利🇨🇱',      currency:'CLP', cityValue:'Puerto Montt|智利🇨🇱|CLP',     coords:[-41.47,-72.94] },
   { city:'聖保羅',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'聖保羅|巴西🇧🇷|BRL',           coords:[-23.55,-46.63] },
   { city:'里約',           flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'里約|巴西🇧🇷|BRL',             coords:[-22.91,-43.17] },
-  { city:'Bonito',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Bonito|巴西🇧🇷|BRL',           coords:[-21.12,-56.48] },
   { city:'伊瓜蘇',         flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'伊瓜蘇|巴西🇧🇷|BRL',           coords:[-25.69,-54.44] },
   { city:'Lençóis',        flag:'🇧🇷', country:'巴西🇧🇷',      currency:'BRL', cityValue:'Lençóis|巴西🇧🇷|BRL',          coords:[-2.49,-43.12]  },
   { city:'利馬',           flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'利馬|秘魯🇵🇪|PEN',             coords:[-12.05,-77.04] },
@@ -1358,16 +1356,16 @@ function defaultJourneyIdx() {
   if (now < new Date(2026,4,21)) return 2;  // 聖地牙哥（回程）
   if (now < new Date(2026,4,24)) return 6;  // 聖保羅
   if (now < new Date(2026,4,29)) return 7;  // 里約
-  if (now < new Date(2026,5,1))  return 8;  // Bonito
-  if (now < new Date(2026,5,4))  return 9;  // 伊瓜蘇
-  if (now < new Date(2026,5,10)) return 10; // Lençóis
+  if (now < new Date(2026,5,1))  return 6;  // 聖保羅（休息）
+  if (now < new Date(2026,5,4))  return 8;  // 伊瓜蘇
+  if (now < new Date(2026,5,10)) return 9;  // Lençóis
   if (now < new Date(2026,5,15)) return 6;  // 聖保羅（緩衝）
-  if (now < new Date(2026,5,17)) return 11; // 利馬
-  if (now < new Date(2026,5,19)) return 13; // 馬丘比丘
-  if (now < new Date(2026,5,25)) return 12; // 庫斯科
-  if (now < new Date(2026,5,28)) return 14; // 安地瓜
-  if (now < new Date(2026,6,5))  return 15; // 阿蒂特蘭湖
-  return 16; // 多倫多
+  if (now < new Date(2026,5,17)) return 10; // 利馬
+  if (now < new Date(2026,5,19)) return 12; // 馬丘比丘
+  if (now < new Date(2026,5,25)) return 11; // 庫斯科
+  if (now < new Date(2026,5,28)) return 13; // 安地瓜
+  if (now < new Date(2026,6,5))  return 14; // 阿蒂特蘭湖
+  return 15; // 多倫多
 }
 function getCurCityIdx() {
   const s = localStorage.getItem('curCityIdx');

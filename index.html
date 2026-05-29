@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 :root {
@@ -36,6 +36,7 @@
   --green:#2B4A3D; --green-l:rgba(43,74,61,0.14);
   --purple:#C2B0D6; --purple-l:rgba(194,176,214,0.18);
   --navy:#1F1A14; --navy2:#2e3c38;
+  --ink-soft:#5A5247;
   --bg:var(--cream); --card:var(--paper);
   --text:var(--ink); --muted:rgba(31,26,20,0.45);
   --border:var(--rule);
@@ -646,98 +647,66 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 .toast.err { background:var(--coral); box-shadow:0 8px 24px rgba(230,96,79,0.3); }
 
-/* ── MAP SCREEN ── */
-#s-map { overflow:hidden; background:#080C14; padding-bottom:0; }
-#s-map.active { display:flex; flex-direction:column; animation:none; }
-.map-stars { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
-.map-star { position:absolute; border-radius:50%; background:#fff; animation:msTwinkle var(--d,3s) ease-in-out infinite; }
-@keyframes msTwinkle { 0%,100%{opacity:var(--lo,.1)} 50%{opacity:var(--hi,.5)} }
-.mhd {
-  flex-shrink:0; padding:14px 20px 10px; position:relative; z-index:10;
-  background:linear-gradient(to bottom,rgba(8,12,20,0.98),rgba(8,12,20,0.7));
-  border-bottom:1px solid rgba(201,168,76,0.15);
-  display:flex; justify-content:space-between; align-items:center;
-}
-.mhd-title { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:18px; font-weight:700; color:#EAE6DC; }
-.mhd-title em { font-style:italic; color:#C9A84C; }
-.mhd-km { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:500; color:#C9A84C; text-shadow:0 0 28px rgba(201,168,76,0.4); line-height:1; text-align:right; }
-.mhd-sub { font-size:9px; color:#5C6478; font-family:'JetBrains Mono',monospace; margin-top:2px; text-align:right; }
-.mtabs { flex-shrink:0; display:flex; border-bottom:1px solid rgba(255,255,255,0.05); position:relative; z-index:10; background:rgba(8,12,20,0.9); }
-.mtab { flex:1; padding:9px; border:none; background:none; cursor:pointer; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#5C6478; border-bottom:2px solid transparent; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; }
-.mtab.active { color:#C9A84C; border-bottom-color:#C9A84C; }
-.map-vp { flex:1; position:relative; overflow:hidden; }
-.map-vp svg { width:100%; height:100%; display:block; }
-.map-vp::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(to bottom,rgba(8,12,20,0.5) 0%,transparent 15%,transparent 72%,rgba(8,12,20,0.88) 100%); z-index:2; }
-.map-ctrl { position:absolute; bottom:0; left:0; right:0; z-index:10; display:flex; align-items:center; gap:10px; padding:8px 14px 10px; background:linear-gradient(to top,rgba(8,12,20,0.95) 50%,transparent); }
-.mplay-btn { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.28); color:#C9A84C; border-radius:100px; padding:6px 14px; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; white-space:nowrap; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; }
-.mplay-btn:disabled { opacity:0.4; }
-.msdots { display:flex; gap:5px; flex-wrap:wrap; flex:1; justify-content:flex-end; }
-.msdot { width:8px; height:8px; border-radius:50%; cursor:pointer; border:1px solid rgba(255,255,255,0.15); transition:all 0.2s; }
-.msdot.on { border-color:transparent; transform:scale(1.3); }
-.mtip { position:absolute; z-index:20; pointer-events:none; background:rgba(13,20,32,0.97); border:1px solid rgba(201,168,76,0.2); border-radius:8px; padding:7px 12px; font-size:11px; white-space:nowrap; box-shadow:0 8px 24px rgba(0,0,0,0.4); opacity:0; transition:opacity 0.15s; font-family:'Nunito',sans-serif; color:#EAE6DC; }
-.mtip.show { opacity:1; }
-.mlist { flex:1; overflow-y:auto; padding:0 16px calc(66px + env(safe-area-inset-bottom,0px)); scrollbar-width:thin; scrollbar-color:#374054 transparent; background:#080C14; }
-.mlist::-webkit-scrollbar { width:3px; }
-.mlist::-webkit-scrollbar-thumb { background:#374054; }
-.mstat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; padding:12px 0 10px; }
-.msc { background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.12); border-radius:10px; padding:10px 6px 8px; text-align:center; position:relative; overflow:hidden; }
-.msc::before { content:''; position:absolute; top:0; left:15%; right:15%; height:1px; background:linear-gradient(to right,transparent,var(--mc,#C9A84C),transparent); }
-.msc-v { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; color:var(--mc,#C9A84C); }
-.msc-u { font-size:9px; color:#5C6478; margin-top:2px; }
-.msc-l { font-size:9px; color:#374054; margin-top:3px; }
-.mtype-row { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:10px; }
-.mtype-chip { display:flex; align-items:center; gap:5px; background:rgba(255,255,255,0.04); border:1px solid; border-radius:100px; padding:4px 10px; font-size:10px; }
-.mleg-card { display:flex; align-items:center; gap:9px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); border-left:2px solid; border-radius:10px; padding:10px 11px; margin-bottom:7px; transition:background 0.2s; }
-.mleg-card:hover { background:rgba(255,255,255,0.06); }
-.mleg-ico { font-size:17px; flex-shrink:0; width:26px; text-align:center; }
-.mleg-body { flex:1; min-width:0; }
-.mleg-cities { display:flex; align-items:center; gap:5px; }
-.mleg-from { font-weight:700; font-size:13px; color:#EAE6DC; }
-.mleg-arr { color:#374054; font-size:11px; }
-.mleg-to { font-weight:700; font-size:13px; }
-.mleg-chips { display:flex; gap:4px; margin-top:3px; flex-wrap:wrap; }
-.mlchip { font-size:9px; font-family:'JetBrains Mono',monospace; color:#5C6478; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); padding:2px 6px; border-radius:6px; }
-.mleg-dist { text-align:right; flex-shrink:0; }
-.mleg-dn { display:block; font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500; line-height:1; }
-.mleg-du { font-size:9px; color:#5C6478; }
-.mrm { background:none; border:none; color:#374054; font-size:17px; cursor:pointer; padding:2px 4px; transition:color 0.2s; }
-.mrm:hover { color:#E05A5A; }
-.mlist-head { display:flex; justify-content:space-between; align-items:center; padding:12px 0 8px; position:sticky; top:0; background:#080C14; z-index:5; }
-.mlist-lbl { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:#5C6478; font-family:'JetBrains Mono',monospace; }
-.madd-btn { background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.28); color:#C9A84C; border-radius:100px; padding:5px 12px; font-size:10px; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; transition:all 0.2s; }
-.madd-btn.cel { background:rgba(94,203,200,0.18); border-color:rgba(94,203,200,0.35); color:#5ECBC8; }
-.moverlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.8); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; }
-.mmodal { background:#121922; border:1px solid rgba(201,168,76,0.2); border-radius:16px; padding:24px 22px; width:100%; max-width:400px; box-shadow:0 24px 80px rgba(0,0,0,0.6); }
-.mmodal-title { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:19px; color:#EAE6DC; margin-bottom:16px; }
-.mflbl { display:block; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#5C6478; margin-bottom:5px; margin-top:13px; font-family:'JetBrains Mono',monospace; }
-.mfsel,.mfinp { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#EAE6DC; padding:9px 12px; font-size:13px; font-family:'Nunito',sans-serif; outline:none; }
-.mfsel option { background:#121922; }
-.mtpills { display:flex; gap:7px; }
-.mtpill { flex:1; border-radius:100px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04); color:#5C6478; padding:8px 4px; font-size:11px; cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; transition:all 0.2s; text-align:center; }
-.mtpill.af { background:rgba(201,168,76,0.15); border-color:rgba(201,168,76,0.4); color:#C9A84C; }
-.mtpill.ab { background:rgba(94,203,200,0.12); border-color:rgba(94,203,200,0.35); color:#5ECBC8; }
-.mtpill.at { background:rgba(167,139,250,0.12); border-color:rgba(167,139,250,0.35); color:#A78BFA; }
-.mmbtns { display:flex; gap:8px; margin-top:18px; justify-content:flex-end; }
-.mmbtn-c { background:none; border:1px solid rgba(255,255,255,0.1); color:#8a8070; border-radius:8px; padding:8px 14px; font-size:12px; cursor:pointer; font-family:'Nunito',sans-serif; }
-.mmbtn-ok { background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3); color:#C9A84C; border-radius:8px; padding:8px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; }
+/* ── COMPASS / 足跡 SCREEN ── */
+#s-map { overflow:hidden; background:var(--teal); padding-bottom:0; color:var(--paper); }
+#s-map.active { display:block; position:fixed; inset:0; animation:none; }
 
-/* ── MAP MOBILE ── */
-@media (max-width: 600px) {
-  #s-map { overflow-y: auto !important; }
-  .mhd { padding-top: max(env(safe-area-inset-top, 0px), 12px); }
-  .mhd-title { font-size: 15px; }
-  .mhd-km { font-size: 17px; }
-  .mhd-sub { font-size: 8px; }
-  .map-vp {
-    flex: none !important;
-    height: calc(100vw * 0.68);
-    min-height: 200px;
-    max-height: 56vw;
-  }
-  .mlist { flex: none; overflow-y: visible; padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
-  .mstat-grid { grid-template-columns: repeat(2, 1fr); }
-  .msc-v { font-size: 16px; }
-}
+.fp-vignette { position:absolute; top:-120px; right:-100px; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle,rgba(220,170,64,0.18),transparent 70%); pointer-events:none; z-index:0; }
+
+/* Header */
+.fp-hdr { padding:12px 22px 0; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.fp-hdr-left { display:flex; align-items:center; gap:8px; }
+.fp-hdr-title { font-family:"DM Serif Display","Songti TC",serif; font-style:italic; font-size:13px; color:rgba(247,225,180,0.78); letter-spacing:0.6px; }
+.fp-live { padding:4px 10px; border-radius:99px; border:1px solid rgba(247,225,180,0.28); font-size:11px; color:rgba(247,225,180,0.85); display:flex; align-items:center; gap:6px; letter-spacing:0.5px; }
+.fp-live-dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; }
+
+/* Stats */
+.fp-stats { padding:14px 22px 0; position:relative; z-index:2; }
+.fp-title { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:44px; font-weight:700; line-height:1; color:var(--paper); letter-spacing:1px; }
+.fp-nums { margin-top:12px; display:flex; align-items:flex-end; gap:22px; }
+.fp-km-n { font-family:"DM Serif Display","Songti TC",serif; font-size:42px; line-height:1; color:var(--mustard); letter-spacing:-0.5px; }
+.fp-km-l { font-size:10.5px; color:rgba(247,225,180,0.65); margin-top:4px; letter-spacing:1px; }
+.fp-smalls { display:flex; gap:18px; padding-bottom:4px; }
+.fp-sn { font-family:"DM Serif Display","Songti TC",serif; font-size:22px; color:var(--paper); line-height:1; }
+.fp-sn span { font-size:12px; color:rgba(247,225,180,0.55); }
+.fp-sl { font-size:9.5px; color:rgba(247,225,180,0.65); margin-top:3px; letter-spacing:0.8px; }
+
+/* Map */
+.fp-map-wrap { position:absolute; top:200px; left:0; right:0; bottom:0; z-index:1; overflow:hidden; }
+.fp-map-wrap svg { width:100%; height:100%; display:block; }
+
+/* Transport tally */
+.fp-tally { position:absolute; top:220px; left:22px; z-index:3; display:flex; flex-direction:column; gap:6px; background:rgba(31,42,36,0.6); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:8px 12px; border-radius:12px; border:1px solid rgba(247,225,180,0.12); }
+.fp-tally-row { display:flex; align-items:center; gap:6px; font-size:11px; }
+.fp-tally-n { font-family:"DM Serif Display","Songti TC",serif; font-size:14px; color:var(--paper); }
+
+/* Bottom sheet */
+.fp-sheet { position:absolute; left:12px; right:12px; bottom:92px; background:var(--paper); color:var(--ink); border-radius:22px; box-shadow:0 1px 4px rgba(0,0,0,0.12),0 20px 50px rgba(0,0,0,0.35); overflow:hidden; z-index:4; border:1px solid rgba(31,26,20,0.08); }
+.fp-pull { padding:8px 0 4px; display:flex; justify-content:center; }
+.fp-pull-bar { width:36px; height:4px; border-radius:2px; background:rgba(31,26,20,0.15); }
+.fp-now-row { padding:4px 18px 0; display:flex; align-items:center; justify-content:space-between; }
+.fp-now-lbl { display:flex; align-items:center; gap:6px; font-size:10px; color:var(--coral-dk); letter-spacing:1px; font-weight:700; }
+.fp-now-dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; }
+.fp-now-dates { font-size:11px; color:var(--ink-soft); letter-spacing:0.4px; }
+.fp-city-row { padding:6px 18px 0; display:flex; align-items:flex-end; gap:10px; }
+.fp-city-name { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:30px; font-weight:700; color:var(--ink); line-height:1; }
+.fp-city-flag { font-size:22px; line-height:1; padding-bottom:1px; }
+.fp-city-wx { margin-left:auto; text-align:right; }
+.fp-city-temp { font-family:"DM Serif Display","Songti TC",serif; font-size:14px; color:var(--ink); }
+.fp-city-sub { padding:2px 18px 12px; font-size:11.5px; color:var(--ink-soft); font-family:"DM Serif Display","Songti TC",serif; font-style:italic; }
+.fp-photos { padding:0 18px 14px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:6px; }
+.fp-photo { height:80px; border-radius:8px; }
+.fp-photo-more { display:flex; align-items:center; justify-content:center; font-family:"DM Serif Display","Songti TC",serif; font-size:16px; color:var(--paper); font-weight:700; }
+.fp-divider { margin:0 18px; border:none; border-top:1px dashed rgba(90,82,71,0.25); }
+.fp-next { padding:12px 18px 16px; display:flex; align-items:center; gap:12px; }
+.fp-next-thumb { width:42px; height:42px; border-radius:8px; position:relative; flex-shrink:0; }
+.fp-next-badge { position:absolute; top:-4px; right:-4px; width:18px; height:18px; border-radius:50%; background:var(--paper); display:flex; align-items:center; justify-content:center; font-size:11px; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
+.fp-next-info { flex:1; min-width:0; }
+.fp-next-lbl { font-size:10px; color:var(--ink-soft); letter-spacing:0.6px; font-weight:600; }
+.fp-next-city { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:17px; font-weight:700; color:var(--ink); margin-top:1px; }
+.fp-next-meta { font-size:10.5px; color:var(--ink-soft); margin-top:1px; }
+.fp-next-btn { width:32px; height:32px; border-radius:16px; background:var(--coral); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--paper); font-size:18px; font-weight:600; flex-shrink:0; transition:transform 0.15s; }
+.fp-next-btn:active { transform:scale(0.92); }
 </style>
 </head>
 <body>
@@ -976,34 +945,95 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 
 <!-- ── MAP ── -->
 <div class="screen" id="s-map">
-  <div class="map-stars" id="mstars"></div>
-  <div class="mhd">
-    <div class="mhd-title">我走了 <em>多遠</em></div>
-    <div>
-      <div class="mhd-km"><span id="mhd-km">0</span> <span style="font-size:10px;color:#5C6478;font-family:inherit">km</span></div>
-      <div class="mhd-sub" id="mhd-sub"></div>
+  <!-- Warm vignette -->
+  <div class="fp-vignette"></div>
+
+  <!-- Header -->
+  <div class="fp-hdr">
+    <div class="fp-hdr-left">
+      <!-- Compass mini -->
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9.5" stroke="var(--mustard)" stroke-width="1.2" opacity="0.55"/>
+        <line x1="11" y1="2.5" x2="11" y2="6" stroke="var(--mustard)" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="11" y1="16" x2="11" y2="19.5" stroke="var(--mustard)" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        <line x1="2.5" y1="11" x2="6" y2="11" stroke="var(--mustard)" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        <line x1="16" y1="11" x2="19.5" y2="11" stroke="var(--mustard)" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        <polygon points="11,3.5 12.4,8.5 11,7.5 9.6,8.5" fill="var(--mustard)"/>
+        <polygon points="11,18.5 12.4,13.5 11,14.5 9.6,13.5" fill="var(--mustard)" opacity="0.4"/>
+        <circle cx="11" cy="11" r="1.8" fill="var(--mustard)" opacity="0.7"/>
+      </svg>
+      <span class="fp-hdr-title">Footprints · 2026</span>
+    </div>
+    <div class="fp-live"><span class="fp-live-dot"></span>LIVE</div>
+  </div>
+
+  <!-- Hero stats -->
+  <div class="fp-stats">
+    <div class="fp-title">足跡</div>
+    <div class="fp-nums">
+      <div>
+        <div class="fp-km-n" id="fp-km">—</div>
+        <div class="fp-km-l">KM TRAVELLED</div>
+      </div>
+      <div class="fp-smalls">
+        <div>
+          <div class="fp-sn"><span id="fp-cities">—</span><span id="fp-cities-t"></span></div>
+          <div class="fp-sl">CITIES</div>
+        </div>
+        <div>
+          <div class="fp-sn"><span id="fp-cntry">—</span><span id="fp-cntry-t"></span></div>
+          <div class="fp-sl">COUNTRIES</div>
+        </div>
+        <div>
+          <div class="fp-sn"><span id="fp-days">—</span><span id="fp-days-t"></span></div>
+          <div class="fp-sl">DAYS</div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="mtabs">
-    <button class="mtab active" onclick="mSwitchTab('map',this)">🗺 地圖</button>
-    <button class="mtab" onclick="mSwitchTab('list',this)">📋 行程清單</button>
+
+  <!-- Americas SVG map -->
+  <div class="fp-map-wrap">
+    <svg id="fp-map-svg" viewBox="0 0 380 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
-  <div class="map-vp" id="mMapVp">
-    <svg id="mMapSvg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid meet"></svg>
-    <div class="map-ctrl">
-      <button class="mplay-btn" id="mPlayBtn" onclick="mPlayAnim()">▶ 播放路線</button>
-      <div class="msdots" id="mStepDots"></div>
-    </div>
-    <div class="mtip" id="mTip"></div>
+
+  <!-- Transport tally -->
+  <div class="fp-tally">
+    <div class="fp-tally-row">✈️ <b class="fp-tally-n" id="fp-flights">0</b></div>
+    <div class="fp-tally-row">🚌 <b class="fp-tally-n" id="fp-buses">0</b></div>
+    <div class="fp-tally-row">🚆 <b class="fp-tally-n" id="fp-trains">0</b></div>
   </div>
-  <div class="mlist" id="mListVp" style="display:none">
-    <div class="mlist-head">
-      <span class="mlist-lbl">行程紀錄</span>
-      <button class="madd-btn" id="mAddBtn" onclick="mOpenModal()">＋ 新增</button>
+
+  <!-- Bottom sheet -->
+  <div class="fp-sheet">
+    <div class="fp-pull"><div class="fp-pull-bar"></div></div>
+    <div class="fp-now-row">
+      <div class="fp-now-lbl"><span class="fp-now-dot"></span><span id="fp-stop-label">NOW · 第 — 站</span></div>
+      <div class="fp-now-dates" id="fp-stop-dates"></div>
     </div>
-    <div class="mstat-grid" id="mStatGrid"></div>
-    <div class="mtype-row" id="mTypeRow"></div>
-    <div id="mLegList"></div>
+    <div class="fp-city-row">
+      <div class="fp-city-name" id="fp-city-name">—</div>
+      <div class="fp-city-flag" id="fp-city-flag"></div>
+      <div class="fp-city-wx" id="fp-city-wx"></div>
+    </div>
+    <div class="fp-city-sub" id="fp-city-sub"></div>
+    <div class="fp-photos">
+      <div class="fp-photo" id="fp-photo-main"></div>
+      <div class="fp-photo" style="background:linear-gradient(135deg,var(--sky),#3d6478)"></div>
+      <div class="fp-photo fp-photo-more" style="background:linear-gradient(135deg,var(--mustard),#a67c20)"><span>+12</span></div>
+    </div>
+    <div class="fp-divider"></div>
+    <div class="fp-next" id="fp-next">
+      <div class="fp-next-thumb" id="fp-next-thumb">
+        <div class="fp-next-badge" id="fp-next-badge"></div>
+      </div>
+      <div class="fp-next-info">
+        <div class="fp-next-lbl">下一站 · NEXT</div>
+        <div class="fp-next-city" id="fp-next-city">—</div>
+        <div class="fp-next-meta" id="fp-next-meta"></div>
+      </div>
+      <button class="fp-next-btn">›</button>
+    </div>
   </div>
 </div>
 
@@ -1448,7 +1478,7 @@ function go(name) {
   if (name === 'home')      loadHome();
   if (name === 'report')    loadReport();
   if (name === 'itinerary') renderItinerary();
-  if (name === 'map')       initMap();
+  if (name === 'map')       initCompass();
 }
 
 // ── JSONP fetch ──
@@ -1985,8 +2015,170 @@ function mOpenModal(){document.getElementById('mOverlay').style.display='flex';[
 function mCloseModal(){document.getElementById('mOverlay').style.display='none';}
 function mSelType(k,btn){mFormType=k;document.querySelectorAll('.mtpill').forEach(b=>{b.className='mtpill';});btn.className='mtpill a'+k[0].toLowerCase();document.getElementById('mOkBtn').textContent=MTYPE[k].icon+' 加入';}
 function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;mTrip.push({id:Date.now(),type:mFormType,from,to,date,label});mTrip.sort((a,b)=>a.date.localeCompare(b.date));mBuild();mStep=mSegs.length;mCloseModal();mUpdateHdr();mRenderList();const ab=document.getElementById('mAddBtn');ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增';},1400);}
-function mMakeStars(){const c=document.getElementById('mstars');c.innerHTML='';for(let i=0;i<80;i++){const s=document.createElement('div');s.className='map-star';const sz=Math.random()*1.3+0.4;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--lo:${0.04+Math.random()*0.08};--hi:${0.2+Math.random()*0.4};animation-delay:${Math.random()*4}s`;c.appendChild(s);}}
-function initMap(){if(!mInited){mMakeStars();mBuild();mStep=mSegs.length;mInited=true;}else{mBuild();mStep=mSegs.length;}mUpdateHdr();mRenderMap();}
+// ── COMPASS / 足跡 ──
+const FP_W=380,FP_H=700,FP_NS='http://www.w3.org/2000/svg';
+const FP_PATH_NA=`M 28 26 Q 90 14, 156 18 L 232 22 Q 290 28, 322 50 L 318 92 Q 304 118, 296 152 L 302 196 Q 308 228, 290 244 L 264 244 Q 232 244, 210 256 L 202 282 Q 198 302, 188 312 L 168 318 Q 154 326, 152 340 L 158 346 Q 142 348, 130 338 L 130 318 Q 126 296, 132 280 L 116 268 Q 96 256, 78 246 L 58 234 Q 38 220, 28 192 L 22 152 Q 18 110, 22 78 Q 24 48, 28 26 Z`;
+const FP_PATH_CA=`M 132 340 Q 144 348, 154 352 L 168 358 Q 178 366, 184 376 L 192 384 Q 198 388, 204 384 L 204 376 Q 200 366, 188 358 L 174 350 Q 162 344, 148 340 Z`;
+const FP_PATH_SA=`M 218 376 Q 250 372, 282 374 L 318 380 Q 342 392, 348 416 L 350 446 Q 344 472, 332 494 L 318 524 Q 302 552, 286 574 L 272 600 Q 258 622, 244 640 L 226 666 Q 214 682, 206 686 Q 198 684, 198 668 L 200 642 Q 202 612, 200 588 L 196 558 Q 190 524, 184 492 L 178 456 Q 174 424, 178 400 Q 192 382, 218 376 Z`;
+const FP_BORDERS=['M 32 130 L 280 144','M 78 246 Q 130 252, 196 268','M 132 320 L 156 332','M 220 410 Q 260 416, 320 422','M 240 540 Q 270 550, 296 556'];
+
+function fpProj(lat,lon){return[((lon+130)/110)*FP_W,((75-lat)/140)*FP_H];}
+function fpEl(tag,a={}){const e=document.createElementNS(FP_NS||FP_NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
+function fpMel(tag,a={}){const e=document.createElementNS(FP_NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
+
+function fpGetStops(){
+  const now=new Date();
+  return JOURNEY.map(j=>{
+    const entries=ITINERARY.filter(it=>it.cityValue===j.cityValue);
+    if(!entries.length)return null;
+    const anyCurrent=entries.some(it=>now>=it.start&&now<it.end);
+    const anyFuture=entries.some(it=>now<it.start);
+    const anyPast=entries.some(it=>now>=it.end);
+    let status='upcoming';
+    if(anyCurrent)status='current';
+    else if(anyPast)status='past';
+    const activeEntry=entries.find(it=>now>=it.start&&now<it.end)||entries.find(it=>now<it.start)||entries[0];
+    return{city:j.city,flag:j.flag,country:j.country,cityValue:j.cityValue,coord:j.coords,status,dates:activeEntry.dates,nights:activeEntry.nights,color:activeEntry.color};
+  }).filter(Boolean);
+}
+
+function fpCalcStats(){
+  const now=new Date();
+  const tripStart=ITINERARY[0].start;
+  const tripEnd=ITINERARY[ITINERARY.length-1].end;
+  const dayTotal=Math.round((tripEnd-tripStart)/86400000);
+  const day=Math.max(1,Math.ceil((now-tripStart)/86400000));
+  const visitedCV=new Set(ITINERARY.filter(i=>now>=i.start).map(i=>i.cityValue));
+  const totalCV=new Set(ITINERARY.map(i=>i.cityValue));
+  const visitedC=new Set(JOURNEY.filter(j=>visitedCV.has(j.cityValue)).map(j=>j.country));
+  const totalC=new Set(JOURNEY.map(j=>j.country));
+  // KM from JOURNEY consecutive stops
+  let km=0;
+  for(let i=1;i<JOURNEY.length;i++)km+=mHav(JOURNEY[i-1].coords[0],JOURNEY[i-1].coords[1],JOURNEY[i].coords[0],JOURNEY[i].coords[1]);
+  return{km:Math.round(km),cities:visitedCV.size,citiesTotal:totalCV.size,countries:visitedC.size,countriesTotal:totalC.size,day,dayTotal,flights:mTrip.filter(l=>l.type==='FLY').length,buses:mTrip.filter(l=>l.type==='BUS').length,trains:mTrip.filter(l=>l.type==='TRAIN').length};
+}
+
+function fpBuildPath(pts){
+  if(pts.length<2)return'';
+  let d=`M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for(let i=1;i<pts.length;i++){
+    const[x1,y1]=pts[i-1],[x2,y2]=pts[i];
+    const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1;
+    const len=Math.hypot(dx,dy)||1,off=Math.min(len*0.15,28);
+    d+=` Q ${(mx+(-dy/len)*off).toFixed(1)} ${(my+(dx/len)*off).toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+  }
+  return d;
+}
+
+function fpRenderMap(stops){
+  const svg=document.getElementById('fp-map-svg');
+  svg.innerHTML='';
+  const curIdx=stops.findIndex(s=>s.status==='current');
+  const pts=stops.map(s=>fpProj(s.coord[0],s.coord[1]));
+
+  // Defs
+  const defs=fpMel('defs');
+  const grid=fpMel('pattern',{id:'fpg',x:0,y:0,width:40,height:40,patternUnits:'userSpaceOnUse'});
+  [fpMel('circle',{cx:0,cy:0,r:0.6,fill:'rgba(220,170,64,0.10)'}),fpMel('circle',{cx:20,cy:20,r:0.4,fill:'rgba(220,170,64,0.10)'})].forEach(c=>grid.appendChild(c));
+  const pulse=fpMel('radialGradient',{id:'fpp'});
+  [[0,'#DC6749',0.45],[100,'#DC6749',0]].forEach(([o,c,op])=>{const s=fpMel('stop');s.setAttribute('offset',o+'%');s.setAttribute('stop-color',c);s.setAttribute('stop-opacity',op);pulse.appendChild(s);});
+  const filt=fpMel('filter',{id:'fpls',x:'-20%',y:'-20%',width:'140%',height:'140%'});
+  const shd=fpMel('feDropShadow',{dx:0,dy:2,stdDeviation:3});shd.setAttribute('flood-color','#000');shd.setAttribute('flood-opacity','0.4');filt.appendChild(shd);
+  [grid,pulse,filt].forEach(e=>defs.appendChild(e));
+  svg.appendChild(defs);
+
+  // Background + grain
+  svg.appendChild(fpMel('rect',{width:FP_W,height:FP_H,fill:'transparent'}));
+  svg.appendChild(fpMel('rect',{width:FP_W,height:FP_H,fill:'url(#fpg)'}));
+
+  // Latitude lines
+  const latG=fpMel('g');latG.setAttribute('stroke','rgba(220,170,64,0.10)');latG.setAttribute('stroke-dasharray','2 6');latG.setAttribute('fill','none');
+  [23.5,0,-23.5].forEach(lat=>{const[,y]=fpProj(lat,0);const l=fpMel('line',{x1:0,y1:y.toFixed(1),x2:FP_W,y2:y.toFixed(1)});if(lat===0)l.setAttribute('stroke-width','0.8');latG.appendChild(l);});
+  const[,eqY]=fpProj(0,0);const eqTxt=document.createElementNS(FP_NS,'text');eqTxt.textContent='equator';Object.entries({x:FP_W-6,y:(eqY-4).toFixed(1),'text-anchor':'end','font-size':'9',fill:'rgba(247,225,180,0.45)','font-family':'"DM Serif Display",serif','font-style':'italic'}).forEach(([k,v])=>eqTxt.setAttribute(k,v));latG.appendChild(eqTxt);
+  svg.appendChild(latG);
+
+  // Landmasses
+  const lands=fpMel('g');Object.entries({'fill':'rgba(220,170,64,0.34)','stroke':'rgba(230,188,95,0.92)','stroke-width':'1.8','stroke-linejoin':'round','filter':'url(#fpls)'}).forEach(([k,v])=>lands.setAttribute(k,v));
+  [FP_PATH_NA,FP_PATH_CA,FP_PATH_SA].forEach(d=>lands.appendChild(fpMel('path',{d})));
+  svg.appendChild(lands);
+
+  // Borders
+  const bords=fpMel('g');Object.entries({'stroke':'rgba(220,170,64,0.30)','stroke-width':'0.8','stroke-dasharray':'1.5 3','fill':'none'}).forEach(([k,v])=>bords.setAttribute(k,v));
+  FP_BORDERS.forEach(d=>bords.appendChild(fpMel('path',{d})));
+  svg.appendChild(bords);
+
+  // Route
+  const rg=fpMel('g');rg.setAttribute('fill','none');rg.setAttribute('stroke-linecap','round');rg.setAttribute('stroke-linejoin','round');
+  const fullPath=fpBuildPath(pts);
+  const pastPath=curIdx>=0?fpBuildPath(pts.slice(0,curIdx+1)):'';
+  if(fullPath)rg.appendChild(fpMel('path',{d:fullPath,stroke:'rgba(247,225,180,0.45)','stroke-width':'2','stroke-dasharray':'2 5'}));
+  if(pastPath){rg.appendChild(fpMel('path',{d:pastPath,stroke:'rgba(247,225,180,0.28)','stroke-width':'7'}));rg.appendChild(fpMel('path',{d:pastPath,stroke:'rgba(247,225,180,0.96)','stroke-width':'2.8'}));}
+  svg.appendChild(rg);
+
+  // City dots + labels
+  const dg=fpMel('g');
+  stops.forEach((s,i)=>{
+    const[x,y]=pts[i];
+    const isCur=s.status==='current',isPast=s.status==='past';
+    const r=isCur?6:3.8;
+    const fill=isCur?'#DC6749':isPast?'#E6BC5F':'rgba(31,42,36,0.7)';
+    const stroke=isCur?'#DC6749':isPast?'#E6BC5F':'rgba(247,225,180,0.45)';
+    if(isCur){
+      const pc=fpMel('circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:18,fill:'url(#fpp)'});
+      const an=document.createElementNS(FP_NS,'animate');Object.entries({attributeName:'r',values:'14;22;14',dur:'2.4s',repeatCount:'indefinite'}).forEach(([k,v])=>an.setAttribute(k,v));pc.appendChild(an);dg.appendChild(pc);
+      dg.appendChild(fpMel('path',{d:`M ${x} ${(y-14).toFixed(1)} L ${(x-5).toFixed(1)} ${(y-22).toFixed(1)} L ${(x+5).toFixed(1)} ${(y-22).toFixed(1)} Z`,fill:'#DC6749'}));
+    }
+    dg.appendChild(fpMel('circle',{cx:x.toFixed(1),cy:y.toFixed(1),r,fill,stroke,'stroke-width':'1.6'}));
+    if(isCur)dg.appendChild(fpMel('circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:2,fill:'#1F1A14'}));
+    if(isPast||isCur){
+      const lbl=document.createElementNS(FP_NS,'text');
+      lbl.textContent=s.city;
+      Object.entries({x:(x+8).toFixed(1),y:(y+(isCur?-16:3)).toFixed(1),'font-size':isCur?'11':'8.5','font-weight':isCur?'700':'600',fill:'rgba(247,225,180,0.96)','font-family':'"Noto Sans TC",-apple-system,sans-serif','letter-spacing':'0.2'}).forEach(([k,v])=>lbl.setAttribute(k,v));
+      lbl.style.userSelect='none';dg.appendChild(lbl);
+    }
+  });
+  svg.appendChild(dg);
+}
+
+function fpRenderSheet(stops){
+  const now=new Date();
+  const cur=stops.find(s=>s.status==='current')||stops[Math.max(0,stops.findIndex(s=>s.status!=='past')-1)]||stops[stops.length-1];
+  const curIdx=stops.indexOf(cur);
+  const nxt=stops.slice(curIdx+1).find(s=>s.status==='upcoming')||stops[curIdx+1];
+  if(!cur)return;
+  document.getElementById('fp-stop-label').textContent=`NOW · 第 ${curIdx+1} 站`;
+  document.getElementById('fp-stop-dates').textContent=cur.dates;
+  document.getElementById('fp-city-name').textContent=cur.city;
+  document.getElementById('fp-city-flag').textContent=cur.flag;
+  document.getElementById('fp-city-wx').innerHTML=`<div style="font-size:22px">🌤</div><div class="fp-city-temp">—°</div>`;
+  document.getElementById('fp-city-sub').textContent=`${cur.city} · ${cur.country} · 第 ${cur.nights} 晚`;
+  document.getElementById('fp-photo-main').style.background=cur.color||'linear-gradient(135deg,#2B4A3D,#1f3b2e)';
+  const nextEl=document.getElementById('fp-next');
+  if(nxt){
+    document.getElementById('fp-next-thumb').style.background=nxt.color||'linear-gradient(135deg,#C2B0D6,#7a6896)';
+    document.getElementById('fp-next-badge').textContent=nxt.flag;
+    document.getElementById('fp-next-city').textContent=nxt.city;
+    document.getElementById('fp-next-meta').textContent=`${nxt.dates} · ${nxt.nights} 晚`;
+    nextEl.style.display='flex';
+  }else{nextEl.style.display='none';}
+}
+
+function initCompass(){
+  const stats=fpCalcStats();
+  const stops=fpGetStops();
+  document.getElementById('fp-km').textContent=stats.km.toLocaleString();
+  document.getElementById('fp-cities').textContent=stats.cities;
+  document.getElementById('fp-cities-t').textContent='/'+stats.citiesTotal;
+  document.getElementById('fp-cntry').textContent=stats.countries;
+  document.getElementById('fp-cntry-t').textContent='/'+stats.countriesTotal;
+  document.getElementById('fp-days').textContent=stats.day;
+  document.getElementById('fp-days-t').textContent='/'+stats.dayTotal;
+  document.getElementById('fp-flights').textContent=stats.flights;
+  document.getElementById('fp-buses').textContent=stats.buses;
+  document.getElementById('fp-trains').textContent=stats.trains;
+  fpRenderMap(stops);
+  fpRenderSheet(stops);
+}
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
@@ -2015,30 +2207,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="plan-body" id="plan-body"></div>
 </div>
 
-<!-- Map Add Modal -->
-<div class="moverlay" id="mOverlay" style="display:none" onclick="mCloseModal()">
-  <div class="mmodal" onclick="event.stopPropagation()">
-    <div class="mmodal-title">新增行程段</div>
-    <label class="mflbl">交通方式</label>
-    <div class="mtpills">
-      <button class="mtpill af" onclick="mSelType('FLY',this)">✈️ 飛機</button>
-      <button class="mtpill" onclick="mSelType('BUS',this)">🚌 巴士</button>
-      <button class="mtpill" onclick="mSelType('TRAIN',this)">🚆 火車</button>
-    </div>
-    <label class="mflbl">出發地</label>
-    <select class="mfsel" id="mFrom"></select>
-    <label class="mflbl">目的地</label>
-    <select class="mfsel" id="mTo"></select>
-    <label class="mflbl">日期</label>
-    <input type="date" class="mfinp" id="mDate">
-    <label class="mflbl">備註（選填）</label>
-    <input type="text" class="mfinp" id="mNote" placeholder="例：跑道壞掉">
-    <div class="mmbtns">
-      <button class="mmbtn-c" onclick="mCloseModal()">取消</button>
-      <button class="mmbtn-ok" id="mOkBtn" onclick="mAddLeg()">✈️ 加入</button>
-    </div>
-  </div>
-</div>
 
 <!-- City Picker Modal -->
 <div class="city-modal-bg" id="city-modal-bg" onclick="closeCityModal()">

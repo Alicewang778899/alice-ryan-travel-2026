@@ -3,8 +3,8 @@
   "short_name": "旅遊 2026",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F4F4F6",
-  "theme_color": "#1B2A4A",
+  "background_color": "#F8F1DD",
+  "theme_color": "#fbf4e4",
   "icons": [
     {
       "src": "icon.svg",

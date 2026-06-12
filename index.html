@@ -165,8 +165,11 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
   background:var(--mustard); pointer-events:none;
 }
 .h-hero-day { font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; opacity:0.9; position:relative; }
-.h-hero-title { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-style:italic; font-size:30px; font-weight:400; letter-spacing:-0.01em; margin-top:2px; position:relative; }
-.h-hero-next { font-size:12px; opacity:0.9; margin-top:4px; position:relative; }
+.h-hero-daynum { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-style:italic; position:relative; line-height:1; margin-top:4px; display:flex; align-items:baseline; gap:8px; }
+.h-hero-daynum .hd-pre { font-size:26px; opacity:0.85; }
+.h-hero-daynum .hd-n { font-size:64px; letter-spacing:-0.03em; }
+.h-hero-daynum .hd-total { font-size:18px; opacity:0.7; }
+.h-hero-next { font-size:12px; opacity:0.9; margin-top:6px; position:relative; }
 .h-hero-cta {
   margin-top:14px; position:relative;
   display:inline-block; padding:6px 14px;
@@ -647,6 +650,70 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 .toast.err { background:var(--coral); box-shadow:0 8px 24px rgba(230,96,79,0.3); }
 
+/* ── REPORT TABS ── */
+.r-tabs { display:flex; gap:6px; padding:0 14px 14px; }
+.rtab { flex:1; padding:10px 0; border-radius:14px; border:1.5px solid var(--rule); background:var(--paper); font-size:13px; font-weight:700; color:var(--ink2); cursor:pointer; text-align:center; font-family:'Noto Sans TC',system-ui,sans-serif; transition:all 0.18s; }
+.rtab.active { background:var(--dark); color:var(--cream); border-color:var(--dark); }
+
+/* ── CITY SPEND ── */
+.city-spend-wrap { padding:0 14px 14px; }
+.cs-country { background:var(--paper); border-radius:20px; margin-bottom:10px; border:1.5px solid var(--rule); overflow:hidden; }
+.cs-cntry-hdr { display:flex; align-items:center; gap:10px; padding:13px 16px 10px; border-bottom:1px solid var(--rule); }
+.cs-flag { font-size:20px; flex-shrink:0; }
+.cs-cntry-name { flex:1; font-weight:700; font-size:14px; }
+.cs-cntry-total { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:16px; font-weight:700; color:var(--coral); }
+.cs-city-row { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px dashed var(--rule); }
+.cs-city-row:last-child { border-bottom:none; }
+.cs-city-name { flex:1; font-size:13px; font-weight:600; }
+.cs-city-n { font-size:11px; color:var(--ink2); flex-shrink:0; }
+.cs-city-amt { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:14px; font-weight:700; min-width:70px; text-align:right; }
+.cs-grand { display:flex; align-items:baseline; justify-content:space-between; padding:0 14px 12px; }
+.cs-grand-lbl { font-size:11px; color:var(--ink2); font-weight:600; }
+.cs-grand-n { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:26px; font-weight:700; color:var(--coral); }
+.cs-refresh-btn { display:flex; align-items:center; justify-content:center; gap:6px; width:calc(100% - 28px); margin:0 14px 16px; padding:13px; border-radius:16px; border:1.5px solid var(--rule); background:var(--paper); font-size:14px; font-weight:700; color:var(--ink); cursor:pointer; font-family:'Noto Sans TC',system-ui,sans-serif; }
+
+/* ── TRANSPORT LEGS ── */
+.trip-wrap { padding:0 14px 14px; }
+.trip-hdr { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:14px; }
+.trip-km { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:32px; font-weight:700; letter-spacing:-0.02em; line-height:1; }
+.trip-sub { font-size:11px; color:var(--ink2); margin-top:3px; }
+.trip-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:12px; }
+.msc { background:var(--paper); border-radius:16px; padding:14px; border-top:3px solid var(--mc,var(--rule)); text-align:center; }
+.msc-v { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:22px; font-weight:700; color:var(--mc,var(--ink)); letter-spacing:-0.02em; }
+.msc-u { font-size:10px; color:var(--ink2); font-weight:600; }
+.msc-l { font-size:11px; color:var(--ink2); margin-top:2px; }
+.mtype-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.mtype-chip { padding:5px 12px; border-radius:10px; border:1.5px solid var(--rule); font-size:12px; font-weight:600; font-family:'Noto Sans TC',system-ui,sans-serif; }
+.mleg-card { display:flex; align-items:center; gap:10px; background:var(--paper); border-radius:16px; padding:12px 14px; margin-bottom:8px; border:1.5px solid var(--rule); border-left-width:3px; border-left-style:solid; }
+.mleg-ico { font-size:18px; flex-shrink:0; }
+.mleg-body { flex:1; min-width:0; }
+.mleg-cities { font-size:13px; font-weight:700; }
+.mleg-from { color:var(--ink); }
+.mleg-arr { color:var(--ink2); padding:0 4px; }
+.mleg-chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+.mlchip { font-size:10px; font-weight:600; padding:2px 8px; border-radius:8px; border:1px solid var(--rule); color:var(--ink2); }
+.mleg-dist { text-align:right; flex-shrink:0; }
+.mleg-dn { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:16px; font-weight:700; display:block; }
+.mleg-du { font-size:10px; color:var(--ink2); }
+.mrm { background:none; border:none; color:var(--ink2); font-size:20px; cursor:pointer; padding:4px 2px; flex-shrink:0; line-height:1; }
+.madd-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:15px; border-radius:18px; border:none; background:var(--teal); color:var(--cream); font-size:15px; font-weight:700; cursor:pointer; margin-top:4px; font-family:'Noto Sans TC',system-ui,sans-serif; }
+.madd-btn.cel { background:var(--mustard); color:var(--ink); }
+
+/* ── ADD LEG MODAL ── */
+.moverlay { display:none; position:fixed; inset:0; z-index:500; background:rgba(28,37,34,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
+.m-modal { background:var(--paper); border-radius:28px 28px 0 0; width:100%; max-width:480px; padding:24px 20px calc(28px + var(--sb)); max-height:90vh; overflow-y:auto; }
+.m-modal h3 { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:20px; margin-bottom:14px; letter-spacing:-0.01em; }
+.m-field { margin-bottom:12px; }
+.m-field label { font-size:11px; font-weight:700; color:var(--ink2); display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:0.06em; }
+.m-field select, .m-field input { width:100%; padding:11px 14px; border-radius:13px; border:1.5px solid var(--rule); background:var(--cream); font-family:'Noto Sans TC',system-ui,sans-serif; font-size:14px; font-weight:600; color:var(--ink); }
+.mtpills { display:flex; gap:6px; margin-bottom:14px; }
+.mtpill { flex:1; padding:10px 6px; border-radius:12px; border:1.5px solid var(--rule); background:var(--paper); font-size:13px; font-weight:700; cursor:pointer; text-align:center; color:var(--ink2); font-family:'Noto Sans TC',system-ui,sans-serif; }
+.mtpill.af { background:var(--mustard); color:var(--ink); border-color:var(--mustard); }
+.mtpill.ab { background:var(--teal); color:var(--cream); border-color:var(--teal); }
+.mtpill.at { background:var(--lavender); color:var(--ink); border-color:var(--lavender); }
+.mok-btn { width:100%; padding:16px; border-radius:18px; border:none; background:var(--coral); color:var(--cream); font-size:15px; font-weight:700; cursor:pointer; margin-top:8px; font-family:'Noto Sans TC',system-ui,sans-serif; }
+.mcancel { width:100%; padding:12px; border-radius:18px; border:1.5px solid var(--rule); background:none; color:var(--ink2); font-size:14px; font-weight:600; cursor:pointer; margin-top:6px; font-family:'Noto Sans TC',system-ui,sans-serif; }
+
 /* ── COMPASS / 足跡 SCREEN ── */
 #s-map { overflow:hidden; background:var(--teal); padding-bottom:0; color:var(--paper); }
 #s-map.active { display:block; position:fixed; inset:0; animation:none; }
@@ -661,7 +728,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .fp-live-dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; }
 
 /* Stats */
-.fp-stats { padding:14px 22px 0; position:relative; z-index:2; }
+.fp-stats { padding:10px 22px 0; position:relative; z-index:2; }
 .fp-title { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:44px; font-weight:700; line-height:1; color:var(--paper); letter-spacing:1px; }
 .fp-nums { margin-top:12px; display:flex; align-items:flex-end; gap:22px; }
 .fp-km-n { font-family:"DM Serif Display","Songti TC",serif; font-size:42px; line-height:1; color:var(--mustard); letter-spacing:-0.5px; }
@@ -671,41 +738,38 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .fp-sn span { font-size:12px; color:rgba(247,225,180,0.55); }
 .fp-sl { font-size:9.5px; color:rgba(247,225,180,0.65); margin-top:3px; letter-spacing:0.8px; }
 
+/* Transport tally — inline under stats */
+.fp-tally { display:flex; flex-direction:row; gap:14px; margin-top:10px; padding:0; }
+.fp-tally-row { display:flex; align-items:center; gap:4px; font-size:11px; color:rgba(247,225,180,0.6); }
+.fp-tally-n { font-family:"DM Serif Display","Songti TC",serif; font-size:15px; color:var(--mustard); margin-right:1px; }
+
 /* Map */
-.fp-map-wrap { position:absolute; top:200px; left:0; right:0; bottom:0; z-index:1; overflow:hidden; }
+.fp-map-wrap { position:absolute; top:170px; left:0; right:0; bottom:0; z-index:1; overflow:hidden; }
 .fp-map-wrap svg { width:100%; height:100%; display:block; }
 
-/* Transport tally */
-.fp-tally { position:absolute; top:220px; left:22px; z-index:3; display:flex; flex-direction:column; gap:6px; background:rgba(31,42,36,0.6); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:8px 12px; border-radius:12px; border:1px solid rgba(247,225,180,0.12); }
-.fp-tally-row { display:flex; align-items:center; gap:6px; font-size:11px; }
-.fp-tally-n { font-family:"DM Serif Display","Songti TC",serif; font-size:14px; color:var(--paper); }
-
-/* Bottom sheet */
+/* Bottom sheet — compact */
 .fp-sheet { position:absolute; left:12px; right:12px; bottom:92px; background:var(--paper); color:var(--ink); border-radius:22px; box-shadow:0 1px 4px rgba(0,0,0,0.12),0 20px 50px rgba(0,0,0,0.35); overflow:hidden; z-index:4; border:1px solid rgba(31,26,20,0.08); }
-.fp-pull { padding:8px 0 4px; display:flex; justify-content:center; }
+.fp-pull { padding:8px 0 2px; display:flex; justify-content:center; }
 .fp-pull-bar { width:36px; height:4px; border-radius:2px; background:rgba(31,26,20,0.15); }
 .fp-now-row { padding:4px 18px 0; display:flex; align-items:center; justify-content:space-between; }
 .fp-now-lbl { display:flex; align-items:center; gap:6px; font-size:10px; color:var(--coral-dk); letter-spacing:1px; font-weight:700; }
 .fp-now-dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; }
 .fp-now-dates { font-size:11px; color:var(--ink-soft); letter-spacing:0.4px; }
-.fp-city-row { padding:6px 18px 0; display:flex; align-items:flex-end; gap:10px; }
-.fp-city-name { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:30px; font-weight:700; color:var(--ink); line-height:1; }
-.fp-city-flag { font-size:22px; line-height:1; padding-bottom:1px; }
-.fp-city-wx { margin-left:auto; text-align:right; }
-.fp-city-temp { font-family:"DM Serif Display","Songti TC",serif; font-size:14px; color:var(--ink); }
-.fp-city-sub { padding:2px 18px 12px; font-size:11.5px; color:var(--ink-soft); font-family:"DM Serif Display","Songti TC",serif; font-style:italic; }
-.fp-photos { padding:0 18px 14px; display:grid; grid-template-columns:2fr 1fr 1fr; gap:6px; }
-.fp-photo { height:80px; border-radius:8px; }
-.fp-photo-more { display:flex; align-items:center; justify-content:center; font-family:"DM Serif Display","Songti TC",serif; font-size:16px; color:var(--paper); font-weight:700; }
-.fp-divider { margin:0 18px; border:none; border-top:1px dashed rgba(90,82,71,0.25); }
-.fp-next { padding:12px 18px 16px; display:flex; align-items:center; gap:12px; }
-.fp-next-thumb { width:42px; height:42px; border-radius:8px; position:relative; flex-shrink:0; }
-.fp-next-badge { position:absolute; top:-4px; right:-4px; width:18px; height:18px; border-radius:50%; background:var(--paper); display:flex; align-items:center; justify-content:center; font-size:11px; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
+.fp-city-row { padding:4px 18px 0; display:flex; align-items:center; gap:10px; }
+.fp-city-name { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:26px; font-weight:700; color:var(--ink); line-height:1; }
+.fp-city-flag { font-size:20px; line-height:1; }
+.fp-city-wx { margin-left:auto; display:flex; align-items:center; gap:6px; }
+.fp-city-temp { font-family:"DM Serif Display","Songti TC",serif; font-size:13px; color:var(--ink-soft); }
+.fp-city-sub { padding:2px 18px 0; font-size:11px; color:var(--ink-soft); font-style:italic; }
+.fp-divider { margin:10px 18px 0; border:none; border-top:1px dashed rgba(90,82,71,0.2); }
+.fp-next { padding:10px 18px 14px; display:flex; align-items:center; gap:12px; }
+.fp-next-thumb { width:38px; height:38px; border-radius:8px; position:relative; flex-shrink:0; }
+.fp-next-badge { position:absolute; top:-4px; right:-4px; width:16px; height:16px; border-radius:50%; background:var(--paper); display:flex; align-items:center; justify-content:center; font-size:10px; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
 .fp-next-info { flex:1; min-width:0; }
 .fp-next-lbl { font-size:10px; color:var(--ink-soft); letter-spacing:0.6px; font-weight:600; }
-.fp-next-city { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:17px; font-weight:700; color:var(--ink); margin-top:1px; }
-.fp-next-meta { font-size:10.5px; color:var(--ink-soft); margin-top:1px; }
-.fp-next-btn { width:32px; height:32px; border-radius:16px; background:var(--coral); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--paper); font-size:18px; font-weight:600; flex-shrink:0; transition:transform 0.15s; }
+.fp-next-city { font-family:"Noto Serif TC","Songti TC","Songti SC","STSong",serif; font-size:16px; font-weight:700; color:var(--ink); margin-top:1px; }
+.fp-next-meta { font-size:10px; color:var(--ink-soft); margin-top:1px; }
+.fp-next-btn { width:30px; height:30px; border-radius:15px; background:var(--coral); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--paper); font-size:16px; font-weight:600; flex-shrink:0; transition:transform 0.15s; }
 .fp-next-btn:active { transform:scale(0.92); }
 </style>
 </head>
@@ -743,9 +807,9 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
         <g transform="rotate(270 26 26)"><path d="M 26 26 C 29.72 22.26 32.76 14.56 26 5.2 C 19.24 14.56 22.28 22.26 26 26 Z" fill="#C2B0D6"/></g>
         <circle cx="26" cy="26" r="1.82" fill="#F8F1DD"/>
       </svg>
-      <div class="h-hero-day">美洲大旅行 · 2026</div>
+      <div class="h-hero-day">美洲大旅行 · SABBATICAL 2026</div>
     </div>
-    <div class="h-hero-title">Sabbatical</div>
+    <div class="h-hero-daynum"><span class="hd-pre">Day</span><span class="hd-n" id="hero-day-n">—</span><span class="hd-total">/ 80</span></div>
     <div class="h-hero-next" id="next-stop-inline">找尋方向 · 一直在路上</div>
     <div class="h-hero-cta" onclick="go('itinerary')">查看行程 →</div>
   </div>
@@ -755,7 +819,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
     <div class="h-card hl">
       <div class="cl">預算剩餘</div>
       <div class="cn" id="c-left">—</div>
-      <div class="cs">/ 100,000</div>
+      <div class="cs">/ 120,000</div>
     </div>
     <div class="h-card hm">
       <div class="cl">累計花費</div>
@@ -864,7 +928,6 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
         <div class="cc" data-cat="景點">🎡 景點</div>
         <div class="cc" data-cat="購物">🛍️ 購物</div>
         <div class="cc" data-cat="紀念品">🪆 紀念品</div>
-        <div class="cc" data-cat="機票">✈️ 機票</div>
         <div class="cc" data-cat="簽證">📋 簽證</div>
         <div class="cc" data-cat="藥品">💊 藥品</div>
         <div class="cc" data-cat="雜費">📦 雜費</div>
@@ -910,10 +973,10 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
   </div>
   <!-- 4-stat strip: N=天(coral) E=地點(mustard) S=國家(forest) W=預算(lilac) -->
   <div class="itin-summary">
-    <div class="itin-s"><div class="isn">83</div><div class="isl">天</div></div>
+    <div class="itin-s"><div class="isn">80</div><div class="isl">天</div></div>
     <div class="itin-s"><div class="isn">18</div><div class="isl">地點</div></div>
     <div class="itin-s"><div class="isn">6</div><div class="isl">國家</div></div>
-    <div class="itin-s"><div class="isn">10萬</div><div class="isl">預算 RMB</div></div>
+    <div class="itin-s"><div class="isn">12萬</div><div class="isl">預算 RMB</div></div>
   </div>
   <div class="itin-list" id="itin-list"><!-- JS renders --></div>
 </div>
@@ -921,24 +984,64 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 <!-- ── REPORT ── -->
 <div class="screen" id="s-report">
   <div class="page-hdr">
-    <h1>週報</h1>
-    <p>每週一早上 8 點自動發到你 Gmail</p>
+    <h1>報表</h1>
+    <p>即時從 Google Sheet 載入</p>
   </div>
-  <div class="r-body">
-    <div class="ldg" id="r-loading"><span class="sp">⟳</span><p>載入中...</p></div>
-    <div id="r-data" style="display:none">
-      <div class="r-total">
-        <div class="rtl">本週花費</div>
-        <div class="rtn" id="r-total-n">0</div>
-        <div class="rts" id="r-total-s">RMB · 共 0 筆</div>
+  <!-- Tab switcher -->
+  <div class="r-tabs">
+    <button class="rtab active" id="rtab-week" onclick="rTab('week')">週報</button>
+    <button class="rtab" id="rtab-city" onclick="rTab('city')">城市花費</button>
+    <button class="rtab" id="rtab-trip" onclick="rTab('trip')">旅程</button>
+  </div>
+
+  <!-- ── 週報 panel ── -->
+  <div id="r-panel-week">
+    <div class="r-body">
+      <div class="ldg" id="r-loading"><span class="sp">⟳</span><p>載入中...</p></div>
+      <div id="r-data" style="display:none">
+        <div class="r-total">
+          <div class="rtl">本週花費</div>
+          <div class="rtn" id="r-total-n">0</div>
+          <div class="rts" id="r-total-s">RMB · 共 0 筆</div>
+        </div>
+        <div class="r-grid">
+          <div class="r-stat"><div class="sn" id="r-daily">—</div><div class="sl">每日均消 RMB</div></div>
+          <div class="r-stat"><div class="sn" id="r-count">—</div><div class="sl">本週筆數</div></div>
+          <div class="r-stat"><div class="sn" id="r-alice">—</div><div class="sl">Alice 付 RMB</div></div>
+          <div class="r-stat"><div class="sn" id="r-ryan">—</div><div class="sl">Ryan 付 RMB</div></div>
+        </div>
+        <div class="r-cats"><div class="r-cats-ttl">分類明細</div><div id="r-cats-body"></div></div>
       </div>
-      <div class="r-grid">
-        <div class="r-stat"><div class="sn" id="r-daily">—</div><div class="sl">每日均消 RMB</div></div>
-        <div class="r-stat"><div class="sn" id="r-count">—</div><div class="sl">本週筆數</div></div>
-        <div class="r-stat"><div class="sn" id="r-alice">—</div><div class="sl">Alice 付 RMB</div></div>
-        <div class="r-stat"><div class="sn" id="r-ryan">—</div><div class="sl">Ryan 付 RMB</div></div>
+    </div>
+  </div>
+
+  <!-- ── 城市花費 panel ── -->
+  <div id="r-panel-city" style="display:none">
+    <div class="ldg" id="r-city-loading"><span class="sp">⟳</span><p>載入中...</p></div>
+    <div id="r-city-data" style="display:none">
+      <div class="cs-grand">
+        <span class="cs-grand-lbl" id="r-city-total-s">RMB · 共 0 筆</span>
+        <span class="cs-grand-n" id="r-city-grand">0</span>
       </div>
-      <div class="r-cats"><div class="r-cats-ttl">分類明細</div><div id="r-cats-body"></div></div>
+      <div class="city-spend-wrap" id="r-city-list"></div>
+    </div>
+    <button class="cs-refresh-btn" onclick="loadCitySpend(true)">⟳ 重新載入</button>
+  </div>
+
+  <!-- ── 旅程 panel ── -->
+  <div id="r-panel-trip" style="display:none">
+    <div class="trip-wrap">
+      <div class="trip-hdr">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink2);letter-spacing:0.05em;text-transform:uppercase;">總移動距離</div>
+          <div class="trip-km" id="mhd-km">—</div>
+          <div class="trip-sub" id="mhd-sub">—</div>
+        </div>
+      </div>
+      <div class="trip-stats" id="mStatGrid"></div>
+      <div class="mtype-row" id="mTypeRow"></div>
+      <div id="mLegList"></div>
+      <button class="madd-btn" id="mAddBtn" onclick="mOpenModal()">＋ 新增段落</button>
     </div>
   </div>
 </div>
@@ -967,7 +1070,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
     <div class="fp-live"><span class="fp-live-dot"></span>LIVE</div>
   </div>
 
-  <!-- Hero stats -->
+  <!-- Hero stats + tally -->
   <div class="fp-stats">
     <div class="fp-title">足跡</div>
     <div class="fp-nums">
@@ -990,6 +1093,11 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
         </div>
       </div>
     </div>
+    <div class="fp-tally">
+      <div class="fp-tally-row">✈️ <b class="fp-tally-n" id="fp-flights">0</b> flights</div>
+      <div class="fp-tally-row">🚌 <b class="fp-tally-n" id="fp-buses">0</b> buses</div>
+      <div class="fp-tally-row">🚆 <b class="fp-tally-n" id="fp-trains">0</b> trains</div>
+    </div>
   </div>
 
   <!-- Americas SVG map -->
@@ -997,14 +1105,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
     <svg id="fp-map-svg" viewBox="0 0 380 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
 
-  <!-- Transport tally -->
-  <div class="fp-tally">
-    <div class="fp-tally-row">✈️ <b class="fp-tally-n" id="fp-flights">0</b></div>
-    <div class="fp-tally-row">🚌 <b class="fp-tally-n" id="fp-buses">0</b></div>
-    <div class="fp-tally-row">🚆 <b class="fp-tally-n" id="fp-trains">0</b></div>
-  </div>
-
-  <!-- Bottom sheet -->
+  <!-- Bottom sheet (compact) -->
   <div class="fp-sheet">
     <div class="fp-pull"><div class="fp-pull-bar"></div></div>
     <div class="fp-now-row">
@@ -1017,11 +1118,6 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
       <div class="fp-city-wx" id="fp-city-wx"></div>
     </div>
     <div class="fp-city-sub" id="fp-city-sub"></div>
-    <div class="fp-photos">
-      <div class="fp-photo" id="fp-photo-main"></div>
-      <div class="fp-photo" style="background:linear-gradient(135deg,var(--sky),#3d6478)"></div>
-      <div class="fp-photo fp-photo-more" style="background:linear-gradient(135deg,var(--mustard),#a67c20)"><span>+12</span></div>
-    </div>
     <div class="fp-divider"></div>
     <div class="fp-next" id="fp-next">
       <div class="fp-next-thumb" id="fp-next-thumb">
@@ -1087,8 +1183,19 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbz1-2VtnN_hs8he8iKBeXh6cSo4YC3Ji8iaSmPukYz-3AUDqhdKdRxD65K_daAZiEhZ/exec';
-const BUDGET = 100000;
+const BUDGET = 120000;
+const TRIP_START = new Date(2026,3,22);
+const TRIP_DAYS  = 80;
+function tripDay() { return Math.max(1, Math.ceil((new Date() - TRIP_START) / 86400000)); }
 const RATES  = { USD:7.25, CAD:5.30, CLP:0.0078, BRL:1.30, PEN:1.95, GTQ:0.93, RMB:1 };
+// 開機時抓即時匯率，失敗就用上面的保底值
+(async () => {
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/CNY');
+    const d = await r.json();
+    if (d && d.rates) ['USD','CAD','CLP','BRL','PEN','GTQ'].forEach(c => { if (d.rates[c]) RATES[c] = 1 / d.rates[c]; });
+  } catch(e) {}
+})();
 const CAT_ICO = { '飲食':'🍜','酒店':'🏨','當地交通':'🚌','景點':'🎡','購物':'🛍️','紀念品':'🪆','機票':'✈️','簽證':'📋','藥品':'💊','雜費':'📦' };
 const CAT_CLR = { '飲食':'#DCAA40','酒店':'#A6C7D2','當地交通':'#C2B0D6','景點':'#E89B86','購物':'#C2B0D6','紀念品':'#E6BC5F','機票':'#A6C7D2','簽證':'#F1E8D2','藥品':'#c4dad6','雜費':'#F8F1DD' };
 // Category-based item colors (bg + text) — Sabbatical brand palette
@@ -1476,9 +1583,76 @@ function go(name) {
   document.getElementById('s-' + name).classList.add('active');
   document.getElementById('n-' + name).classList.add('active');
   if (name === 'home')      loadHome();
-  if (name === 'report')    loadReport();
+  if (name === 'report')    rTab(window._rTabActive || 'week');
   if (name === 'itinerary') renderItinerary();
   if (name === 'map')       initCompass();
+}
+
+// ── REPORT TABS ──
+function rTab(name) {
+  window._rTabActive = name;
+  ['week','city','trip'].forEach(t => {
+    document.getElementById('r-panel-' + t).style.display = t === name ? 'block' : 'none';
+    document.getElementById('rtab-' + t).classList.toggle('active', t === name);
+  });
+  if (name === 'week') loadReport();
+  if (name === 'city') loadCitySpend();
+  if (name === 'trip') loadTrip();
+}
+
+function _countryFlag(country) {
+  const m = country.match(/[\u{1F1E0}-\u{1F1FF}]{2}/u);
+  return m ? m[0] : '🌍';
+}
+
+async function loadCitySpend(force = false) {
+  document.getElementById('r-city-loading').style.display = 'block';
+  document.getElementById('r-city-data').style.display = 'none';
+  try {
+    const exps = await fetchExp(force);
+    const byCountry = {};
+    exps.forEach(e => {
+      const c = e.country || '未知';
+      const ci = e.city || '未知';
+      if (!byCountry[c]) byCountry[c] = { total:0, cities:{} };
+      byCountry[c].total += e.rmb;
+      if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0 };
+      byCountry[c].cities[ci].total += e.rmb;
+      byCountry[c].cities[ci].count++;
+    });
+    const grand = exps.reduce((s,e) => s + e.rmb, 0);
+    document.getElementById('r-city-grand').textContent = Math.round(grand).toLocaleString();
+    document.getElementById('r-city-total-s').textContent = `RMB · 共 ${exps.length} 筆`;
+    const sorted = Object.entries(byCountry).sort((a,b) => b[1].total - a[1].total);
+    document.getElementById('r-city-list').innerHTML = sorted.map(([country, data]) => {
+      const cities = Object.entries(data.cities).sort((a,b) => b[1].total - a[1].total);
+      return `<div class="cs-country">
+        <div class="cs-cntry-hdr">
+          <span class="cs-flag">${_countryFlag(country)}</span>
+          <span class="cs-cntry-name">${country}</span>
+          <span class="cs-cntry-total">${Math.round(data.total).toLocaleString()}</span>
+        </div>
+        ${cities.map(([city, cd]) => `
+          <div class="cs-city-row">
+            <span class="cs-city-name">${city}</span>
+            <span class="cs-city-n">${cd.count} 筆</span>
+            <span class="cs-city-amt">${Math.round(cd.total).toLocaleString()}</span>
+          </div>`).join('')}
+      </div>`;
+    }).join('');
+    document.getElementById('r-city-loading').style.display = 'none';
+    document.getElementById('r-city-data').style.display = 'block';
+  } catch(e) {
+    document.getElementById('r-city-loading').innerHTML = '<p style="color:var(--muted);padding:20px">載入失敗，請重試</p>';
+  }
+}
+
+function loadTrip() {
+  mBuild();
+  const fk = mFlyKm(), ak = mAllKm();
+  document.getElementById('mhd-km').textContent = ak.toLocaleString() + ' km';
+  document.getElementById('mhd-sub').textContent = `✈️ 飛行 ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;
+  mRenderList();
 }
 
 // ── JSONP fetch ──
@@ -1495,15 +1669,20 @@ function fetchJsonp(url) {
   });
 }
 
-async function fetchExp() {
+let _expCache = null, _expTime = 0;
+async function fetchExp(force = false) {
+  if (!force && _expCache && Date.now() - _expTime < 180000) return _expCache;
   const res = await fetchJsonp(API);
-  return (res.data || []).slice(1).map((r, i) => ({
+  _expCache = (res.data || []).slice(1).map((r, i) => ({
     rowIdx: i + 2,
     date:r[0], city:r[1], country:r[2], category:r[3],
     description:r[4], amount:+r[5]||0, currency:r[6],
     rate:+r[7]||1, rmb:+r[8]||0, payer:r[9], note:r[10]||''
   })).filter(r => r.description);
+  _expTime = Date.now();
+  return _expCache;
 }
+function invalidateExpCache() { _expCache = null; }
 
 function closeDelModal() {
   document.getElementById('del-modal-bg').classList.remove('show');
@@ -1525,6 +1704,7 @@ function deleteExpense(rowIdx, desc) {
     } catch(e) {
       toast('刪除失敗，請重試', true);
     }
+    invalidateExpCache();
     loadHome();
   };
 }
@@ -1535,11 +1715,14 @@ async function loadHome() {
   const curCity = JOURNEY[cityIdx];
   document.getElementById('loc-txt').textContent = geoLocName || (curCity.flag + ' ' + curCity.city);
 
-  const start = new Date(2026,3,22), now = new Date();
-  const day = Math.max(1, Math.ceil((now - start) / 86400000));
-  const pct = Math.min(100, day / 80 * 100).toFixed(1);
-  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / 80 天`;
+  const now = new Date();
+  const day = tripDay();
+  const pct = Math.min(100, day / TRIP_DAYS * 100).toFixed(1);
+  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / ${TRIP_DAYS} 天`;
   document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('hero-day-n').textContent = day;
+  document.getElementById('next-stop-inline').textContent =
+    now.toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'}) + ` · 還剩 ${Math.max(0, TRIP_DAYS - day)} 天`;
 
   // Next stop — based on JOURNEY order, not itinerary segment
   const nextCity = JOURNEY[cityIdx + 1];
@@ -1563,8 +1746,8 @@ async function loadHome() {
     document.getElementById('c-total').textContent = Math.round(total).toLocaleString();
     document.getElementById('c-left').textContent  = Math.round(BUDGET - total).toLocaleString();
     const allExp = exps.slice().reverse();
-    document.querySelector('#s-home .sec-ttl').textContent = `全部花費（共 ${allExp.length} 筆）`;
-    renderRecent(allExp);
+    document.querySelector('#s-home .sec-ttl').textContent = `最近花費（共 ${allExp.length} 筆，顯示前 30）`;
+    renderRecent(allExp.slice(0, 30));
   } catch(e) {
     document.getElementById('c-week').textContent = '—';
   }
@@ -1769,6 +1952,7 @@ async function submitExp() {
       new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 10000))
     ]);
     if (res && res.result === 'error') throw new Error(res.message || 'GAS error');
+    invalidateExpCache();
     toast('✓ 記帳成功！');
     document.getElementById('f-amount').value = '';
     document.getElementById('f-desc').value   = '';
@@ -1936,13 +2120,22 @@ const MPLACES = {
   SEA_STN:{city:"西雅圖(站)",lat:47.5990,lon:-122.3306}, YVR_STN:{city:"溫哥華(站)",lat:49.2749,lon:-123.0982},
   NRT:{city:"東京",lat:35.7653,lon:140.3857}, LIM:{city:"利馬",lat:-12.0219,lon:-77.1143},
   GRU:{city:"聖保羅",lat:-23.4356,lon:-46.4731}, YYZ:{city:"多倫多",lat:43.6777,lon:-79.6248},
+  GIG:{city:"里約熱內盧",lat:-22.8099,lon:-43.2506}, IGU:{city:"伊瓜蘇(巴西)",lat:-25.5962,lon:-54.4856},
+  CGB:{city:"庫亞巴(馬雷夏爾隆登)",lat:-15.6533,lon:-56.1160},
+  IGR:{city:"伊瓜蘇(阿根廷)",lat:-25.7376,lon:-54.4735}, SLZ:{city:"聖路易斯",lat:-2.5853,lon:-44.2341},
+  IMP:{city:"Imperatriz",lat:-5.5311,lon:-47.4597}, CUZ:{city:"庫斯科",lat:-13.5357,lon:-71.9389},
+  LIM_BUS:{city:"利馬(巴士站)",lat:-12.0619,lon:-77.1422}, MFM:{city:"馬丘比丘村",lat:-13.1567,lon:-72.5269},
+  GUA:{city:"瓜地馬拉城",lat:14.5833,lon:-90.5271}, ANU:{city:"安地瓜",lat:14.5586,lon:-90.7295},
+  PAN:{city:"阿蒂特蘭湖",lat:14.6892,lon:-91.1895}, OAX:{city:"瓦哈卡",lat:17.0732,lon:-96.7266},
+  BOG:{city:"波哥大",lat:4.7016,lon:-74.1469}, MDE:{city:"麥德林",lat:6.1675,lon:-75.4230},
+  CYH:{city:"科洛尼亞(智利)",lat:-45.5766,lon:-72.0682}, PMV:{city:"智利蒙特港(市區)",lat:-41.4693,lon:-72.9364},
 };
 const MTYPE = {
   FLY:{icon:"✈️",label:"飛機",color:"#C9A84C",dashed:false},
   BUS:{icon:"🚌",label:"巴士",color:"#5ECBC8",dashed:true},
   TRAIN:{icon:"🚆",label:"火車",color:"#A78BFA",dashed:true},
 };
-let mTrip = [
+const MTRIP_DEFAULT = [
   {id:1,type:"FLY",  from:"PVG",    to:"SEA",    date:"2026-04-22",label:"出發！上海→西雅圖"},
   {id:2,type:"TRAIN",from:"SEA_STN",to:"YVR_STN",date:"2026-04-25",label:"Amtrak Cascades"},
   {id:3,type:"FLY",  from:"YVR",    to:"SEA",    date:"2026-05-05",label:"溫哥華→西雅圖（轉機）"},
@@ -1950,71 +2143,46 @@ let mTrip = [
   {id:5,type:"FLY",  from:"ATL",    to:"SCL",    date:"2026-05-05",label:"亞特蘭大→聖地牙哥"},
   {id:6,type:"FLY",  from:"SCL",    to:"PMC",    date:"2026-05-08",label:"→蒙特港"},
   {id:7,type:"FLY",  from:"PMC",    to:"PUQ",    date:"2026-05-08",label:"跑道壞掉改降彭塔！"},
-  {id:8,type:"BUS",  from:"PUQ",    to:"PNT",    date:"2026-05-08",label:"→納塔萊斯港 3.5h 🚌"},
+  {id:8, type:"BUS", from:"PUQ",    to:"PNT",    date:"2026-05-08",label:"→納塔萊斯港 3.5h 🚌"},
+  {id:9, type:"FLY", from:"IGU",    to:"GRU",    date:"2026-06-04",label:"GOL G31181 伊瓜蘇→聖保羅"},
+  {id:10,type:"FLY", from:"GRU",    to:"CGB",    date:"2026-06-05",label:"GOL G31466 →庫亞巴"},
+  {id:11,type:"FLY", from:"CGB",    to:"GRU",    date:"2026-06-08",label:"Azul AD2774 →聖保羅"},
+  {id:12,type:"FLY", from:"GRU",    to:"SLZ",    date:"2026-06-09",label:"LATAM LA4742 →千湖沙漠入口"},
+  {id:13,type:"FLY", from:"SLZ",    to:"GRU",    date:"2026-06-15",label:"LATAM LA3213 →聖保羅"},
+  {id:14,type:"FLY", from:"GRU",    to:"LIM",    date:"2026-06-18",label:"LATAM LA2429 →利馬(秘魯)"},
 ];
-const MW=800,MH=420,MEARTH=40075;
-let mSegs=[],mStep=0,mPlaying=false,mTimer=null,mInited=false,mFormType='FLY';
+// localStorage 持久化：使用者新增/刪除的段落重開 app 不會消失
+let mTrip = (() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('mTrip2026') || 'null');
+    if (Array.isArray(saved) && saved.length) {
+      // 補上預設清單裡有、但存檔裡沒有的段落（例如 app 更新加了新航班）
+      // 使用者手動刪過的（tombstone）不要補回來
+      const ids = new Set(saved.map(l => l.id));
+      const del = new Set(JSON.parse(localStorage.getItem('mTripDel2026') || '[]'));
+      MTRIP_DEFAULT.forEach(l => { if (!ids.has(l.id) && !del.has(l.id)) saved.push(l); });
+      saved.sort((a,b) => (a.date||'').localeCompare(b.date||''));
+      return saved;
+    }
+  } catch(e) {}
+  return MTRIP_DEFAULT.slice();
+})();
+function mSave() { try { localStorage.setItem('mTrip2026', JSON.stringify(mTrip)); } catch(e) {} }
+const MEARTH=40075;
+let mSegs=[],mFormType='FLY';
 
 function mHav(la1,lo1,la2,lo2){const R=6371,dL=((la2-la1)*Math.PI)/180,dO=((lo2-lo1)*Math.PI)/180;const a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dO/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
-function mProj(lat,lon){return[((lon+180)/360)*MW,((90-lat)/180)*MH];}
-function mGC(la1,lo1,la2,lo2,n=80){const r=d=>d*Math.PI/180,deg=r=>r*180/Math.PI;const f1=r(la1),l1=r(lo1),f2=r(la2),l2=r(lo2);const d=Math.acos(Math.min(1,Math.sin(f1)*Math.sin(f2)+Math.cos(f1)*Math.cos(f2)*Math.cos(l2-l1)));if(d<0.0001)return[[la1,lo1],[la2,lo2]];const pts=[];for(let i=0;i<=n;i++){const t=i/n,A=Math.sin((1-t)*d)/Math.sin(d),B=Math.sin(t*d)/Math.sin(d);const x=A*Math.cos(f1)*Math.cos(l1)+B*Math.cos(f2)*Math.cos(l2);const y=A*Math.cos(f1)*Math.sin(l1)+B*Math.cos(f2)*Math.sin(l2);const z=A*Math.sin(f1)+B*Math.sin(f2);pts.push([deg(Math.atan2(z,Math.sqrt(x*x+y*y))),deg(Math.atan2(y,x))]);}return pts;}
-function mSplit(pts){const s=[];let c=[pts[0]];for(let i=1;i<pts.length;i++){if(Math.abs(pts[i][1]-pts[i-1][1])>180){s.push(c);c=[pts[i]];}else c.push(pts[i]);}s.push(c);return s;}
-function mPD(pts){return pts.map((p,i)=>{const[x,y]=mProj(p[0],p[1]);return`${i?'L':'M'}${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');}
-function mSD(la1,lo1,la2,lo2){const[x1,y1]=mProj(la1,lo1),[x2,y2]=mProj(la2,lo2);return`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`;}
 
-function mBuild(){mSegs=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to];if(!a||!b)return null;const dist=Math.round(mHav(a.lat,a.lon,b.lat,b.lon));const t=MTYPE[leg.type]||MTYPE.FLY;const paths=leg.type==='FLY'?mSplit(mGC(a.lat,a.lon,b.lat,b.lon,80)).map(s=>mPD(s)):[mSD(a.lat,a.lon,b.lat,b.lon)];return{...leg,a,b,dist,t,paths,toXY:mProj(b.lat,b.lon)};}).filter(Boolean);}
+function mBuild(){mSegs=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to];if(!a||!b)return null;const dist=Math.round(mHav(a.lat,a.lon,b.lat,b.lon));const t=MTYPE[leg.type]||MTYPE.FLY;return{...leg,a,b,dist,t};}).filter(Boolean);}
 function mFlyKm(){return mSegs.filter(s=>s.type==='FLY').reduce((s,x)=>s+x.dist,0);}
 function mAllKm(){return mSegs.reduce((s,x)=>s+x.dist,0);}
-function mUpdateHdr(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mhd-km').textContent=ak.toLocaleString();document.getElementById('mhd-sub').textContent=`✈️ ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;}
-
-const MNS='http://www.w3.org/2000/svg';
-function mel(tag,a={}){const e=document.createElementNS(MNS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
-function mtx(tag,t,a={}){const e=mel(tag,a);e.textContent=t;return e;}
-
-function mRenderMap(){
-  const svg=document.getElementById('mMapSvg');svg.innerHTML='';
-  const defs=mel('defs');const rg=mel('radialGradient',{id:'mog',cx:'50%',cy:'45%',r:'60%'});
-  [[0,'#0a1628'],[0.6,'#080f1e'],[1,'#060a14']].forEach(([o,c])=>{const s=mel('stop',{'offset':o,'stop-color':c});rg.appendChild(s);});
-  defs.appendChild(rg);svg.appendChild(defs);
-  svg.appendChild(mel('rect',{width:MW,height:MH,fill:'url(#mog)'}));
-  const gg=mel('g',{opacity:'0.05'});
-  [-60,-30,0,30,60].forEach(lat=>{const[,y]=mProj(lat,0);gg.appendChild(mel('line',{x1:0,y1:y,x2:MW,y2:y,stroke:'#7aa0c8','stroke-width':'0.5'}));});
-  [-120,-60,0,60,120].forEach(lon=>{const[x]=mProj(0,lon);gg.appendChild(mel('line',{x1:x,y1:0,x2:x,y2:MH,stroke:'#7aa0c8','stroke-width':'0.5'}));});
-  svg.appendChild(gg);
-  const lf='#131e2f',ls='rgba(120,160,210,0.1)';
-  ['110,35 155,30 175,55 180,90 160,105 145,130 130,155 105,155 90,130 95,80 100,55',
-   '130,155 155,155 165,175 170,210 160,250 140,270 120,265 110,240 108,200 115,175',
-   '225,40 265,35 275,50 270,70 255,75 240,70 225,65',
-   '240,75 275,70 290,90 295,130 285,175 265,195 245,190 230,165 225,130 228,95',
-   '270,30 380,25 420,40 430,70 400,90 370,80 330,85 300,75 275,65 268,50',
-   '360,185 405,175 420,195 415,225 395,240 370,238 350,220 348,200',
-   '265,195 285,185 295,195 300,230 295,280 280,310 260,315 248,290 245,250 252,215',
-   '550,220 590,215 605,235 600,265 575,275 555,265 542,248',
-  ].forEach(pts=>svg.appendChild(mel('polygon',{points:pts,fill:lf,stroke:ls,'stroke-width':'0.5'})));
-  const cset={};mTrip.forEach(l=>{if(MPLACES[l.from])cset[l.from]=MPLACES[l.from];if(MPLACES[l.to])cset[l.to]=MPLACES[l.to];});
-  const vis=new Set(mSegs.slice(0,mStep).flatMap(s=>[s.from,s.to]));
-  const cg=mel('g');
-  Object.entries(cset).forEach(([code,a])=>{const[x,y]=mProj(a.lat,a.lon),col=vis.has(code)?'#C9A84C':'rgba(255,255,255,0.18)';cg.appendChild(mel('circle',{cx:x,cy:y,r:4,fill:'none',stroke:col,'stroke-width':'0.8',opacity:'0.7'}));cg.appendChild(mel('circle',{cx:x,cy:y,r:2,fill:col}));const t=mtx('text',a.city,{x:x+5,y:y-3,fontSize:'7',fill:vis.has(code)?'rgba(201,168,76,0.8)':'rgba(255,255,255,0.2)',fontFamily:"'JetBrains Mono',monospace"});t.style.userSelect='none';cg.appendChild(t);});
-  const sg=mel('g');
-  mSegs.slice(0,mStep).forEach(seg=>{const g2=mel('g');g2.style.cursor='default';seg.paths.forEach(d=>{g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':'8','stroke-opacity':'0.05','stroke-linecap':'round'}));g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':'3','stroke-opacity':'0.14','stroke-linecap':'round'}));g2.appendChild(mel('path',{d,fill:'none',stroke:seg.t.color,'stroke-width':seg.type==='FLY'?'1.8':'1.4','stroke-linecap':'round','stroke-dasharray':seg.t.dashed?'6 4':'none','stroke-opacity':'0.88'}));});const[dx,dy]=seg.toXY;g2.appendChild(mel('circle',{cx:dx,cy:dy,r:5,fill:seg.t.color,opacity:'0.08'}));g2.appendChild(mel('circle',{cx:dx,cy:dy,r:2.5,fill:seg.t.color,opacity:'0.92'}));const hit=mel('path',{d:seg.paths[0]||'',fill:'none',stroke:'transparent','stroke-width':'12'});hit.addEventListener('mouseenter',e=>mShowTip(seg,e));hit.addEventListener('mousemove',mMoveTip);hit.addEventListener('mouseleave',mHideTip);g2.appendChild(hit);sg.appendChild(g2);});
-  const lg=mel('g');mSegs.slice(0,mStep).forEach((seg,i)=>{const y0=MH-8-i*16;lg.appendChild(mel('rect',{x:6,y:y0-11,width:230,height:13,rx:2,fill:'rgba(6,10,18,0.65)'}));const ic=mtx('text',seg.t.icon,{x:10,y:y0,fontSize:'8'});ic.style.userSelect='none';lg.appendChild(ic);lg.appendChild(mel('rect',{x:23,y:y0-5,width:10,height:2,rx:1,fill:seg.t.color}));const lbl=mtx('text',`${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}  ${seg.dist.toLocaleString()}km`,{x:37,y:y0,fontSize:'7.5',fill:'rgba(255,255,255,0.4)',fontFamily:"'JetBrains Mono',monospace"});lbl.style.userSelect='none';lg.appendChild(lbl);});
-  const tlg=mel('g');Object.entries(MTYPE).forEach(([k,t],i)=>{const y0=10+i*16;tlg.appendChild(mel('rect',{x:MW-108,y:y0,width:100,height:13,rx:2,fill:'rgba(6,10,18,0.65)'}));const ic=mtx('text',t.icon,{x:MW-104,y:y0+10,fontSize:'8'});ic.style.userSelect='none';tlg.appendChild(ic);tlg.appendChild(mel('rect',{x:MW-91,y:y0+5,width:10,height:2,rx:1,fill:t.color}));const lbl=mtx('text',t.label,{x:MW-78,y:y0+10,fontSize:'7.5',fill:'rgba(255,255,255,0.4)',fontFamily:"'JetBrains Mono',monospace"});lbl.style.userSelect='none';tlg.appendChild(lbl);});
-  svg.appendChild(sg);svg.appendChild(cg);svg.appendChild(lg);svg.appendChild(tlg);
-  mRenderDots();
-}
-function mRenderDots(){const c=document.getElementById('mStepDots');c.innerHTML='';mSegs.forEach((seg,i)=>{const d=document.createElement('div');d.className='msdot'+(i<mStep?' on':'');d.style.background=i<mStep?seg.t.color:'transparent';d.title=`${seg.t.icon} ${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}`;d.onclick=()=>{clearTimeout(mTimer);mPlaying=false;mStep=i+1;mRenderMap();mUpdPlayBtn();};c.appendChild(d);});}
-function mPlayAnim(){clearTimeout(mTimer);mStep=0;mPlaying=true;mUpdPlayBtn();mRenderMap();const tick=()=>{mStep++;mRenderMap();if(mStep<mSegs.length){mTimer=setTimeout(tick,900);}else{mPlaying=false;mUpdPlayBtn();}};mTimer=setTimeout(tick,350);}
-function mUpdPlayBtn(){const b=document.getElementById('mPlayBtn');b.textContent=mPlaying?'播放中…':'▶ 播放路線';b.disabled=mPlaying;}
-function mShowTip(seg,e){const tip=document.getElementById('mTip');tip.innerHTML=`<span style="color:${seg.t.color}">${seg.t.icon} ${MPLACES[seg.from]?.city} → ${MPLACES[seg.to]?.city}</span><span style="color:#5C6478;margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:10px">${seg.dist.toLocaleString()}km · ${seg.date||''}</span>${seg.label?`<br><span style="color:#8a8a9a;font-size:10px">${seg.label}</span>`:''}`;mMoveTip(e);tip.classList.add('show');}
-function mMoveTip(e){const tip=document.getElementById('mTip'),r=document.getElementById('mMapVp').getBoundingClientRect();let x=e.clientX-r.left+14,y=e.clientY-r.top-10;if(x+220>r.width)x=e.clientX-r.left-230;tip.style.left=x+'px';tip.style.top=y+'px';}
-function mHideTip(){document.getElementById('mTip').classList.remove('show');}
-function mSwitchTab(name,btn){document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('mMapVp').style.display=name==='map'?'':'none';document.getElementById('mListVp').style.display=name==='list'?'':'none';if(name==='map'){mStep=mSegs.length;mRenderMap();}if(name==='list')mRenderList();}
+function mUpdateHdr(){const fk=mFlyKm(),ak=mAllKm();const hkm=document.getElementById('mhd-km');const hsub=document.getElementById('mhd-sub');if(hkm)hkm.textContent=ak.toLocaleString()+' km';if(hsub)hsub.textContent=`✈️ 飛行 ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;}
 function mRenderList(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mStatGrid').innerHTML=[{l:'總移動距離',v:ak.toLocaleString(),u:'km',c:'#C9A84C'},{l:'飛行距離',v:fk.toLocaleString(),u:'km',c:'#E07A5A'},{l:'繞地球',v:(fk/MEARTH).toFixed(2),u:'圈',c:'#5ECBC8'},{l:'行程段數',v:mSegs.length,u:'段',c:'#A78BFA'},].map(s=>`<div class="msc" style="--mc:${s.c}"><div class="msc-v">${s.v}</div><div class="msc-u">${s.u}</div><div class="msc-l">${s.l}</div></div>`).join('');document.getElementById('mTypeRow').innerHTML=Object.entries(MTYPE).map(([k,t])=>{const legs=mSegs.filter(s=>s.type===k);if(!legs.length)return'';const km=legs.reduce((s,l)=>s+l.dist,0);return`<div class="mtype-chip" style="border-color:${t.color}44">${t.icon} <span style="color:${t.color};font-weight:700">${t.label}</span> <span style="color:#5C6478;font-size:10px">${legs.length}段·${km.toLocaleString()}km</span></div>`;}).join('');document.getElementById('mLegList').innerHTML=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to],t=MTYPE[leg.type]||MTYPE.FLY;const dist=a&&b?Math.round(mHav(a.lat,a.lon,b.lat,b.lon)):0;return`<div class="mleg-card" style="border-left-color:${t.color}"><div class="mleg-ico">${t.icon}</div><div class="mleg-body"><div class="mleg-cities"><span class="mleg-from">${a?.city||leg.from}</span><span class="mleg-arr">→</span><span class="mleg-to" style="color:${t.color}">${b?.city||leg.to}</span></div><div class="mleg-chips">${leg.date?`<span class="mlchip">${leg.date}</span>`:''}<span class="mlchip" style="border-color:${t.color}44;color:${t.color}">${t.label}</span>${leg.label?`<span class="mlchip">${leg.label}</span>`:''}</div></div><div class="mleg-dist"><span class="mleg-dn" style="color:${t.color}">${dist.toLocaleString()}</span><span class="mleg-du">km</span></div><button class="mrm" onclick="mRemoveLeg(${leg.id})">×</button></div>`;}).join('');}
-function mRemoveLeg(id){mTrip=mTrip.filter(l=>l.id!==id);mBuild();mStep=mSegs.length;mUpdateHdr();mRenderList();}
+function mRemoveLeg(id){mTrip=mTrip.filter(l=>l.id!==id);try{const del=new Set(JSON.parse(localStorage.getItem('mTripDel2026')||'[]'));del.add(id);localStorage.setItem('mTripDel2026',JSON.stringify([...del]));}catch(e){}mSave();mBuild();mUpdateHdr();mRenderList();}
 function mOpenModal(){document.getElementById('mOverlay').style.display='flex';['mFrom','mTo'].forEach(id=>{document.getElementById(id).innerHTML=Object.entries(MPLACES).map(([c,a])=>`<option value="${c}">${a.city} (${c})</option>`).join('');});}
 function mCloseModal(){document.getElementById('mOverlay').style.display='none';}
 function mSelType(k,btn){mFormType=k;document.querySelectorAll('.mtpill').forEach(b=>{b.className='mtpill';});btn.className='mtpill a'+k[0].toLowerCase();document.getElementById('mOkBtn').textContent=MTYPE[k].icon+' 加入';}
-function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;mTrip.push({id:Date.now(),type:mFormType,from,to,date,label});mTrip.sort((a,b)=>a.date.localeCompare(b.date));mBuild();mStep=mSegs.length;mCloseModal();mUpdateHdr();mRenderList();const ab=document.getElementById('mAddBtn');ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增';},1400);}
+function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;mTrip.push({id:Date.now(),type:mFormType,from,to,date,label});mTrip.sort((a,b)=>(a.date||'').localeCompare(b.date||''));mSave();mBuild();mCloseModal();mUpdateHdr();mRenderList();const ab=document.getElementById('mAddBtn');ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增段落';},1400);}
 // ── COMPASS / 足跡 ──
 const FP_W=380,FP_H=700,FP_NS='http://www.w3.org/2000/svg';
 const FP_PATH_NA=`M 28 26 Q 90 14, 156 18 L 232 22 Q 290 28, 322 50 L 318 92 Q 304 118, 296 152 L 302 196 Q 308 228, 290 244 L 264 244 Q 232 244, 210 256 L 202 282 Q 198 302, 188 312 L 168 318 Q 154 326, 152 340 L 158 346 Q 142 348, 130 338 L 130 318 Q 126 296, 132 280 L 116 268 Q 96 256, 78 246 L 58 234 Q 38 220, 28 192 L 22 152 Q 18 110, 22 78 Q 24 48, 28 26 Z`;
@@ -2023,7 +2191,6 @@ const FP_PATH_SA=`M 218 376 Q 250 372, 282 374 L 318 380 Q 342 392, 348 416 L 35
 const FP_BORDERS=['M 32 130 L 280 144','M 78 246 Q 130 252, 196 268','M 132 320 L 156 332','M 220 410 Q 260 416, 320 422','M 240 540 Q 270 550, 296 556'];
 
 function fpProj(lat,lon){return[((lon+130)/110)*FP_W,((75-lat)/140)*FP_H];}
-function fpEl(tag,a={}){const e=document.createElementNS(FP_NS||FP_NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
 function fpMel(tag,a={}){const e=document.createElementNS(FP_NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e;}
 
 function fpGetStops(){
@@ -2044,10 +2211,8 @@ function fpGetStops(){
 
 function fpCalcStats(){
   const now=new Date();
-  const tripStart=ITINERARY[0].start;
-  const tripEnd=ITINERARY[ITINERARY.length-1].end;
-  const dayTotal=Math.round((tripEnd-tripStart)/86400000);
-  const day=Math.max(1,Math.ceil((now-tripStart)/86400000));
+  const dayTotal=TRIP_DAYS;
+  const day=Math.min(tripDay(),TRIP_DAYS);
   const visitedCV=new Set(ITINERARY.filter(i=>now>=i.start).map(i=>i.cityValue));
   const totalCV=new Set(ITINERARY.map(i=>i.cityValue));
   const visitedC=new Set(JOURNEY.filter(j=>visitedCV.has(j.cityValue)).map(j=>j.country));
@@ -2150,9 +2315,8 @@ function fpRenderSheet(stops){
   document.getElementById('fp-stop-dates').textContent=cur.dates;
   document.getElementById('fp-city-name').textContent=cur.city;
   document.getElementById('fp-city-flag').textContent=cur.flag;
-  document.getElementById('fp-city-wx').innerHTML=`<div style="font-size:22px">🌤</div><div class="fp-city-temp">—°</div>`;
   document.getElementById('fp-city-sub').textContent=`${cur.city} · ${cur.country} · 第 ${cur.nights} 晚`;
-  document.getElementById('fp-photo-main').style.background=cur.color||'linear-gradient(135deg,#2B4A3D,#1f3b2e)';
+  const pm=document.getElementById('fp-photo-main');if(pm)pm.style.background=cur.color||'linear-gradient(135deg,#2B4A3D,#1f3b2e)';
   const nextEl=document.getElementById('fp-next');
   if(nxt){
     document.getElementById('fp-next-thumb').style.background=nxt.color||'linear-gradient(135deg,#C2B0D6,#7a6896)';
@@ -2164,20 +2328,27 @@ function fpRenderSheet(stops){
 }
 
 function initCompass(){
-  const stats=fpCalcStats();
-  const stops=fpGetStops();
-  document.getElementById('fp-km').textContent=stats.km.toLocaleString();
-  document.getElementById('fp-cities').textContent=stats.cities;
-  document.getElementById('fp-cities-t').textContent='/'+stats.citiesTotal;
-  document.getElementById('fp-cntry').textContent=stats.countries;
-  document.getElementById('fp-cntry-t').textContent='/'+stats.countriesTotal;
-  document.getElementById('fp-days').textContent=stats.day;
-  document.getElementById('fp-days-t').textContent='/'+stats.dayTotal;
-  document.getElementById('fp-flights').textContent=stats.flights;
-  document.getElementById('fp-buses').textContent=stats.buses;
-  document.getElementById('fp-trains').textContent=stats.trains;
-  fpRenderMap(stops);
-  fpRenderSheet(stops);
+  try{
+    const stats=fpCalcStats();
+    const stops=fpGetStops();
+    document.getElementById('fp-km').textContent=stats.km.toLocaleString();
+    document.getElementById('fp-cities').textContent=stats.cities;
+    document.getElementById('fp-cities-t').textContent='/'+stats.citiesTotal;
+    document.getElementById('fp-cntry').textContent=stats.countries;
+    document.getElementById('fp-cntry-t').textContent='/'+stats.countriesTotal;
+    document.getElementById('fp-days').textContent=stats.day;
+    document.getElementById('fp-days-t').textContent='/'+stats.dayTotal;
+    document.getElementById('fp-flights').textContent=stats.flights;
+    document.getElementById('fp-buses').textContent=stats.buses;
+    document.getElementById('fp-trains').textContent=stats.trains;
+    if(!stops.length){document.getElementById('fp-city-name').textContent='No stops found';return;}
+    fpRenderMap(stops);
+    fpRenderSheet(stops);
+  }catch(e){
+    console.error('initCompass error:',e);
+    const el=document.getElementById('fp-city-name');
+    if(el)el.textContent='Error: '+e.message;
+  }
 }
 
 // ── INIT ──
@@ -2216,6 +2387,36 @@ document.addEventListener('DOMContentLoaded', () => {
       <button onclick="closeCityModal()">✕</button>
     </div>
     <div class="city-scroll" id="city-list"></div>
+  </div>
+</div>
+
+<!-- Add Transport Leg Modal -->
+<div class="moverlay" id="mOverlay" onclick="if(event.target===this)mCloseModal()">
+  <div class="m-modal">
+    <h3>新增交通段落</h3>
+    <div class="mtpills">
+      <button class="mtpill af" onclick="mSelType('FLY',this)">✈️ 飛機</button>
+      <button class="mtpill" onclick="mSelType('BUS',this)">🚌 巴士</button>
+      <button class="mtpill" onclick="mSelType('TRAIN',this)">🚆 火車</button>
+    </div>
+    <div class="m-field">
+      <label>出發地</label>
+      <select id="mFrom"></select>
+    </div>
+    <div class="m-field">
+      <label>目的地</label>
+      <select id="mTo"></select>
+    </div>
+    <div class="m-field">
+      <label>日期</label>
+      <input type="date" id="mDate">
+    </div>
+    <div class="m-field">
+      <label>備註（航班號、車票說明）</label>
+      <input type="text" id="mNote" placeholder="例：LA 613、Turbus 11h...">
+    </div>
+    <button class="mok-btn" id="mOkBtn" onclick="mAddLeg()">✈️ 加入</button>
+    <button class="mcancel" onclick="mCloseModal()">取消</button>
   </div>
 </div>
 

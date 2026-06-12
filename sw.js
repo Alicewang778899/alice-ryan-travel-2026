@@ -1,4 +1,4 @@
-const CACHE = 'travel-2026-v2';
+const CACHE = 'travel-2026-v3';
 const SHELL = ['./index.html', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', e => {

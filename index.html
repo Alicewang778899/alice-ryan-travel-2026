@@ -661,12 +661,14 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .cs-cntry-hdr { display:flex; align-items:center; gap:10px; padding:13px 16px 10px; border-bottom:1px solid var(--rule); }
 .cs-flag { font-size:20px; flex-shrink:0; }
 .cs-cntry-name { flex:1; font-weight:700; font-size:14px; }
+.cs-cntry-days { display:block; font-size:10.5px; font-weight:500; color:var(--ink2); margin-top:1px; }
 .cs-cntry-total { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:16px; font-weight:700; color:var(--coral); }
 .cs-city-row { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px dashed var(--rule); }
 .cs-city-row:last-child { border-bottom:none; }
 .cs-city-name { flex:1; font-size:13px; font-weight:600; }
 .cs-city-n { font-size:11px; color:var(--ink2); flex-shrink:0; }
 .cs-city-amt { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:14px; font-weight:700; min-width:70px; text-align:right; }
+.cs-city-pd { display:block; font-size:10px; font-weight:500; color:var(--ink2); font-family:'Noto Sans TC',system-ui,sans-serif; margin-top:1px; }
 .cs-grand { display:flex; align-items:baseline; justify-content:space-between; padding:0 14px 12px; }
 .cs-grand-lbl { font-size:11px; color:var(--ink2); font-weight:600; }
 .cs-grand-n { font-family:"DM Serif Display","Songti TC","Songti SC","STSong",serif; font-size:26px; font-weight:700; color:var(--coral); }
@@ -1615,11 +1617,14 @@ async function loadCitySpend(force = false) {
       // 「巴西 🇧🇷」和「巴西🇧🇷」差一個空格會被分成兩組，統一去空格
       const c = (e.country || '未知').replace(/\s+/g, '');
       const ci = (e.city || '未知').trim();
-      if (!byCountry[c]) byCountry[c] = { total:0, cities:{} };
+      const d = String(e.date).slice(0, 10); // 同一天多筆只算一天
+      if (!byCountry[c]) byCountry[c] = { total:0, days:new Set(), cities:{} };
       byCountry[c].total += e.rmb;
-      if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0 };
+      byCountry[c].days.add(d);
+      if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0, days:new Set() };
       byCountry[c].cities[ci].total += e.rmb;
       byCountry[c].cities[ci].count++;
+      byCountry[c].cities[ci].days.add(d);
     });
     const grand = exps.reduce((s,e) => s + e.rmb, 0);
     document.getElementById('r-city-grand').textContent = Math.round(grand).toLocaleString();
@@ -1627,17 +1632,18 @@ async function loadCitySpend(force = false) {
     const sorted = Object.entries(byCountry).sort((a,b) => b[1].total - a[1].total);
     document.getElementById('r-city-list').innerHTML = sorted.map(([country, data]) => {
       const cities = Object.entries(data.cities).sort((a,b) => b[1].total - a[1].total);
+      const cDays = data.days.size;
       return `<div class="cs-country">
         <div class="cs-cntry-hdr">
           <span class="cs-flag">${_countryFlag(country)}</span>
-          <span class="cs-cntry-name">${country}</span>
+          <span class="cs-cntry-name">${country}<span class="cs-cntry-days">${cDays} 天 · 日均 ${Math.round(data.total/cDays).toLocaleString()}</span></span>
           <span class="cs-cntry-total">${Math.round(data.total).toLocaleString()}</span>
         </div>
         ${cities.map(([city, cd]) => `
           <div class="cs-city-row">
             <span class="cs-city-name">${city}</span>
-            <span class="cs-city-n">${cd.count} 筆</span>
-            <span class="cs-city-amt">${Math.round(cd.total).toLocaleString()}</span>
+            <span class="cs-city-n">${cd.days.size} 天 · ${cd.count} 筆</span>
+            <span class="cs-city-amt">${Math.round(cd.total).toLocaleString()}<span class="cs-city-pd">${Math.round(cd.total/cd.days.size).toLocaleString()}/天</span></span>
           </div>`).join('')}
       </div>`;
     }).join('');

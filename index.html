@@ -1616,15 +1616,20 @@ async function loadCitySpend(force = false) {
     exps.forEach(e => {
       // 「巴西 🇧🇷」和「巴西🇧🇷」差一個空格會被分成兩組，統一去空格
       const c = (e.country || '未知').replace(/\s+/g, '');
-      const ci = (e.city || '未知').trim();
+      const ciRaw = (e.city || '未知').trim();
+      // 「Lencois」和「Lençóis」重音不同會被分成兩組：去重音+小寫當分組 key
+      const ci = ciRaw.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
       const d = String(e.date).slice(0, 10); // 同一天多筆只算一天
       if (!byCountry[c]) byCountry[c] = { total:0, days:new Set(), cities:{} };
       byCountry[c].total += e.rmb;
       byCountry[c].days.add(d);
-      if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0, days:new Set() };
-      byCountry[c].cities[ci].total += e.rmb;
-      byCountry[c].cities[ci].count++;
-      byCountry[c].cities[ci].days.add(d);
+      if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0, days:new Set(), name:ciRaw };
+      const cc = byCountry[c].cities[ci];
+      cc.total += e.rmb;
+      cc.count++;
+      cc.days.add(d);
+      // 顯示名稱優先用有重音/特殊字的版本（正確拼法通常比較「長」）
+      if (ciRaw.normalize('NFD').length > cc.name.normalize('NFD').length) cc.name = ciRaw;
     });
     const grand = exps.reduce((s,e) => s + e.rmb, 0);
     document.getElementById('r-city-grand').textContent = Math.round(grand).toLocaleString();
@@ -1639,9 +1644,9 @@ async function loadCitySpend(force = false) {
           <span class="cs-cntry-name">${country}<span class="cs-cntry-days">${cDays} 天 · 日均 ${Math.round(data.total/cDays).toLocaleString()}</span></span>
           <span class="cs-cntry-total">${Math.round(data.total).toLocaleString()}</span>
         </div>
-        ${cities.map(([city, cd]) => `
+        ${cities.map(([, cd]) => `
           <div class="cs-city-row">
-            <span class="cs-city-name">${city}</span>
+            <span class="cs-city-name">${cd.name}</span>
             <span class="cs-city-n">${cd.days.size} 天 · ${cd.count} 筆</span>
             <span class="cs-city-amt">${Math.round(cd.total).toLocaleString()}<span class="cs-city-pd">${Math.round(cd.total/cd.days.size).toLocaleString()}/天</span></span>
           </div>`).join('')}

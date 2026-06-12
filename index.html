@@ -1612,8 +1612,9 @@ async function loadCitySpend(force = false) {
     const exps = await fetchExp(force);
     const byCountry = {};
     exps.forEach(e => {
-      const c = e.country || '未知';
-      const ci = e.city || '未知';
+      // 「巴西 🇧🇷」和「巴西🇧🇷」差一個空格會被分成兩組，統一去空格
+      const c = (e.country || '未知').replace(/\s+/g, '');
+      const ci = (e.city || '未知').trim();
       if (!byCountry[c]) byCountry[c] = { total:0, cities:{} };
       byCountry[c].total += e.rmb;
       if (!byCountry[c].cities[ci]) byCountry[c].cities[ci] = { total:0, count:0 };
@@ -1938,9 +1939,11 @@ async function submitExp() {
   const rate  = RATES[cur]||1;
   const rmb   = parseFloat((amt * rate).toFixed(2));
   const note  = document.getElementById('f-note').value.trim();
+  // Sheet 下拉選單的國家格式是「巴西 🇧🇷」（國名與國旗間有空格），寫入時統一
+  const countryFixed = countryName.replace(/^(\S+?)([\u{1F1E6}-\u{1F1FF}])/u, '$1 $2');
 
   const p = new URLSearchParams({
-    action:'add', date, city:cityName, country:countryName,
+    action:'add', date, city:cityName, country:countryFixed,
     category:selCat, description:desc, amount:amt,
     currency:cur, rate, rmb, payer:selPayer, note
   });

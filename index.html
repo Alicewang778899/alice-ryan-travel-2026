@@ -1659,11 +1659,24 @@ async function loadCitySpend(force = false) {
   }
 }
 
-function loadTrip() {
+async function loadTrip() {
+  const list = document.getElementById('mLegList');
+  if (list) list.innerHTML = '<p style="color:var(--muted);padding:20px;text-align:center">載入旅程中...</p>';
+  try {
+    const trips = await fetchTrips();
+    if (trips === null) {
+      if (list) list.innerHTML = '<p style="color:var(--muted);padding:20px;text-align:center">初始化旅程資料...</p>';
+      await seedTrips();
+      const seeded = await fetchTrips(true);
+      mTrip = seeded || MTRIP_DEFAULT.slice();
+    } else {
+      mTrip = trips;
+    }
+  } catch(e) {
+    mTrip = MTRIP_DEFAULT.slice();
+  }
   mBuild();
-  const fk = mFlyKm(), ak = mAllKm();
-  document.getElementById('mhd-km').textContent = ak.toLocaleString() + ' km';
-  document.getElementById('mhd-sub').textContent = `✈️ 飛行 ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;
+  mUpdateHdr();
   mRenderList();
 }
 
@@ -2165,23 +2178,33 @@ const MTRIP_DEFAULT = [
   {id:13,type:"FLY", from:"SLZ",    to:"GRU",    date:"2026-06-15",label:"LATAM LA3213 →聖保羅"},
   {id:14,type:"FLY", from:"GRU",    to:"LIM",    date:"2026-06-18",label:"LATAM LA2429 →利馬(秘魯)"},
 ];
-// localStorage 持久化：使用者新增/刪除的段落重開 app 不會消失
-let mTrip = (() => {
-  try {
-    const saved = JSON.parse(localStorage.getItem('mTrip2026') || 'null');
-    if (Array.isArray(saved) && saved.length) {
-      // 補上預設清單裡有、但存檔裡沒有的段落（例如 app 更新加了新航班）
-      // 使用者手動刪過的（tombstone）不要補回來
-      const ids = new Set(saved.map(l => l.id));
-      const del = new Set(JSON.parse(localStorage.getItem('mTripDel2026') || '[]'));
-      MTRIP_DEFAULT.forEach(l => { if (!ids.has(l.id) && !del.has(l.id)) saved.push(l); });
-      saved.sort((a,b) => (a.date||'').localeCompare(b.date||''));
-      return saved;
-    }
-  } catch(e) {}
-  return MTRIP_DEFAULT.slice();
-})();
-function mSave() { try { localStorage.setItem('mTrip2026', JSON.stringify(mTrip)); } catch(e) {} }
+let mTrip = MTRIP_DEFAULT.slice();
+let _tripCache = null, _tripTime = 0;
+function invalidateTripCache() { _tripCache = null; }
+
+async function fetchTrips(force = false) {
+  if (!force && _tripCache && Date.now() - _tripTime < 180000) return _tripCache;
+  const res = await fetchJsonp(API + '?action=getTrips&t=' + Date.now());
+  const rows = (res.data || []).slice(1);
+  if (!rows.length) return null;
+  _tripCache = rows.map((r, i) => ({
+    rowIdx: i + 2,
+    id: +r[0] || Date.now(),
+    type: r[1] || 'FLY',
+    from: r[2] || '',
+    to: r[3] || '',
+    date: r[4] || '',
+    label: r[5] || ''
+  }));
+  _tripTime = Date.now();
+  return _tripCache;
+}
+
+async function seedTrips() {
+  const batch = JSON.stringify(MTRIP_DEFAULT);
+  const p = new URLSearchParams({ action: 'addTrip', batch, t: Date.now() });
+  await fetchJsonp(API + '?' + p.toString());
+}
 const MEARTH=40075;
 let mSegs=[],mFormType='FLY';
 
@@ -2192,11 +2215,11 @@ function mFlyKm(){return mSegs.filter(s=>s.type==='FLY').reduce((s,x)=>s+x.dist,
 function mAllKm(){return mSegs.reduce((s,x)=>s+x.dist,0);}
 function mUpdateHdr(){const fk=mFlyKm(),ak=mAllKm();const hkm=document.getElementById('mhd-km');const hsub=document.getElementById('mhd-sub');if(hkm)hkm.textContent=ak.toLocaleString()+' km';if(hsub)hsub.textContent=`✈️ 飛行 ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;}
 function mRenderList(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mStatGrid').innerHTML=[{l:'總移動距離',v:ak.toLocaleString(),u:'km',c:'#C9A84C'},{l:'飛行距離',v:fk.toLocaleString(),u:'km',c:'#E07A5A'},{l:'繞地球',v:(fk/MEARTH).toFixed(2),u:'圈',c:'#5ECBC8'},{l:'行程段數',v:mSegs.length,u:'段',c:'#A78BFA'},].map(s=>`<div class="msc" style="--mc:${s.c}"><div class="msc-v">${s.v}</div><div class="msc-u">${s.u}</div><div class="msc-l">${s.l}</div></div>`).join('');document.getElementById('mTypeRow').innerHTML=Object.entries(MTYPE).map(([k,t])=>{const legs=mSegs.filter(s=>s.type===k);if(!legs.length)return'';const km=legs.reduce((s,l)=>s+l.dist,0);return`<div class="mtype-chip" style="border-color:${t.color}44">${t.icon} <span style="color:${t.color};font-weight:700">${t.label}</span> <span style="color:#5C6478;font-size:10px">${legs.length}段·${km.toLocaleString()}km</span></div>`;}).join('');document.getElementById('mLegList').innerHTML=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to],t=MTYPE[leg.type]||MTYPE.FLY;const dist=a&&b?Math.round(mHav(a.lat,a.lon,b.lat,b.lon)):0;return`<div class="mleg-card" style="border-left-color:${t.color}"><div class="mleg-ico">${t.icon}</div><div class="mleg-body"><div class="mleg-cities"><span class="mleg-from">${a?.city||leg.from}</span><span class="mleg-arr">→</span><span class="mleg-to" style="color:${t.color}">${b?.city||leg.to}</span></div><div class="mleg-chips">${leg.date?`<span class="mlchip">${leg.date}</span>`:''}<span class="mlchip" style="border-color:${t.color}44;color:${t.color}">${t.label}</span>${leg.label?`<span class="mlchip">${leg.label}</span>`:''}</div></div><div class="mleg-dist"><span class="mleg-dn" style="color:${t.color}">${dist.toLocaleString()}</span><span class="mleg-du">km</span></div><button class="mrm" onclick="mRemoveLeg(${leg.id})">×</button></div>`;}).join('');}
-function mRemoveLeg(id){mTrip=mTrip.filter(l=>l.id!==id);try{const del=new Set(JSON.parse(localStorage.getItem('mTripDel2026')||'[]'));del.add(id);localStorage.setItem('mTripDel2026',JSON.stringify([...del]));}catch(e){}mSave();mBuild();mUpdateHdr();mRenderList();}
+async function mRemoveLeg(id){const leg=mTrip.find(l=>l.id===id);mTrip=mTrip.filter(l=>l.id!==id);mBuild();mUpdateHdr();mRenderList();if(leg&&leg.rowIdx){try{const p=new URLSearchParams({action:'deleteTrip',row:leg.rowIdx,t:Date.now()});await fetchJsonp(API+'?'+p.toString());invalidateTripCache();toast('已刪除 ✓');}catch(e){toast('刪除失敗，請重試',true);}}}
 function mOpenModal(){document.getElementById('mOverlay').style.display='flex';['mFrom','mTo'].forEach(id=>{document.getElementById(id).innerHTML=Object.entries(MPLACES).map(([c,a])=>`<option value="${c}">${a.city} (${c})</option>`).join('');});}
 function mCloseModal(){document.getElementById('mOverlay').style.display='none';}
 function mSelType(k,btn){mFormType=k;document.querySelectorAll('.mtpill').forEach(b=>{b.className='mtpill';});btn.className='mtpill a'+k[0].toLowerCase();document.getElementById('mOkBtn').textContent=MTYPE[k].icon+' 加入';}
-function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;mTrip.push({id:Date.now(),type:mFormType,from,to,date,label});mTrip.sort((a,b)=>(a.date||'').localeCompare(b.date||''));mSave();mBuild();mCloseModal();mUpdateHdr();mRenderList();const ab=document.getElementById('mAddBtn');ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增段落';},1400);}
+async function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;const id=Date.now();const ab=document.getElementById('mAddBtn');const okBtn=document.getElementById('mOkBtn');if(okBtn)okBtn.disabled=true;mCloseModal();mTrip.push({id,type:mFormType,from,to,date,label});mTrip.sort((a,b)=>(a.date||'').localeCompare(b.date||''));mBuild();mUpdateHdr();mRenderList();try{const p=new URLSearchParams({action:'addTrip',id,type:mFormType,from,to,date,label,t:Date.now()});await fetchJsonp(API+'?'+p.toString());invalidateTripCache();toast('✓ 旅程已同步！');}catch(e){toast('加入成功（離線模式，下次連線會同步）');}if(okBtn)okBtn.disabled=false;if(ab){ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增段落';},1400);}}
 // ── COMPASS / 足跡 ──
 const FP_W=380,FP_H=700,FP_NS='http://www.w3.org/2000/svg';
 const FP_PATH_NA=`M 28 26 Q 90 14, 156 18 L 232 22 Q 290 28, 322 50 L 318 92 Q 304 118, 296 152 L 302 196 Q 308 228, 290 244 L 264 244 Q 232 244, 210 256 L 202 282 Q 198 302, 188 312 L 168 318 Q 154 326, 152 340 L 158 346 Q 142 348, 130 338 L 130 318 Q 126 296, 132 280 L 116 268 Q 96 256, 78 246 L 58 234 Q 38 220, 28 192 L 22 152 Q 18 110, 22 78 Q 24 48, 28 26 Z`;

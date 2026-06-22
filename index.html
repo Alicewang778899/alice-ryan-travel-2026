@@ -2193,9 +2193,10 @@ async function fetchTrips(force = false) {
     type: r[1] || 'FLY',
     from: r[2] || '',
     to: r[3] || '',
-    date: r[4] || '',
+    date: r[4] ? r[4].slice(0, 10) : '',
     label: r[5] || ''
   }));
+  _tripCache.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
   _tripTime = Date.now();
   return _tripCache;
 }

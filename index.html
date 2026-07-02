@@ -1663,7 +1663,7 @@ async function loadTrip() {
   const list = document.getElementById('mLegList');
   if (list) list.innerHTML = '<p style="color:var(--muted);padding:20px;text-align:center">載入旅程中...</p>';
   try {
-    const trips = await fetchTrips();
+    const [trips] = await Promise.all([fetchTrips(), fetchPlaces()]);
     if (trips === null) {
       if (list) list.innerHTML = '<p style="color:var(--muted);padding:20px;text-align:center">初始化旅程資料...</p>';
       await seedTrips();
@@ -2152,6 +2152,9 @@ const MPLACES = {
   IGR:{city:"伊瓜蘇(阿根廷)",lat:-25.7376,lon:-54.4735}, SLZ:{city:"聖路易斯",lat:-2.5853,lon:-44.2341},
   IMP:{city:"Imperatriz",lat:-5.5311,lon:-47.4597}, CUZ:{city:"庫斯科",lat:-13.5357,lon:-71.9389},
   LIM_BUS:{city:"利馬(巴士站)",lat:-12.0619,lon:-77.1422}, MFM:{city:"馬丘比丘村",lat:-13.1567,lon:-72.5269},
+  AQP:{city:"阿雷基帕",lat:-16.3411,lon:-71.5830}, JUL:{city:"胡利亞卡(普諾)",lat:-15.4671,lon:-70.1581},
+  SJO:{city:"聖荷西(哥斯大黎加)",lat:9.9981,lon:-84.2041}, LIR:{city:"賴比瑞亞(哥斯大黎加)",lat:10.5933,lon:-85.5444},
+  FRS:{city:"弗洛雷斯(提卡爾)",lat:16.9138,lon:-89.8664},
   GUA:{city:"瓜地馬拉城",lat:14.5833,lon:-90.5271}, ANU:{city:"安地瓜",lat:14.5586,lon:-90.7295},
   PAN:{city:"阿蒂特蘭湖",lat:14.6892,lon:-91.1895}, OAX:{city:"瓦哈卡",lat:17.0732,lon:-96.7266},
   BOG:{city:"波哥大",lat:4.7016,lon:-74.1469}, MDE:{city:"麥德林",lat:6.1675,lon:-75.4230},
@@ -2206,6 +2209,15 @@ async function seedTrips() {
   const p = new URLSearchParams({ action: 'addTrip', batch, t: Date.now() });
   await fetchJsonp(API + '?' + p.toString());
 }
+
+async function fetchPlaces() {
+  try {
+    const res = await fetchJsonp(API + '?action=getPlaces&t=' + Date.now());
+    (res.data || []).slice(1).forEach(r => {
+      if (r[0] && !MPLACES[r[0]]) MPLACES[r[0]] = { city: r[1] || r[0], lat: +r[2] || 0, lon: +r[3] || 0 };
+    });
+  } catch(e) {}
+}
 const MEARTH=40075;
 let mSegs=[],mFormType='FLY';
 
@@ -2217,7 +2229,32 @@ function mAllKm(){return mSegs.reduce((s,x)=>s+x.dist,0);}
 function mUpdateHdr(){const fk=mFlyKm(),ak=mAllKm();const hkm=document.getElementById('mhd-km');const hsub=document.getElementById('mhd-sub');if(hkm)hkm.textContent=ak.toLocaleString()+' km';if(hsub)hsub.textContent=`✈️ 飛行 ${fk.toLocaleString()}km · 繞地 ${(fk/MEARTH).toFixed(2)} 圈`;}
 function mRenderList(){const fk=mFlyKm(),ak=mAllKm();document.getElementById('mStatGrid').innerHTML=[{l:'總移動距離',v:ak.toLocaleString(),u:'km',c:'#C9A84C'},{l:'飛行距離',v:fk.toLocaleString(),u:'km',c:'#E07A5A'},{l:'繞地球',v:(fk/MEARTH).toFixed(2),u:'圈',c:'#5ECBC8'},{l:'行程段數',v:mSegs.length,u:'段',c:'#A78BFA'},].map(s=>`<div class="msc" style="--mc:${s.c}"><div class="msc-v">${s.v}</div><div class="msc-u">${s.u}</div><div class="msc-l">${s.l}</div></div>`).join('');document.getElementById('mTypeRow').innerHTML=Object.entries(MTYPE).map(([k,t])=>{const legs=mSegs.filter(s=>s.type===k);if(!legs.length)return'';const km=legs.reduce((s,l)=>s+l.dist,0);return`<div class="mtype-chip" style="border-color:${t.color}44">${t.icon} <span style="color:${t.color};font-weight:700">${t.label}</span> <span style="color:#5C6478;font-size:10px">${legs.length}段·${km.toLocaleString()}km</span></div>`;}).join('');document.getElementById('mLegList').innerHTML=mTrip.map(leg=>{const a=MPLACES[leg.from],b=MPLACES[leg.to],t=MTYPE[leg.type]||MTYPE.FLY;const dist=a&&b?Math.round(mHav(a.lat,a.lon,b.lat,b.lon)):0;return`<div class="mleg-card" style="border-left-color:${t.color}"><div class="mleg-ico">${t.icon}</div><div class="mleg-body"><div class="mleg-cities"><span class="mleg-from">${a?.city||leg.from}</span><span class="mleg-arr">→</span><span class="mleg-to" style="color:${t.color}">${b?.city||leg.to}</span></div><div class="mleg-chips">${leg.date?`<span class="mlchip">${leg.date}</span>`:''}<span class="mlchip" style="border-color:${t.color}44;color:${t.color}">${t.label}</span>${leg.label?`<span class="mlchip">${leg.label}</span>`:''}</div></div><div class="mleg-dist"><span class="mleg-dn" style="color:${t.color}">${dist.toLocaleString()}</span><span class="mleg-du">km</span></div><button class="mrm" onclick="mRemoveLeg(${leg.id})">×</button></div>`;}).join('');}
 async function mRemoveLeg(id){const leg=mTrip.find(l=>l.id===id);mTrip=mTrip.filter(l=>l.id!==id);mBuild();mUpdateHdr();mRenderList();if(leg&&leg.rowIdx){try{const p=new URLSearchParams({action:'deleteTrip',row:leg.rowIdx,t:Date.now()});await fetchJsonp(API+'?'+p.toString());invalidateTripCache();toast('已刪除 ✓');}catch(e){toast('刪除失敗，請重試',true);}}}
-function mOpenModal(){document.getElementById('mOverlay').style.display='flex';['mFrom','mTo'].forEach(id=>{document.getElementById(id).innerHTML=Object.entries(MPLACES).map(([c,a])=>`<option value="${c}">${a.city} (${c})</option>`).join('');});}
+function mPopulateSelects(){['mFrom','mTo'].forEach(id=>{document.getElementById(id).innerHTML=Object.entries(MPLACES).map(([c,a])=>`<option value="${c}">${a.city}${/^P\d+$/.test(c)?'':' ('+c+')'}</option>`).join('');});}
+function mOpenModal(){document.getElementById('mOverlay').style.display='flex';mPopulateSelects();}
+function mTogglePlaceForm(){const d=document.getElementById('mNewPlace');d.style.display=d.style.display==='none'?'block':'none';if(d.style.display==='block')document.getElementById('mPlaceName').focus();}
+async function mAddPlace(){
+  const name=document.getElementById('mPlaceName').value.trim();
+  if(!name){toast('先輸入城市名稱',true);return;}
+  const btn=document.getElementById('mPlaceBtn');btn.disabled=true;btn.textContent='搜尋中...';
+  try{
+    const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(name));
+    const js=await r.json();
+    if(!js.length){toast('找不到這個地點，換個寫法試試（例：Arequipa, Peru）',true);btn.disabled=false;btn.textContent='🔍 搜尋並加入';return;}
+    const code='P'+Date.now();
+    const lat=parseFloat(js[0].lat),lon=parseFloat(js[0].lon);
+    MPLACES[code]={city:name,lat,lon};
+    const p=new URLSearchParams({action:'addPlace',code,city:name,lat,lon,t:Date.now()});
+    await fetchJsonp(API+'?'+p.toString());
+    const keep=document.getElementById('mFrom').value;
+    mPopulateSelects();
+    document.getElementById('mFrom').value=keep;
+    document.getElementById('mTo').value=code;
+    document.getElementById('mPlaceName').value='';
+    document.getElementById('mNewPlace').style.display='none';
+    toast('✓ 已加入地點：'+name);
+  }catch(e){toast('新增地點失敗，請重試',true);}
+  btn.disabled=false;btn.textContent='🔍 搜尋並加入';
+}
 function mCloseModal(){document.getElementById('mOverlay').style.display='none';}
 function mSelType(k,btn){mFormType=k;document.querySelectorAll('.mtpill').forEach(b=>{b.className='mtpill';});btn.className='mtpill a'+k[0].toLowerCase();document.getElementById('mOkBtn').textContent=MTYPE[k].icon+' 加入';}
 async function mAddLeg(){const from=document.getElementById('mFrom').value,to=document.getElementById('mTo').value,date=document.getElementById('mDate').value,label=document.getElementById('mNote').value;const id=Date.now();const ab=document.getElementById('mAddBtn');const okBtn=document.getElementById('mOkBtn');if(okBtn)okBtn.disabled=true;mCloseModal();mTrip.push({id,type:mFormType,from,to,date,label});mTrip.sort((a,b)=>(a.date||'').localeCompare(b.date||''));mBuild();mUpdateHdr();mRenderList();try{const p=new URLSearchParams({action:'addTrip',id,type:mFormType,from,to,date,label,t:Date.now()});await fetchJsonp(API+'?'+p.toString());invalidateTripCache();toast('✓ 旅程已同步！');}catch(e){toast('加入成功（離線模式，下次連線會同步）');}if(okBtn)okBtn.disabled=false;if(ab){ab.className='madd-btn cel';ab.textContent='🎉 已加入！';setTimeout(()=>{ab.className='madd-btn';ab.textContent='＋ 新增段落';},1400);}}
@@ -2444,6 +2481,11 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="m-field">
       <label>目的地</label>
       <select id="mTo"></select>
+      <button type="button" onclick="mTogglePlaceForm()" style="background:none;border:none;color:var(--coral);font-size:12px;padding:4px 0 0;cursor:pointer">＋ 找不到地點？新增一個</button>
+      <div id="mNewPlace" style="display:none;margin-top:8px">
+        <input type="text" id="mPlaceName" placeholder="城市名，例：Arequipa, Peru" style="width:100%">
+        <button type="button" class="mok-btn" id="mPlaceBtn" onclick="mAddPlace()" style="margin-top:6px">🔍 搜尋並加入</button>
+      </div>
     </div>
     <div class="m-field">
       <label>日期</label>

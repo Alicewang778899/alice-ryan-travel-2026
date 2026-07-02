@@ -1525,10 +1525,11 @@ function defaultJourneyIdx() {
   return 13; // 阿蒂特蘭湖
 }
 function getCurCityIdx() {
-  const s = localStorage.getItem('curCityIdx');
+  // v2: JOURNEY 索引在 2026-07 重排過，舊的 curCityIdx 不能沿用
+  const s = localStorage.getItem('curCityIdx2');
   return s !== null ? parseInt(s) : defaultJourneyIdx();
 }
-function setCurCityIdx(idx) { localStorage.setItem('curCityIdx', idx); }
+function setCurCityIdx(idx) { localStorage.setItem('curCityIdx2', idx); }
 
 // ── AUTO GEOLOCATION ──
 let geoLocName = null; // real city name from Nominatim

@@ -893,6 +893,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
             <option value="利馬|秘魯🇵🇪|PEN">🇵🇪 利馬</option>
             <option value="庫斯科|秘魯🇵🇪|PEN">🇵🇪 庫斯科</option>
             <option value="馬丘比丘|秘魯🇵🇪|PEN">🇵🇪 馬丘比丘</option>
+            <option value="阿雷基帕|秘魯🇵🇪|PEN">🇵🇪 阿雷基帕</option>
             <option value="安地瓜|瓜地馬拉🇬🇹|GTQ">🇬🇹 安地瓜</option>
             <option value="阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ">🇬🇹 阿蒂特蘭湖</option>
             <option value="多倫多|加拿大🇨🇦|CAD">🇨🇦 多倫多</option>
@@ -1326,35 +1327,53 @@ const ITINERARY = [
   },
   {
     flag:'🇵🇪', city:'利馬', country:'Peru',
-    start: new Date(2026,5,18), end: new Date(2026,5,20),
-    dates:'Jun 18–20', nights:2, currency:'PEN',
+    start: new Date(2026,5,18), end: new Date(2026,5,21),
+    dates:'Jun 18–21', nights:3, currency:'PEN',
     color:'#C2B0D6', tabColor:'var(--lavender)',
     highlights:['Miraflores 海岸區','Barranco 藝術區','Central・Maido 世界級餐廳'],
     mapQuery:'Lima, Miraflores, Peru',
     cityValue:'利馬|秘魯🇵🇪|PEN'
   },
   {
-    flag:'🇵🇪', city:'馬丘比丘', country:'Peru',
-    start: new Date(2026,5,20), end: new Date(2026,5,22),
-    dates:'Jun 20–22', nights:2, currency:'PEN',
-    color:'#C2B0D6', tabColor:'var(--lavender)',
-    highlights:['馬丘比丘遺址','聖谷 Sacred Valley','Ollantaytambo 印加要塞','Vistadome 觀景火車'],
-    mapQuery:'Machu Picchu, Cusco, Peru',
-    cityValue:'馬丘比丘|秘魯🇵🇪|PEN'
-  },
-  {
     flag:'🇵🇪', city:'庫斯科', country:'Peru',
-    start: new Date(2026,5,22), end: new Date(2026,5,28),
-    dates:'Jun 22–28', nights:6, currency:'PEN',
+    start: new Date(2026,5,21), end: new Date(2026,5,28),
+    dates:'Jun 21–28', nights:7, currency:'PEN',
     color:'#C2B0D6', tabColor:'var(--lavender)',
-    highlights:['3,400m 高海拔古城','⭐ Inti Raymi 太陽節 6/24','薩克塞瓦曼歷史重演','冬至慶典週 6/21'],
+    highlights:['3,400m 高海拔古城','⭐ Inti Raymi 太陽節 6/24','聖谷跟團 6/25–27','冬至慶典週'],
     mapQuery:'Cusco, Peru',
     cityValue:'庫斯科|秘魯🇵🇪|PEN'
   },
   {
-    flag:'🇬🇹', city:'安地瓜', country:'Guatemala',
+    flag:'🇵🇪', city:'馬丘比丘', country:'Peru',
     start: new Date(2026,5,28), end: new Date(2026,5,30),
-    dates:'Jun 28–30', nights:2, currency:'GTQ',
+    dates:'Jun 28–30', nights:2, currency:'PEN',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
+    highlights:['進聖水鎮 6/28','馬丘比丘遺址','Ollantaytambo 印加要塞','Vistadome 觀景火車'],
+    mapQuery:'Machu Picchu, Cusco, Peru',
+    cityValue:'馬丘比丘|秘魯🇵🇪|PEN'
+  },
+  {
+    flag:'🇵🇪', city:'阿雷基帕', country:'Peru',
+    start: new Date(2026,5,30), end: new Date(2026,6,7),
+    dates:'Jun 30–Jul 7', nights:7, currency:'PEN',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
+    highlights:['白色之城 UNESCO','科爾卡峽谷 Colca Canyon','安地斯神鷹','Santa Catalina 修道院'],
+    mapQuery:'Arequipa, Peru',
+    cityValue:'阿雷基帕|秘魯🇵🇪|PEN'
+  },
+  {
+    flag:'🇵🇪', city:'利馬', country:'Peru',
+    start: new Date(2026,6,7), end: new Date(2026,6,10),
+    dates:'Jul 7–10', nights:3, currency:'PEN',
+    color:'#C2B0D6', tabColor:'var(--lavender)',
+    highlights:['回利馬緩衝','補給整理','準備飛瓜地馬拉'],
+    mapQuery:'Lima, Miraflores, Peru',
+    cityValue:'利馬|秘魯🇵🇪|PEN'
+  },
+  {
+    flag:'🇬🇹', city:'安地瓜', country:'Guatemala',
+    start: new Date(2026,6,10), end: new Date(2026,6,14),
+    dates:'Jul 10–14', nights:4, currency:'GTQ',
     color:'#DCAA40', tabColor:'var(--mustard)',
     highlights:['殖民古城 UNESCO遺產','咖啡莊園','Acatenango 火山健行','彩色鵝卵石街道'],
     mapQuery:'Antigua Guatemala',
@@ -1362,21 +1381,12 @@ const ITINERARY = [
   },
   {
     flag:'🇬🇹', city:'阿蒂特蘭湖', country:'Guatemala',
-    start: new Date(2026,5,30), end: new Date(2026,6,7),
-    dates:'Jun 30–Jul 7', nights:7, currency:'GTQ',
+    start: new Date(2026,6,14), end: new Date(2026,6,18),
+    dates:'Jul 14–18・待確認', nights:4, currency:'GTQ',
     color:'#DCAA40', tabColor:'var(--mustard)',
     highlights:['三火山環繞火山口湖','馬雅村落 Lancha 快艇','San Marcos 靈修・瑜伽','Santiago Atitlán 傳統文化'],
     mapQuery:'Lake Atitlan, Guatemala',
     cityValue:'阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ'
-  },
-  {
-    flag:'🇨🇦', city:'多倫多', country:'Canada',
-    start: new Date(2026,6,7), end: new Date(2026,6,12),
-    dates:'Jul 7–12', nights:5, currency:'CAD',
-    color:'#A6C7D2', tabColor:'var(--sky)',
-    highlights:['CN Tower','尼亞加拉瀑布','返台前最後補給'],
-    mapQuery:'Toronto, Ontario, Canada',
-    cityValue:'多倫多|加拿大🇨🇦|CAD'
   }
 ];
 
@@ -1472,8 +1482,8 @@ const TRIP_PLANS = {
 
 // ── FLAT JOURNEY ORDER (all individual stops, chronological) ──
 // idx: 0=西雅圖 1=溫哥華 2=聖地牙哥 3=巴塔哥尼亞 4=PuntaArenas 5=PuertoMontt
-//      6=聖保羅 7=里約 8=Bonito 9=伊瓜蘇 10=Lençóis 11=利馬 12=庫斯科
-//      13=馬丘比丘 14=安地瓜 15=阿蒂特蘭湖 16=多倫多
+//      4=聖保羅 5=里約 6=伊瓜蘇 7=Lençóis 8=利馬 9=庫斯科 10=馬丘比丘
+//      11=阿雷基帕 12=安地瓜 13=阿蒂特蘭湖 14=多倫多
 const JOURNEY = [
   { city:'西雅圖',         flag:'🇺🇸', country:'美國🇺🇸',      currency:'USD', cityValue:'西雅圖|美國🇺🇸|USD',           coords:[47.61,-122.33] }, // 0
   { city:'溫哥華',         flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'溫哥華|加拿大🇨🇦|CAD',         coords:[49.28,-123.12] }, // 1
@@ -1486,9 +1496,10 @@ const JOURNEY = [
   { city:'利馬',           flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'利馬|秘魯🇵🇪|PEN',             coords:[-12.05,-77.04] }, // 8
   { city:'庫斯科',         flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'庫斯科|秘魯🇵🇪|PEN',           coords:[-13.53,-71.97] }, // 9
   { city:'馬丘比丘',       flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'馬丘比丘|秘魯🇵🇪|PEN',         coords:[-13.16,-72.55] }, // 10
-  { city:'安地瓜',         flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ',      coords:[14.56,-90.73]  }, // 11
-  { city:'阿蒂特蘭湖',     flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ',  coords:[14.69,-91.19]  }, // 12
-  { city:'多倫多',         flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'多倫多|加拿大🇨🇦|CAD',         coords:[43.65,-79.38]  }, // 13
+  { city:'阿雷基帕',       flag:'🇵🇪', country:'秘魯🇵🇪',      currency:'PEN', cityValue:'阿雷基帕|秘魯🇵🇪|PEN',         coords:[-16.41,-71.54] }, // 11
+  { city:'安地瓜',         flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'安地瓜|瓜地馬拉🇬🇹|GTQ',      coords:[14.56,-90.73]  }, // 12
+  { city:'阿蒂特蘭湖',     flag:'🇬🇹', country:'瓜地馬拉🇬🇹',  currency:'GTQ', cityValue:'阿蒂特蘭湖|瓜地馬拉🇬🇹|GTQ',  coords:[14.69,-91.19]  }, // 13
+  { city:'多倫多',         flag:'🇨🇦', country:'加拿大🇨🇦',    currency:'CAD', cityValue:'多倫多|加拿大🇨🇦|CAD',         coords:[43.65,-79.38]  }, // 14
 ];
 
 function defaultJourneyIdx() {
@@ -1505,12 +1516,13 @@ function defaultJourneyIdx() {
   if (now < new Date(2026,5,9))  return 4;  // 聖保羅（緩衝→千湖沙漠）
   if (now < new Date(2026,5,15)) return 7;  // Lençóis 千湖沙漠
   if (now < new Date(2026,5,18)) return 4;  // 聖保羅（緩衝→秘魯）
-  if (now < new Date(2026,5,20)) return 8;  // 利馬
-  if (now < new Date(2026,5,22)) return 10; // 馬丘比丘
+  if (now < new Date(2026,5,21)) return 8;  // 利馬
   if (now < new Date(2026,5,28)) return 9;  // 庫斯科
-  if (now < new Date(2026,5,30)) return 11; // 安地瓜
-  if (now < new Date(2026,6,7))  return 12; // 阿蒂特蘭湖
-  return 13; // 多倫多
+  if (now < new Date(2026,5,30)) return 10; // 馬丘比丘（聖水鎮）
+  if (now < new Date(2026,6,7))  return 11; // 阿雷基帕
+  if (now < new Date(2026,6,10)) return 8;  // 利馬（緩衝→瓜地馬拉）
+  if (now < new Date(2026,6,14)) return 12; // 安地瓜
+  return 13; // 阿蒂特蘭湖
 }
 function getCurCityIdx() {
   const s = localStorage.getItem('curCityIdx');

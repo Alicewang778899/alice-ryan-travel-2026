@@ -745,14 +745,19 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 .fp-tally-row { display:flex; align-items:center; gap:4px; font-size:11px; color:rgba(247,225,180,0.6); }
 .fp-tally-n { font-family:"DM Serif Display","Songti TC",serif; font-size:15px; color:var(--mustard); margin-right:1px; }
 
-/* Map */
-.fp-map-wrap { position:absolute; top:170px; left:0; right:0; bottom:0; z-index:1; overflow:hidden; }
+/* Map — bottom 由 JS 依卡片高度動態調整，確保整條路線可見 */
+.fp-map-wrap { position:absolute; top:170px; left:0; right:0; bottom:310px; z-index:1; overflow:hidden; }
 .fp-map-wrap svg { width:100%; height:100%; display:block; }
 
 /* Bottom sheet — compact */
 .fp-sheet { position:absolute; left:12px; right:12px; bottom:92px; background:var(--paper); color:var(--ink); border-radius:22px; box-shadow:0 1px 4px rgba(0,0,0,0.12),0 20px 50px rgba(0,0,0,0.35); overflow:hidden; z-index:4; border:1px solid rgba(31,26,20,0.08); }
-.fp-pull { padding:8px 0 2px; display:flex; justify-content:center; }
+.fp-pull { padding:10px 0 4px; display:flex; justify-content:center; cursor:pointer; }
 .fp-pull-bar { width:36px; height:4px; border-radius:2px; background:rgba(31,26,20,0.15); }
+/* 收合狀態：只留 NOW + 城市列，讓地圖有完整空間 */
+.fp-sheet.collapsed .fp-city-sub,
+.fp-sheet.collapsed .fp-divider,
+.fp-sheet.collapsed .fp-next { display:none !important; }
+.fp-sheet.collapsed { padding-bottom:12px; }
 .fp-now-row { padding:4px 18px 0; display:flex; align-items:center; justify-content:space-between; }
 .fp-now-lbl { display:flex; align-items:center; gap:6px; font-size:10px; color:var(--coral-dk); letter-spacing:1px; font-weight:700; }
 .fp-now-dot { width:6px; height:6px; border-radius:50%; background:var(--coral); flex-shrink:0; }
@@ -1110,7 +1115,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
 
   <!-- Bottom sheet (compact) -->
   <div class="fp-sheet">
-    <div class="fp-pull"><div class="fp-pull-bar"></div></div>
+    <div class="fp-pull" onclick="fpToggleSheet()"><div class="fp-pull-bar"></div></div>
     <div class="fp-now-row">
       <div class="fp-now-lbl"><span class="fp-now-dot"></span><span id="fp-stop-label">NOW · 第 — 站</span></div>
       <div class="fp-now-dates" id="fp-stop-dates"></div>
@@ -1363,8 +1368,8 @@ const ITINERARY = [
   },
   {
     flag:'🇵🇪', city:'利馬', country:'Peru',
-    start: new Date(2026,6,7), end: new Date(2026,6,10),
-    dates:'Jul 7–10', nights:3, currency:'PEN',
+    start: new Date(2026,6,7), end: new Date(2026,6,9),
+    dates:'Jul 7–9', nights:2, currency:'PEN',
     color:'#C2B0D6', tabColor:'var(--lavender)',
     highlights:['回利馬緩衝','補給整理','準備飛瓜地馬拉'],
     mapQuery:'Lima, Miraflores, Peru',
@@ -1372,8 +1377,8 @@ const ITINERARY = [
   },
   {
     flag:'🇬🇹', city:'安地瓜', country:'Guatemala',
-    start: new Date(2026,6,10), end: new Date(2026,6,14),
-    dates:'Jul 10–14', nights:4, currency:'GTQ',
+    start: new Date(2026,6,9), end: new Date(2026,6,14),
+    dates:'Jul 9–14', nights:5, currency:'GTQ',
     color:'#DCAA40', tabColor:'var(--mustard)',
     highlights:['殖民古城 UNESCO遺產','咖啡莊園','Acatenango 火山健行','彩色鵝卵石街道'],
     mapQuery:'Antigua Guatemala',
@@ -1520,7 +1525,7 @@ function defaultJourneyIdx() {
   if (now < new Date(2026,5,28)) return 9;  // 庫斯科
   if (now < new Date(2026,5,30)) return 10; // 馬丘比丘（聖水鎮）
   if (now < new Date(2026,6,7))  return 11; // 阿雷基帕
-  if (now < new Date(2026,6,10)) return 8;  // 利馬（緩衝→瓜地馬拉）
+  if (now < new Date(2026,6,9))  return 8;  // 利馬（緩衝→瓜地馬拉）
   if (now < new Date(2026,6,14)) return 12; // 安地瓜
   return 13; // 阿蒂特蘭湖
 }
@@ -2392,7 +2397,32 @@ function fpRenderMap(stops){
     }
   });
   svg.appendChild(dg);
+  _fpPts=pts;
+  fpFitMap();
 }
+
+// 依「統計區以下、卡片以上」的可視空間，把 viewBox 縮放到整條路線的範圍
+let _fpPts=null;
+function fpFitMap(){
+  const svg=document.getElementById('fp-map-svg');
+  if(!svg||!_fpPts||!_fpPts.length)return;
+  const wrap=svg.parentElement;
+  const sheet=document.querySelector('.fp-sheet');
+  if(sheet)wrap.style.bottom=(sheet.offsetHeight+104)+'px'; // 92 nav + 12 間距
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  _fpPts.forEach(([x,y])=>{if(x<minX)minX=x;if(y<minY)minY=y;if(x>maxX)maxX=x;if(y>maxY)maxY=y;});
+  minX-=28;maxX+=55;minY-=36;maxY+=22; // 預留標籤與脈衝圈空間
+  let bw=maxX-minX,bh=maxY-minY;
+  const cw=wrap.clientWidth||1,ch=wrap.clientHeight||1,ca=cw/ch;
+  if(bw/bh<ca){const nw=bh*ca;minX-=(nw-bw)/2;bw=nw;}
+  else{const nh=bw/ca;minY-=(nh-bh)/2;bh=nh;}
+  svg.setAttribute('viewBox',minX.toFixed(1)+' '+minY.toFixed(1)+' '+bw.toFixed(1)+' '+bh.toFixed(1));
+}
+function fpToggleSheet(){
+  const sheet=document.querySelector('.fp-sheet');
+  if(sheet){sheet.classList.toggle('collapsed');fpFitMap();}
+}
+window.addEventListener('resize',()=>fpFitMap());
 
 function fpRenderSheet(stops){
   const now=new Date();
@@ -2433,6 +2463,8 @@ function initCompass(){
     if(!stops.length){document.getElementById('fp-city-name').textContent='No stops found';return;}
     fpRenderMap(stops);
     fpRenderSheet(stops);
+    fpFitMap();                    // sheet 內容填完後高度會變，重新 fit
+    setTimeout(fpFitMap, 400);     // 字體載入後再保險一次
   }catch(e){
     console.error('initCompass error:',e);
     const el=document.getElementById('fp-city-name');
@@ -2444,9 +2476,9 @@ function initCompass(){
 document.addEventListener('DOMContentLoaded', () => {
   // 自動清除過期的城市 localStorage（日期往前走了就更新）
   const dateIdx   = defaultJourneyIdx();
-  const cachedIdx = localStorage.getItem('curCityIdx');
+  const cachedIdx = localStorage.getItem('curCityIdx2');
   if (cachedIdx === null || parseInt(cachedIdx) < dateIdx) {
-    localStorage.setItem('curCityIdx', dateIdx);
+    localStorage.setItem('curCityIdx2', dateIdx);
   }
 
   initForm();

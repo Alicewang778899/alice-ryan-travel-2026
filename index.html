@@ -816,7 +816,7 @@ body { font-family:'Noto Sans TC','PingFang TC',system-ui,sans-serif; background
       </svg>
       <div class="h-hero-day">美洲大旅行 · SABBATICAL 2026</div>
     </div>
-    <div class="h-hero-daynum"><span class="hd-pre">Day</span><span class="hd-n" id="hero-day-n">—</span><span class="hd-total">/ 80</span></div>
+    <div class="h-hero-daynum"><span class="hd-pre">Day</span><span class="hd-n" id="hero-day-n">—</span></div>
     <div class="h-hero-next" id="next-stop-inline">找尋方向 · 一直在路上</div>
     <div class="h-hero-cta" onclick="go('itinerary')">查看行程 →</div>
   </div>
@@ -1762,11 +1762,11 @@ async function loadHome() {
   const now = new Date();
   const day = tripDay();
   const pct = Math.min(100, day / TRIP_DAYS * 100).toFixed(1);
-  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 / ${TRIP_DAYS} 天`;
+  document.getElementById('trip-day-txt').textContent = `第 ${day} 天 · 在路上`;
   document.getElementById('prog-fill').style.width = pct + '%';
   document.getElementById('hero-day-n').textContent = day;
   document.getElementById('next-stop-inline').textContent =
-    now.toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'}) + ` · 還剩 ${Math.max(0, TRIP_DAYS - day)} 天`;
+    now.toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'});
 
   // Next stop — based on JOURNEY order, not itinerary segment
   const nextCity = JOURNEY[cityIdx + 1];
@@ -2306,7 +2306,7 @@ function fpGetStops(){
 function fpCalcStats(){
   const now=new Date();
   const dayTotal=TRIP_DAYS;
-  const day=Math.min(tripDay(),TRIP_DAYS);
+  const day=tripDay(); // 旅程延長中，不再以 80 天封頂
   const visitedCV=new Set(ITINERARY.filter(i=>now>=i.start).map(i=>i.cityValue));
   const totalCV=new Set(ITINERARY.map(i=>i.cityValue));
   const visitedC=new Set(JOURNEY.filter(j=>visitedCV.has(j.cityValue)).map(j=>j.country));
@@ -2456,7 +2456,7 @@ function initCompass(){
     document.getElementById('fp-cntry').textContent=stats.countries;
     document.getElementById('fp-cntry-t').textContent='/'+stats.countriesTotal;
     document.getElementById('fp-days').textContent=stats.day;
-    document.getElementById('fp-days-t').textContent='/'+stats.dayTotal;
+    document.getElementById('fp-days-t').textContent='';
     document.getElementById('fp-flights').textContent=stats.flights;
     document.getElementById('fp-buses').textContent=stats.buses;
     document.getElementById('fp-trains').textContent=stats.trains;

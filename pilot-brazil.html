@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brazil · Pilot — 大嘴鳥章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral:#DC6749; --coral-deep:#B84E33; --mustard:#DCAA40; --forest:#2B4A3D;
+  --rose:#E89B86; --cream:#F1E8D2; --paper:#F8F1DD; --ink:#1F1A14; --ink-soft:#5A5247;
+  --serif:"DM Serif Display","Noto Serif TC",serif;
+  --serif-tc:"Noto Serif TC",serif;
+  --sans:"Noto Sans TC",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+.ch-hero{position:relative;height:100svh;min-height:560px;overflow:hidden}
+.ch-hero img{position:absolute;inset:0}
+.ch-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(31,26,20,.72) 0%,rgba(31,26,20,.12) 45%,rgba(31,26,20,.22) 100%)}
+.ch-hero-text{position:absolute;left:0;right:0;bottom:9vh;z-index:2;text-align:center;color:var(--paper);padding:0 24px}
+.ch-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.ch-title{font-family:var(--serif);font-size:clamp(64px,11vw,150px);line-height:.92}
+.ch-zh{font-family:var(--serif-tc);font-size:clamp(18px,3vw,28px);letter-spacing:.35em;margin-top:14px;color:var(--cream)}
+.ch-dates{font-size:12px;letter-spacing:2.5px;margin-top:16px;color:rgba(241,232,210,.65)}
+
+.lead{max-width:640px;margin:0 auto;padding:96px 28px 60px;text-align:center}
+.lead-drop{font-family:var(--serif-tc);font-size:19px;line-height:2.1;color:var(--ink)}
+.lead-rule{width:56px;height:3px;background:var(--coral);margin:36px auto 0;border-radius:2px}
+
+.pq{max-width:900px;margin:0 auto;padding:48px 28px 90px;text-align:center}
+.pq-glyph svg{height:88px;width:auto;margin:0 auto 24px;display:block}
+.pq-text{font-family:var(--serif-tc);font-weight:600;font-size:clamp(26px,4.6vw,44px);line-height:1.5;color:var(--ink)}
+.pq-src{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);margin-top:24px}
+
+.spread{display:grid;grid-template-columns:1.15fr .85fr;max-width:1200px;margin:0 auto 96px;padding:0 28px;gap:clamp(28px,4vw,64px);align-items:center}
+.spread.rev{grid-template-columns:.85fr 1.15fr}
+.spread-photo .ph{aspect-ratio:3/4;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(31,26,20,.18)}
+.spread-photo.land .ph{aspect-ratio:4/3}
+.ph-cap{font-size:11px;letter-spacing:1.5px;color:var(--ink-soft);margin-top:14px;text-transform:uppercase}
+.ph-cap b{color:var(--coral-deep)}
+.j-date{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+.j-date::before{content:'';width:28px;height:2px;background:var(--coral)}
+.j-text{font-family:var(--serif-tc);font-size:clamp(16px,1.8vw,19px);line-height:2.05;color:var(--ink)}
+.j-sign{margin-top:26px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft)}
+
+/* 巴西帶:雨林綠 × 大嘴鳥 */
+.band{background:var(--forest);color:var(--cream);text-align:center;padding:96px 28px}
+.band-toucans{display:flex;justify-content:center;gap:clamp(40px,10vw,140px);align-items:center;margin-bottom:44px}
+.band-toucans svg{height:clamp(80px,12vw,120px);width:auto}
+.band .pq-text{color:var(--paper)}
+.band .pq-src{color:rgba(241,232,210,.5)}
+
+/* 三連照片列 */
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;max-width:1200px;margin:90px auto;padding:0 28px}
+.trio .ph{border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(31,26,20,.14)}
+.trio .ph.tall{aspect-ratio:3/4}
+.trio .ph.wide{aspect-ratio:4/3}
+@media(max-width:860px){
+  .spread,.spread.rev{grid-template-columns:1fr;gap:26px;margin-bottom:72px}
+  .trio{grid-template-columns:1fr}
+}
+/* 抄作業 tipbox:掛在每個城市 spread 正下方 */
+.tipbox{max-width:1200px;margin:-52px auto 96px;padding:0 28px}
+.tipbox-in{background:var(--paper);border:1.5px dashed rgba(220,103,73,.45);border-radius:18px;padding:22px 26px 18px;position:relative}
+.tipbox-in::before{content:'📝';position:absolute;top:-15px;left:26px;background:var(--cream);padding:0 8px;font-size:16px}
+.tipbox h5{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral-deep);margin-bottom:10px}
+.tipbox ul{list-style:none;columns:2;column-gap:34px}
+@media(max-width:760px){.tipbox ul{columns:1}}
+.tipbox li{font-size:13px;line-height:1.6;padding:5px 0 5px 16px;position:relative;break-inside:avoid}
+.tipbox li::before{content:'✦';position:absolute;left:0;top:8px;font-size:6px;color:var(--coral)}
+.tipbox li b{font-weight:600}
+
+/* 攻略區:Before You Go(內容來自 Alice 小紅書已發布攻略) */
+.guides{background:var(--paper);padding:84px 28px 90px}
+.guides-inner{max-width:1100px;margin:0 auto}
+.guides-head{text-align:center;margin-bottom:52px}
+.guides-head .ch-eyebrow{color:var(--coral)}
+.guides-head h3{font-family:var(--serif);font-size:34px;color:var(--ink)}
+.guides-head p{font-size:12px;color:var(--ink-soft);margin-top:8px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:760px){.g-grid{grid-template-columns:1fr}}
+.g-card{background:var(--cream);border-radius:18px;padding:26px 26px 22px}
+.g-card h4{font-family:var(--serif);font-size:20px;margin-bottom:2px}
+.g-card .g-zh{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--coral-deep);margin-bottom:14px}
+.g-card li{list-style:none;font-size:13px;line-height:1.65;padding:6px 0 6px 16px;position:relative;border-bottom:1px solid rgba(31,26,20,.05)}
+.g-card li:last-child{border-bottom:none}
+.g-card li::before{content:'✦';position:absolute;left:0;top:9px;font-size:6px;color:var(--coral)}
+.g-card li b{font-weight:600}
+.pilot-tag{position:fixed;top:14px;left:14px;z-index:9;background:var(--mustard);color:var(--ink);font-size:10px;font-weight:700;letter-spacing:1.5px;padding:6px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(31,26,20,.25)}
+.fade{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.fade.in{opacity:1;transform:none}
+
+/* 文字排版:置中短句配平行長,內文避免孤字(Alice 排版原則) */
+.lead-drop,.pq-text,.museo-h,.ch-zh,.guides-head p,.lead-en{text-wrap:balance}
+.j-text,.card-desc,.desc,.note-text,.tipbox li,.g-card li,.info-list li,.ib li{text-wrap:pretty}
+
+/* 路線地圖(GeoJSON 生成,品牌手繪風) */
+.mapwrap{display:flex;flex-direction:column;align-items:center;padding:0 28px 92px;text-align:center}
+.map-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:26px}
+.mapsvg{height:auto}
+.mland path{fill:rgba(220,170,64,.13);stroke:rgba(90,82,71,.5);stroke-width:1.2;stroke-linejoin:round}
+.mroute{fill:none;stroke:var(--coral);stroke-width:2;stroke-dasharray:5 5;stroke-linecap:round}
+.mdot{fill:var(--coral);opacity:.25}
+.mdot-in{fill:var(--coral-deep)}
+.mlabel{font-size:11px;fill:var(--ink);font-weight:600;letter-spacing:.4px;font-family:"Noto Sans TC",sans-serif}
+.mcountry{font-size:10px;fill:rgba(90,82,71,.45);letter-spacing:3px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="pilot-tag">PILOT · 巴西章試排</div>
+
+<section class="ch-hero">
+  <img src="images/iguazu/DSC08922.jpg" alt="伊瓜蘇瀑布全景">
+  <div class="ch-hero-text">
+    <p class="ch-eyebrow">Chapter 03 · Land of the Toucan</p>
+    <h1 class="ch-title">Brazil</h1>
+    <p class="ch-zh">巴西 · 大嘴鳥的國度</p>
+    <p class="ch-dates">MAY 21 — JUN 16 · DAY 31–57 · 聖保羅 → 里約 → 伊瓜蘇 → 潘塔納爾 → 千湖沙漠</p>
+  </div>
+</section>
+
+<section class="lead fade">
+  <p class="lead-drop">一個月,五個巴西:大都會的混沌、海灘的節奏、瀑布的轟鳴、濕地的野性、沙漠的寂靜。這個國度大到像五個國家,而我們把每一個都走了一遍。</p>
+  <div class="lead-rule"></div>
+</section>
+
+<section class="mapwrap fade">
+  <p class="map-eyebrow">The Route · 五個巴西,一筆畫完</p>
+  <svg viewBox="0 0 340 348.6" xmlns="http://www.w3.org/2000/svg" class="mapsvg" style="width:min(360px,80vw)" role="img" aria-label="brazil 路線圖">
+  <g class="mland"><path d="M143.8 306.3 L154.5 295.0 L163.6 287.0 L168.9 283.6 L175.7 279.1 L175.9 272.5 L171.8 267.7 L167.9 269.3 L169.4 264.5 L170.5 259.6 L170.5 255.1 L167.6 253.6 L164.6 254.9 L161.6 254.5 L160.7 251.3 L160.0 243.8 L158.5 241.3 L153.0 239.1 L149.8 240.7 L141.3 239.1 L141.8 227.9 L139.5 223.3 L142.0 221.5 L141.2 216.8 L143.4 213.2 L144.8 206.7 L142.9 201.5 L138.5 199.2 L137.7 196.0 L138.9 191.2 L123.5 190.8 L120.4 181.2 L122.7 181.1 L122.6 177.5 L121.1 175.1 L120.7 170.3 L116.1 167.8 L111.0 167.9 L107.7 165.5 L102.3 163.9 L99.1 160.8 L90.1 159.4 L81.4 152.0 L82.1 146.5 L81.1 143.3 L81.9 137.1 L71.5 138.5 L67.2 141.6 L60.2 144.9 L58.4 147.4 L54.3 147.6 L48.3 146.9 L43.8 148.3 L40.2 147.4 L40.7 134.8 L34.1 139.7 L27.0 139.5 L24.0 135.1 L18.7 134.6 L20.4 131.0 L15.9 126.0 L12.6 118.6 L14.7 117.0 L14.7 113.6 L19.5 111.2 L18.7 106.7 L20.8 103.8 L21.4 99.9 L30.5 94.3 L37.1 92.7 L38.2 91.5 L45.4 91.9 L49.0 69.2 L49.2 65.6 L48.0 60.9 L44.4 57.8 L44.4 51.8 L49.0 50.5 L50.6 51.3 L50.8 48.2 L46.1 47.3 L46.0 42.1 L61.7 42.3 L64.3 39.5 L66.5 42.1 L68.1 47.0 L69.6 45.9 L74.0 50.3 L80.3 49.8 L81.8 47.2 L87.8 45.3 L91.1 44.0 L92.0 40.4 L97.7 38.1 L97.3 36.4 L90.5 35.6 L89.4 30.4 L89.7 24.9 L86.1 22.7 L87.6 22.0 L93.6 23.0 L100.0 25.1 L102.3 23.2 L108.0 21.9 L117.0 18.8 L119.9 15.6 L118.9 13.3 L123.0 12.9 L124.9 14.8 L123.9 18.5 L126.6 19.7 L128.5 23.6 L126.2 26.5 L125.0 33.5 L127.0 37.7 L127.6 41.5 L132.5 45.4 L136.5 45.8 L137.4 44.2 L139.9 43.8 L143.5 42.4 L146.1 40.2 L150.6 40.9 L152.5 40.6 L156.9 41.3 L157.6 39.6 L156.2 37.9 L157.1 35.5 L160.3 36.3 L164.1 35.4 L168.7 37.2 L172.2 38.9 L174.7 36.6 L176.4 37.0 L177.5 39.3 L181.4 38.7 L184.5 35.6 L186.9 29.5 L191.7 21.9 L194.4 21.5 L196.4 26.1 L200.9 40.6 L205.2 41.9 L205.4 47.7 L199.3 54.5 L201.8 57.0 L216.0 58.3 L216.3 66.5 L222.4 61.1 L232.5 64.1 L245.8 69.1 L249.7 74.0 L248.4 78.6 L257.7 76.0 L273.3 80.4 L285.3 80.1 L297.2 86.9 L307.4 96.2 L313.6 98.6 L320.4 98.9 L323.4 101.5 L326.1 112.1 L327.4 117.1 L324.2 130.7 L320.1 136.1 L308.8 147.7 L303.7 157.0 L297.8 164.2 L295.8 164.3 L293.5 170.4 L294.1 185.9 L291.9 198.7 L291.0 204.1 L288.5 207.4 L287.1 218.5 L278.9 229.3 L277.6 237.8 L271.1 241.4 L269.2 246.4 L260.5 246.3 L247.9 249.5 L242.2 253.2 L233.2 255.6 L223.8 262.2 L217.0 270.4 L215.9 276.6 L217.2 281.2 L215.7 289.5 L213.9 293.6 L208.3 298.1 L199.4 312.7 L192.3 319.2 L186.9 323.1 L183.2 331.0 L177.9 335.7 L175.7 331.0 L179.2 327.1 L174.6 321.5 L168.3 316.9 L160.0 311.6 L157.1 311.8 L149.0 305.4 L143.8 306.3 Z"/></g>
+  <path d="M232.0 251.2 L259.7 245.9 L169.3 268.9 L152.0 197.0 L261.9 77.8" class="mroute"/>
+  <circle cx="232.0" cy="251.2" r="5" class="mdot"/><circle cx="232.0" cy="251.2" r="2" class="mdot-in"/><circle cx="259.7" cy="245.9" r="5" class="mdot"/><circle cx="259.7" cy="245.9" r="2" class="mdot-in"/><circle cx="169.3" cy="268.9" r="5" class="mdot"/><circle cx="169.3" cy="268.9" r="2" class="mdot-in"/><circle cx="152.0" cy="197.0" r="5" class="mdot"/><circle cx="152.0" cy="197.0" r="2" class="mdot-in"/><circle cx="261.9" cy="77.8" r="5" class="mdot"/><circle cx="261.9" cy="77.8" r="2" class="mdot-in"/>
+  <text x="238.0" y="267.2" text-anchor="start" class="mlabel">São Paulo</text><text x="269.7" y="251.9" text-anchor="start" class="mlabel">Rio</text><text x="159.3" y="274.9" text-anchor="end" class="mlabel">Iguazu</text><text x="142.0" y="201.0" text-anchor="end" class="mlabel">Pantanal</text><text x="271.9" y="79.8" text-anchor="start" class="mlabel">Lençóis</text>
+</svg>
+</section>
+
+
+
+<!-- ── 聖保羅 ── -->
+<section class="spread fade">
+  <div class="spread-photo">
+    <div class="ph"><img src="images/sao-paulo/DSC08735.jpg" alt="聖保羅紅樓梯"></div>
+    <p class="ph-cap"><b>São Paulo</b> · 混沌大都會的一抹紅</p>
+  </div>
+  <div class="journal">
+    <span class="j-date">Jun 16 · Day 57 · 聖保羅</span>
+    <p class="j-text">沒有工作兩個月,人坐在聖保羅百貨吃 100 塊 RMB 的義大利麵,物價差不多啊,好像平行世界。名牌的定義全世界都一樣——是不是就得用這些東西顯示你的階級,就像芭比娃娃一樣。</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+  </div>
+</section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 聖保羅</h5>
+    <ul><li><b>MASP 美術館</b> — 懸浮紅色支架震撼,療癒時光</li><li><b>住宿選區</b> — Itaim Bibi 治安好、質感咖啡廳密集</li><li><b>Z Deli</b> — 12 點開門就去排,燻肉三明治入口即化🥹</li><li><b>必買</b> — Mondepars、Haight 泳衣、LAPIMA;Farm 偏大媽反推😅</li><li><b>伴手禮</b> — Dengo 巧克力,不死甜,後悔沒多買</li></ul>
+  </div>
+</div>
+
+<!-- ── 里約 ── -->
+<section class="spread rev fade">
+  <div class="journal">
+    <span class="j-date">May 27 · Day 37 · 里約</span>
+    <p class="j-text">這是個好衝突的國度。山上是基督像,山下是貧民窟與海灘派對,今天第一天見到了藍天。耶穌像用它的方式,守護這片土地。</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+  </div>
+  <div class="spread-photo">
+    <div class="ph"><img src="images/rio/DSC08504.jpg" alt="在基督像下張開手"></div>
+    <p class="ph-cap"><b>Cristo Redentor</b> · 學祂張開手的那一刻</p>
+  </div>
+</section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 里約</h5>
+    <ul><li><b>CCBB 文化中心</b> — 免費博物館超有誠意,真心強推💯</li><li><b>皇家葡萄牙閱覽室</b> — 免費、超美,陰天備案</li><li><b>Tijuca 國家公園</b> — local tour 看野生樹懶🦥</li><li>麵包山挑<b>傍晚日落前</b>去,人少有夕陽</li><li><b>必吃</b> — O Caranguejo 海鮮湯、Tragga 阿根廷烤肉</li><li>Colombo 咖啡廳 — 裝潢華麗但甜點一般般,歇腳用☕️</li></ul>
+  </div>
+</div>
+
+<section class="band">
+  <div class="band-toucans">
+    <svg viewBox="0 0 160 130" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)">
+      <g stroke="#F1E8D2" stroke-width="4.5">
+        <path d="M64 22 Q42 26 38 52 Q34 80 52 92 Q66 100 78 94 Q88 88 88 70 L86 44"/>
+        <path d="M64 22 Q82 20 86 32"/>
+        <path d="M86 32 L86 46"/>
+        <circle cx="70" cy="36" r="6"/>
+        <circle cx="70" cy="36" r="2" fill="#F1E8D2"/>
+        <path d="M48 60 l7 -5 l7 5 l7 -5 l7 5"/>
+        <path d="M46 68 q10 12 24 10"/>
+        <path d="M78 94 L88 106 L96 100"/>
+        <path d="M58 94 L56 108 M70 96 L72 108"/>
+        <path d="M44 108 h44"/>
+        <path d="M56 108 l-3 5 M72 108 l3 5"/>
+      </g>
+      <g stroke="#DCAA40" stroke-width="4.5">
+        <path d="M86 30 Q114 24 132 32 Q146 39 140 54 Q137 60 130 58"/>
+        <path d="M86 46 Q102 56 118 56 Q126 57 130 58"/>
+        <path d="M90 37 Q112 33 128 44"/>
+      </g>
+    </svg>
+    <svg viewBox="0 0 160 130" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#F1E8D2" stroke-width="4.5">
+        <path d="M64 22 Q42 26 38 52 Q34 80 52 92 Q66 100 78 94 Q88 88 88 70 L86 44"/>
+        <path d="M64 22 Q82 20 86 32"/>
+        <path d="M86 32 L86 46"/>
+        <circle cx="70" cy="36" r="6"/>
+        <circle cx="70" cy="36" r="2" fill="#F1E8D2"/>
+        <path d="M48 60 l7 -5 l7 5 l7 -5 l7 5"/>
+        <path d="M46 68 q10 12 24 10"/>
+        <path d="M78 94 L88 106 L96 100"/>
+        <path d="M58 94 L56 108 M70 96 L72 108"/>
+        <path d="M44 108 h44"/>
+        <path d="M56 108 l-3 5 M72 108 l3 5"/>
+      </g>
+      <g stroke="#DCAA40" stroke-width="4.5">
+        <path d="M86 30 Q114 24 132 32 Q146 39 140 54 Q137 60 130 58"/>
+        <path d="M86 46 Q102 56 118 56 Q126 57 130 58"/>
+        <path d="M90 37 Q112 33 128 44"/>
+      </g>
+    </svg>
+  </div>
+  <p class="pq-text">剛剛好的吃苦、剛剛好的享受、<br>剛剛好的陽光、剛剛好的時間、剛剛好的人。</p>
+  <p class="pq-src">— 里約隨筆 · 2026.05.27</p>
+</section>
+
+<!-- ── 伊瓜蘇 ── -->
+<section class="pq fade">
+  <div class="pq-glyph">
+    <!-- 大嘴鳥(巴西章符號) -->
+    <svg viewBox="0 0 160 130" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#1F1A14" stroke-width="4.5">
+        <path d="M64 22 Q42 26 38 52 Q34 80 52 92 Q66 100 78 94 Q88 88 88 70 L86 44"/>
+        <path d="M64 22 Q82 20 86 32"/>
+        <path d="M86 32 L86 46"/>
+        <circle cx="70" cy="36" r="6"/>
+        <circle cx="70" cy="36" r="2" fill="#1F1A14"/>
+        <path d="M48 60 l7 -5 l7 5 l7 -5 l7 5"/>
+        <path d="M46 68 q10 12 24 10"/>
+        <path d="M78 94 L88 106 L96 100"/>
+        <path d="M58 94 L56 108 M70 96 L72 108"/>
+        <path d="M44 108 h44"/>
+        <path d="M56 108 l-3 5 M72 108 l3 5"/>
+      </g>
+      <g stroke="#DC6749" stroke-width="4.5">
+        <path d="M86 30 Q114 24 132 32 Q146 39 140 54 Q137 60 130 58"/>
+        <path d="M86 46 Q102 56 118 56 Q126 57 130 58"/>
+        <path d="M90 37 Q112 33 128 44"/>
+      </g>
+    </svg>
+  </div>
+  <p class="pq-text">原來幸福可以這麼簡單:<br>很冰很冰的水,就好開心好開心好開心。</p>
+  <p class="pq-src">伊瓜蘇快艇 · 2026.06.02</p>
+</section>
+
+<section class="spread fade">
+  <div class="spread-photo">
+    <div class="ph"><img src="images/iguazu/DSC08961.jpg" alt="伊瓜蘇瀑布前張開手"></div>
+    <p class="ph-cap"><b>Iguazu Falls</b> · 天氣之子回歸的那一天</p>
+  </div>
+  <div class="journal">
+    <span class="j-date">Jun 2 · Day 43 · 伊瓜蘇</span>
+    <p class="j-text">一週多沒看到太陽,到伊瓜蘇中午出來萬里無雲——天氣之子的我們又回來了。最後決定不去巴拉圭,感覺只是去買太陽眼鏡蠻蠢的。好感動自己好愛自己的決定😂</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+  </div>
+</section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 伊瓜蘇</h5>
+    <ul><li><b>快艇衝瀑布必玩</b> — 保證全濕,帶換洗衣物</li><li>巴西側半天夠;阿根廷側魔鬼喉嚨,過橋<b>帶護照</b></li><li>早上 8 點進場人最少、光線最好</li><li>Bufalo Branco 烤肉好吃;巴拉圭一日遊可跳過😂</li></ul>
+  </div>
+</div>
+
+<!-- ── 潘塔納爾 ── -->
+<section class="spread rev fade">
+  <div class="journal">
+    <span class="j-date">Jun 8 · Day 49 · 潘塔納爾</span>
+    <p class="j-text">我們那天真的非常幸運,一天看到七隻美洲豹,有四隻是導遊叫得出名字的🐆 河上 20 幾條船用無線電互相通報。導遊 Lino 不會英文但真誠無價,英文導遊 Victor 連你 iPhone 拍不到的都幫你拍。</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+  </div>
+  <div class="spread-photo land">
+    <div class="ph"><img src="images/pantanal/DSC09130.jpg" alt="美洲豹走在樹幹上"></div>
+    <p class="ph-cap"><b>Porto Jofre</b> · 七隻美洲豹的那一天,牠走上了樹幹</p>
+  </div>
+</section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 潘塔納爾</h5>
+    <ul><li>飛 Cuiabá,訂<b>四天三夜全包團</b>,價格堪比佛心</li><li><b>不說葡文直接指定英文導遊</b> — iPhone 拍不到的都幫你拍</li><li>乾季 6–10 月是尋豹季🐆 提早訂</li><li>防曬+防風圍巾+防蚊液 — 外國人的血比較美味😂</li><li>營地住宿樸實(有冷氣熱水),要求高選高級團</li></ul>
+  </div>
+</div>
+
+<!-- ── 千湖沙漠 ── -->
+<section class="spread fade">
+  <div class="spread-photo">
+    <div class="ph"><img src="images/lencois/DSC00238.jpg" alt="千湖沙漠潟湖邊的兩人"></div>
+    <p class="ph-cap"><b>Lençóis Maranhenses</b> · 潟湖邊,把腳泡進去的那個下午</p>
+  </div>
+  <div class="journal">
+    <span class="j-date">Jun 13 · Day 54 · 千湖沙漠</span>
+    <p class="j-text">白色沙丘配藍綠潟湖,小飛機俯瞰的規模真的震撼。在沙漠裡想通一件事:不要害怕,這個世界上有很多溫暖的體驗跟溫暖的人。一定要慢慢地走,慢慢地體會。</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+  </div>
+</section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 千湖沙漠</h5>
+    <ul><li><b>直奔 Santo Amaro(S 城)</b> — 5 分鐘進沙丘;B 城顛簸兩小時😅</li><li>B 城老實說 — Lago Azul 很普可跳過</li><li><b>住宿</b> — Pousada Girassol,老闆開車送你進鎮吃飯</li><li><b>必吃</b> — Rei Do Camarão 鄉下餐飲冠軍🏆</li><li>當地小團 R$100–150;小飛機上帝視角(膽小慎入)</li><li><b>防護三寶</b> — 防曬乳、防風面巾、防曬帽,別鐵齒</li></ul>
+  </div>
+</div>
+
+<!-- ── 收尾畫廊 ── -->
+<section class="trio fade">
+  <div class="ph wide"><img src="images/lencois/DSC00349.jpg" alt="千湖沙漠大景"></div>
+  <div class="ph tall"><img src="images/lencois/DSC00402.jpg" alt="潟湖裡"></div>
+  <div class="ph wide"><img src="images/iguazu/DSC08836.jpg" alt="群瀑"></div>
+</section>
+<section class="trio fade" style="margin-top:-52px">
+  <div class="ph wide"><img src="images/pantanal/DSC09644.jpg" alt="潘塔納爾銀河"></div>
+  <div class="ph tall"><img src="images/rio/DSC08434.jpg" alt="里約夜色"></div>
+  <div class="ph wide"><img src="images/lencois/DSC00771.jpg" alt="沙漠日落"></div>
+</section>
+
+<!-- ── 章末:巴西通用原則 ── -->
+<section class="guides">
+  <div class="guides-inner" style="max-width:720px">
+    <div class="guides-head">
+      <p class="ch-eyebrow">Before You Go · 通用原則</p>
+      <h3>巴西大原則 🇧🇷</h3>
+    </div>
+    <div class="g-card" style="background:var(--forest);color:var(--cream)">
+      <ul style="color:var(--cream)">
+        <li style="border-color:rgba(241,232,210,.12)">交通用 <b style="color:var(--paper)">Uber</b>,日夜都可靠;避免夜間公車</li>
+        <li style="border-color:rgba(241,232,210,.12)">景點都要「先飛再換車 4–5 小時」— 請保持平常心😅</li>
+        <li style="border-color:rgba(241,232,210,.12)">海灘不帶手機相機錢包;貴重物留住處</li>
+        <li>行程排鬆 — 巴西大到像五個國家,貪多必失</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.fade').forEach(function(el){io.observe(el);});
+</script>
+
+</body>
+</html>

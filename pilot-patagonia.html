@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patagonia · Pilot — 雜誌風試排</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral:#DC6749; --coral-deep:#B84E33; --mustard:#DCAA40; --forest:#2B4A3D;
+  --rose:#E89B86; --cream:#F1E8D2; --paper:#F8F1DD; --ink:#1F1A14; --ink-soft:#5A5247;
+  --serif:"DM Serif Display","Noto Serif TC",serif;
+  --serif-tc:"Noto Serif TC",serif;
+  --sans:"Noto Sans TC",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* ── CHAPTER HERO:滿版照片 ── */
+.ch-hero{position:relative;height:100svh;min-height:560px;overflow:hidden}
+.ch-hero img{position:absolute;inset:0}
+.ch-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(31,26,20,.72) 0%,rgba(31,26,20,.15) 45%,rgba(31,26,20,.25) 100%)}
+.ch-hero-text{position:absolute;left:0;right:0;bottom:9vh;z-index:2;text-align:center;color:var(--paper);padding:0 24px}
+.ch-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:14px}
+.ch-title{font-family:var(--serif);font-size:clamp(64px,11vw,150px);line-height:.92}
+.ch-zh{font-family:var(--serif-tc);font-size:clamp(18px,3vw,28px);letter-spacing:.35em;margin-top:14px;color:var(--cream)}
+.ch-dates{font-size:12px;letter-spacing:2.5px;margin-top:16px;color:rgba(241,232,210,.65)}
+
+/* ── 導言 ── */
+.lead{max-width:640px;margin:0 auto;padding:96px 28px 72px;text-align:center}
+.lead-drop{font-family:var(--serif-tc);font-size:19px;line-height:2.1;color:var(--ink)}
+.lead-en{font-size:13px;font-style:italic;color:var(--ink-soft);margin-top:28px;line-height:1.9}
+.lead-rule{width:56px;height:3px;background:var(--coral);margin:36px auto 0;border-radius:2px}
+
+/* ── PULL QUOTE ── */
+.pq{max-width:900px;margin:0 auto;padding:48px 28px 96px;text-align:center}
+.pq-mark{font-family:var(--serif);font-size:80px;line-height:.4;color:var(--coral);opacity:.35;display:block;margin-bottom:20px}
+.pq-text{font-family:var(--serif-tc);font-weight:600;font-size:clamp(26px,4.6vw,44px);line-height:1.5;color:var(--ink)}
+.pq-text em{font-family:var(--serif);font-style:italic;color:var(--coral-deep)}
+.pq-src{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);margin-top:24px}
+
+/* ── STORY SPREAD:照片 × 日記 ── */
+.spread{display:grid;grid-template-columns:1.15fr .85fr;max-width:1200px;margin:0 auto 96px;padding:0 28px;gap:clamp(28px,4vw,64px);align-items:center}
+.spread.rev{grid-template-columns:.85fr 1.15fr}
+.spread-photo{position:relative}
+.spread-photo .ph{aspect-ratio:3/4;border-radius:22px;overflow:hidden;box-shadow:0 18px 50px rgba(31,26,20,.18)}
+.spread-photo.land .ph{aspect-ratio:4/3}
+.ph-cap{font-size:11px;letter-spacing:1.5px;color:var(--ink-soft);margin-top:14px;text-transform:uppercase}
+.ph-cap b{color:var(--coral-deep)}
+.journal{position:relative}
+.j-date{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:22px}
+.j-date::before{content:'';width:28px;height:2px;background:var(--coral)}
+.j-text{font-family:var(--serif-tc);font-size:clamp(16px,1.8vw,19px);line-height:2.05;color:var(--ink)}
+.j-sign{margin-top:26px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft)}
+.j-extra{margin-top:34px;padding-top:30px;border-top:1px dashed rgba(220,103,73,.35)}
+
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;max-width:1200px;margin:0 auto 96px;padding:0 28px}
+.trio .ph{border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(31,26,20,.14)}
+.trio .ph.tall{aspect-ratio:3/4}
+.trio .ph.wide{aspect-ratio:4/3}
+@media(max-width:860px){.trio{grid-template-columns:1fr}}
+
+/* ── FOREST BAND ── */
+.band{background:var(--forest);color:var(--cream);text-align:center;padding:110px 28px;margin:0 0 0}
+.band .pq-text{color:var(--paper)}
+.band .pq-mark{color:var(--mustard);opacity:.6}
+.band .pq-src{color:rgba(241,232,210,.5)}
+
+/* ── INFO STRIP ── */
+.info-strip{background:var(--paper);padding:80px 28px 90px}
+.info-inner{max-width:1100px;margin:0 auto}
+.info-head{text-align:center;margin-bottom:52px}
+.info-head .ch-eyebrow{color:var(--coral)}
+.info-head h3{font-family:var(--serif);font-size:34px;color:var(--ink)}
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+.ib h4{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);margin-bottom:14px}
+.ib li{list-style:none;font-size:13px;line-height:1.6;padding:7px 0 7px 16px;position:relative;border-bottom:1px solid rgba(31,26,20,.05)}
+.ib li::before{content:'✦';position:absolute;left:0;top:10px;font-size:6px;color:var(--coral)}
+.ib li b{font-weight:600}
+@media(max-width:860px){
+  .spread,.spread.rev{grid-template-columns:1fr;gap:26px;margin-bottom:72px}
+  .info-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:520px){.info-grid{grid-template-columns:1fr}}
+
+.pilot-tag{position:fixed;top:14px;left:14px;z-index:9;background:var(--mustard);color:var(--ink);font-size:10px;font-weight:700;letter-spacing:1.5px;padding:6px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(31,26,20,.25)}
+
+/* 進場淡入(輕量,雜誌感加分) */
+.fade{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.fade.in{opacity:1;transform:none}
+
+/* 文字排版:置中短句配平行長,內文避免孤字(Alice 排版原則) */
+.lead-drop,.pq-text,.museo-h,.ch-zh,.guides-head p,.lead-en{text-wrap:balance}
+.j-text,.card-desc,.desc,.note-text,.tipbox li,.g-card li,.info-list li,.ib li{text-wrap:pretty}
+
+/* 路線地圖(GeoJSON 生成,品牌手繪風) */
+.mapwrap{display:flex;flex-direction:column;align-items:center;padding:0 28px 92px;text-align:center}
+.map-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:26px}
+.mapsvg{height:auto}
+.mland path{fill:rgba(220,170,64,.13);stroke:rgba(90,82,71,.5);stroke-width:1.2;stroke-linejoin:round}
+.mroute{fill:none;stroke:var(--coral);stroke-width:2;stroke-dasharray:5 5;stroke-linecap:round}
+.mdot{fill:var(--coral);opacity:.25}
+.mdot-in{fill:var(--coral-deep)}
+.mlabel{font-size:11px;fill:var(--ink);font-weight:600;letter-spacing:.4px;font-family:"Noto Sans TC",sans-serif}
+.mcountry{font-size:10px;fill:rgba(90,82,71,.45);letter-spacing:3px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="pilot-tag">PILOT · 試排版</div>
+
+<!-- 滿版章節開場 -->
+<section class="ch-hero">
+  <img src="images/patagonia/DSC08046.jpg" alt="Torres del Paine 大景">
+  <div class="ch-hero-text">
+    <p class="ch-eyebrow">Chapter 02 · Chile</p>
+    <h1 class="ch-title">Patagonia</h1>
+    <p class="ch-zh">巴塔哥尼亞</p>
+    <p class="ch-dates">MAY 5 — MAY 20 · DAY 15–30 · 世界的盡頭</p>
+  </div>
+</section>
+
+<!-- 導言 -->
+<section class="lead fade">
+  <p class="lead-drop">世界的盡頭，風強到讓人站不穩。Torres del Paine 的藍色冰川像是另一個星球。這裡的天氣一天四季——早上陽光普照，下午暴風雪。行程要排鬆，才能應對大自然的任性。</p>
+  <p class="lead-en">The end of the world. Fierce winds, electric-blue glaciers, and three granite towers rising from the plain. Plan loose, bring every layer you own.</p>
+  <div class="lead-rule"></div>
+</section>
+
+<section class="mapwrap fade">
+  <p class="map-eyebrow">The Route · 一路向南,到世界的盡頭</p>
+  <svg viewBox="0 0 200 595.7" xmlns="http://www.w3.org/2000/svg" class="mapsvg" style="width:min(190px,80vw)" role="img" aria-label="chile 路線圖">
+  <g class="mland"><path d="M128.7 526.6 L128.7 572.5 L145.2 572.5 L154.5 573.0 L149.4 581.3 L136.2 587.7 L128.6 587.1 L119.5 585.4 L108.3 579.2 L92.2 576.3 L72.9 564.8 L57.2 553.7 L36.0 530.7 L48.6 535.1 L70.2 548.8 L90.7 556.1 L98.6 546.7 L103.6 532.7 L117.8 524.2 L128.7 526.6 Z"/><path d="M135.1 -113.1 L141.1 -84.8 L152.2 -87.6 L154.1 -82.4 L148.8 -61.1 L132.0 -51.0 L132.5 -16.7 L129.3 -10.1 L133.9 -2.1 L123.1 10.7 L113.0 30.0 L107.5 48.6 L108.9 68.5 L99.5 89.7 L106.5 125.1 L110.5 128.9 L110.5 147.8 L101.7 167.8 L102.1 185.0 L90.4 198.4 L90.5 217.3 L95.2 237.3 L85.9 244.8 L81.8 263.1 L78.2 284.1 L80.8 309.2 L74.6 313.4 L78.2 337.1 L85.2 344.8 L80.1 353.5 L87.2 357.6 L88.9 365.3 L82.2 369.2 L83.8 381.3 L78.2 408.5 L70.0 426.0 L71.8 436.4 L67.0 449.4 L55.1 458.5 L56.5 480.2 L61.9 487.7 L72.2 486.4 L71.9 501.7 L78.2 513.7 L115.4 516.5 L129.7 519.7 L116.0 519.5 L108.6 524.6 L94.7 532.0 L92.2 551.2 L85.7 551.7 L68.3 545.0 L50.7 530.7 L50.7 530.7 L31.6 518.9 L26.8 505.9 L31.1 493.9 L23.4 480.2 L21.4 445.2 L28.0 425.5 L44.2 409.6 L20.9 403.6 L35.5 385.4 L40.7 351.3 L57.8 358.5 L65.9 316.0 L55.6 310.5 L50.7 336.2 L41.0 333.3 L45.9 303.9 L51.1 265.9 L58.2 251.8 L53.8 231.8 L52.5 208.6 L59.0 208.0 L68.4 174.8 L79.1 141.9 L85.6 111.3 L82.0 80.5 L86.6 63.6 L84.8 38.2 L93.8 13.2 L96.5 -26.6 L101.5 -69.2 L106.3 -115.2 L105.2 -148.8 L102.0 -177.7 L109.9 -183.0 L114.0 -193.5 L121.5 -179.5 L123.6 -164.7 L131.7 -156.0 L126.8 -136.1 L135.1 -113.1 Z"/></g>
+  <path d="M97.7 132.7 L68.9 508.0" class="mroute"/>
+  <circle cx="97.7" cy="132.7" r="5" class="mdot"/><circle cx="97.7" cy="132.7" r="2" class="mdot-in"/><circle cx="63.1" cy="497.1" r="5" class="mdot"/><circle cx="63.1" cy="497.1" r="2" class="mdot-in"/><circle cx="68.9" cy="508.0" r="5" class="mdot"/><circle cx="68.9" cy="508.0" r="2" class="mdot-in"/>
+  <text x="107.7" y="136.7" text-anchor="start" class="mlabel">Santiago</text><text x="73.1" y="495.1" text-anchor="start" class="mlabel">Torres del Paine</text><text x="78.9" y="518.0" text-anchor="start" class="mlabel">Puerto Natales</text>
+</svg>
+</section>
+
+
+
+<!-- Pull quote 1 -->
+<section class="pq fade">
+  <span class="pq-mark">“</span>
+  <p class="pq-text">這座山<br><em>teach you to be humble.</em></p>
+  <p class="pq-src">百內三塔 22KM · 直線上升 1000M</p>
+</section>
+
+<!-- Spread 1:三塔故事 -->
+<section class="spread fade">
+  <div class="spread-photo">
+    <div class="ph"><img src="images/patagonia/DSC07751.jpg" alt="Torres del Paine 三塔下"></div>
+    <p class="ph-cap"><b>Mirador Las Torres</b> · 第四個小時,見到三塔的那一刻</p>
+  </div>
+  <div class="journal">
+    <span class="j-date">May 12 · Day 22 · 百內三塔</span>
+    <p class="j-text">前兩個小時的我健步如飛還在那邊唱秋,爬到後面你只聽到自己的呼吸聲還有雨聲,世界可以這麼安靜。第四個小時見到 Torres del Paine 的那刻,太震撼了。</p>
+    <p class="j-sign">— Alice &amp; Ryan 的日記</p>
+    <div class="j-extra">
+      <span class="j-date">May 13 · Grey 冰川遊船</span>
+      <p class="j-text" style="font-size:15px">老實說:60 分。風浪大到 1/4 的人暈船。反而隔天隨便進公園逛逛——結果,太美麗了,金色的大地還有銀河。免費的比船票貴的美😂</p>
+    </div>
+  </div>
+</section>
+
+<!-- Spread 2:旅人相遇(反向) -->
+<section class="spread rev fade">
+  <div class="journal">
+    <span class="j-date">May 15 · 小團 10 人遇見全世界</span>
+    <p class="j-text">紐西蘭情侶說智利 “Same but different”。法國夫妻休假六個月走到第五個月,問她想家嗎——她說一點也不,世界好有趣。</p>
+    <div class="j-extra">
+      <span class="j-date">May 16 · 住宿實測</span>
+      <p class="j-text" style="font-size:15px">Hotel Altiplanico Sur 沒網路(Booking 寫的是真的),但有燙到不行的隱藏版熱水池。Explora 我目前還住不起,但這片土地我會再來的。</p>
+    </div>
+  </div>
+  <div class="spread-photo">
+    <div class="ph"><img src="images/patagonia/DSC07615.jpg" alt="巴塔哥尼亞公路上張開手"></div>
+    <p class="ph-cap"><b>Ruta Y-290</b> · 風大到站不穩,也要張開手</p>
+  </div>
+</section>
+
+<!-- 畫廊 -->
+<section class="trio fade">
+  <div class="ph wide"><img src="images/patagonia/DSC07802.jpg" alt="金色的大地"></div>
+  <div class="ph tall"><img src="images/patagonia/DSC07506.jpg" alt="風中"></div>
+  <div class="ph wide"><img src="images/patagonia/DSC08002.jpg" alt="Grey 冰川"></div>
+</section>
+
+<!-- Forest band quote -->
+<section class="band">
+  <span class="pq-mark">“</span>
+  <p class="pq-text">在這裡,我們一點都不奇怪。<br>有太多的人做了這個決定,在看看這個世界。</p>
+  <p class="pq-src">— 記錄故事 · 2026.05.15</p>
+</section>
+
+<!-- 攻略資訊 strip -->
+<section class="info-strip">
+  <div class="info-inner">
+    <div class="info-head">
+      <p class="ch-eyebrow">The Essentials · 攻略</p>
+      <h3>Before You Go</h3>
+    </div>
+    <div class="info-grid">
+      <div class="ib"><h4>✦ Must See · 必去</h4><ul>
+        <li><b>Torres del Paine</b> — W 路線 5 天或 O 路線 9 天</li>
+        <li><b>Mirador Las Torres</b> — 看塔尖日出,清晨 3 點出發</li>
+        <li><b>Grey Glacier</b> — 搭船或健行到冰川前</li>
+        <li><b>麥哲倫海峽</b> — Punta Arenas 看企鵝</li>
+      </ul></div>
+      <div class="ib"><h4>🍜 Must Eat · 必吃</h4><ul>
+        <li><b>Centolla 帝王蟹</b> — 新鮮現撈,必點</li>
+        <li><b>Patagonian Lamb</b> — 火邊烤全羊,靈魂食物</li>
+        <li><b>Caldillo de Congrio</b> — 傳統鰻魚海鮮湯</li>
+      </ul></div>
+      <div class="ib"><h4>🚌 Getting There · 交通</h4><ul>
+        <li>飛 Punta Arenas(PUQ)→ 巴士到 Puerto Natales</li>
+        <li>Natales 搭班車進公園,或租四驅</li>
+        <li>W 路線需提前訂 Refugio 和渡輪</li>
+      </ul></div>
+      <div class="ib"><h4>💰 Budget · 預算</h4><ul>
+        <li>公園門票:CLP ~35,000/人(淡季)</li>
+        <li>Refugio 含早晚餐:USD $80–120/晚</li>
+        <li>帝王蟹大餐:CLP $30,000–60,000</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.fade').forEach(function(el){io.observe(el);});
+</script>
+
+</body>
+</html>

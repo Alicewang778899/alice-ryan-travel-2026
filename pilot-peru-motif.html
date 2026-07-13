@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peru 圖騰元素 · Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral:#DC6749; --coral-deep:#B84E33; --mustard:#DCAA40; --forest:#2B4A3D;
+  --rose:#E89B86; --cream:#F1E8D2; --paper:#F8F1DD; --ink:#1F1A14; --ink-soft:#5A5247;
+  --serif:"DM Serif Display","Noto Serif TC",serif;
+  --serif-tc:"Noto Serif TC",serif;
+  --sans:"Noto Sans TC",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.demo-label{max-width:900px;margin:0 auto;padding:40px 28px 12px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral)}
+
+/* ── ① 秘魯章開場:博物館之牆 ── */
+.museo{background:var(--ink);color:var(--cream);padding:100px 28px 90px;text-align:center;position:relative;overflow:hidden}
+.museo-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:18px}
+.museo-title{font-family:var(--serif);font-size:clamp(58px,9vw,110px);line-height:.95;color:var(--paper)}
+.museo-zh{font-family:var(--serif-tc);font-size:clamp(17px,2.6vw,24px);letter-spacing:.35em;margin-top:12px;color:var(--mustard)}
+.museo-deity{display:flex;justify-content:center;gap:clamp(32px,8vw,110px);align-items:flex-end;margin-top:56px}
+.museo-deity svg{height:clamp(110px,16vw,170px);width:auto;opacity:.92}
+.museo-cap{margin-top:40px;font-size:11px;letter-spacing:2px;color:rgba(241,232,210,.45)}
+
+/* ── ② 小人 frieze 分隔帶 ── */
+.frieze{background:var(--paper);padding:34px 0;overflow:hidden}
+.frieze-track{display:flex;justify-content:center;gap:34px}
+.frieze svg{height:34px;width:auto;flex:none}
+
+/* ── ③ Pull-quote 配圖騰 ── */
+.pq{max-width:860px;margin:0 auto;padding:88px 28px 96px;text-align:center}
+.pq-glyph svg{height:64px;width:auto;margin:0 auto 26px;display:block}
+.pq-text{font-family:var(--serif-tc);font-weight:600;font-size:clamp(24px,4vw,38px);line-height:1.6;color:var(--ink)}
+.pq-src{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);margin-top:24px}
+
+/* 文字排版:置中短句配平行長,內文避免孤字(Alice 排版原則) */
+.lead-drop,.pq-text,.museo-h,.ch-zh,.guides-head p,.lead-en{text-wrap:balance}
+.j-text,.card-desc,.desc,.note-text,.tipbox li,.g-card li,.info-list li,.ib li{text-wrap:pretty}
+</style>
+</head>
+<body>
+
+<p class="demo-label">Demo ① · 秘魯章開場 — 博物館之牆(金線圖騰 × 妳的品牌黑)</p>
+<section class="museo">
+  <p class="museo-eyebrow">Chapter 04 · Land of the Incas</p>
+  <h1 class="museo-title">Peru</h1>
+  <p class="museo-zh">秘魯 · 眾神與織者之地</p>
+
+  <div class="museo-deity">
+    <!-- 舞者(靈感:織品格線間的小人) -->
+    <svg viewBox="0 0 110 150" fill="none" stroke="#DCAA40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="35" y="22" width="40" height="32" rx="5"/>
+      <circle cx="47" cy="36" r="5.5"/><circle cx="63" cy="36" r="5.5"/>
+      <circle cx="47" cy="36" r="1.8" fill="#DCAA40"/><circle cx="63" cy="36" r="1.8" fill="#DCAA40"/>
+      <path d="M44 47 h22"/><path d="M49 47 v4 M55 47 v4 M61 47 v4"/>
+      <path d="M43 22 L39 10 M55 22 L55 8 M67 22 L71 10"/>
+      <circle cx="39" cy="8" r="3"/><circle cx="55" cy="6" r="3"/><circle cx="71" cy="8" r="3"/>
+      <rect x="40" y="54" width="30" height="40" rx="3"/>
+      <path d="M42 64 l7 -5 l7 5 l7 -5 l5 4"/>
+      <path d="M42 74 l7 -5 l7 5 l7 -5 l5 4"/>
+      <circle cx="49" cy="85" r="2.6"/><circle cx="61" cy="85" r="2.6"/>
+      <path d="M40 58 L20 44 L12 36 M12 36 L6 32 M12 36 L8 42 M12 36 L16 30"/>
+      <path d="M70 58 L90 44 L98 36 M98 36 L104 32 M98 36 L102 42 M98 36 L94 30"/>
+      <path d="M46 94 L42 118 M64 94 L68 118"/>
+      <path d="M42 118 L32 124 M68 118 L78 124"/>
+      <path d="M28 130 h54"/>
+    </svg>
+    <!-- 中央神祇(靈感:Siguas 火烙杖) -->
+    <svg viewBox="0 0 120 170" fill="none" stroke="#DCAA40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M48 38 C43 30 53 24 48 14 M60 36 C56 28 64 22 60 12 M72 38 C77 30 67 24 72 14"/>
+      <circle cx="48" cy="11" r="4.5"/><circle cx="60" cy="9" r="4.5"/><circle cx="72" cy="11" r="4.5"/>
+      <circle cx="48" cy="11" r="1.5" fill="#DCAA40"/><circle cx="60" cy="9" r="1.5" fill="#DCAA40"/><circle cx="72" cy="11" r="1.5" fill="#DCAA40"/>
+      <rect x="40" y="38" width="40" height="34" rx="6"/>
+      <circle cx="52" cy="52" r="6"/><circle cx="68" cy="52" r="6"/>
+      <circle cx="52" cy="52" r="2" fill="#DCAA40"/><circle cx="68" cy="52" r="2" fill="#DCAA40"/>
+      <path d="M50 64 h20"/><path d="M54 64 v4 M60 64 v4 M66 64 v4"/>
+      <path d="M42 76 L78 76 L86 118 L34 118 Z"/>
+      <path d="M42 88 l7 -6 l7 6 l7 -6 l7 6 l7 -6"/>
+      <path d="M40 100 l8 -6 l8 6 l8 -6 l8 6 l8 -6"/>
+      <circle cx="48" cy="110" r="3"/><circle cx="60" cy="110" r="3"/><circle cx="72" cy="110" r="3"/>
+      <path d="M42 80 L20 68 L12 58 M12 58 L4 54 M12 58 L8 64 M12 58 L14 50"/>
+      <path d="M78 80 L100 68 L108 58 M108 58 L116 54 M108 58 L112 64 M108 58 L106 50"/>
+      <path d="M48 118 L44 142 M72 118 L76 142"/>
+      <path d="M44 142 L34 146 M76 142 L86 146"/>
+      <rect x="42" y="150" width="36" height="18" rx="2"/>
+      <path d="M42 150 L78 168 M78 150 L42 168"/>
+    </svg>
+    <!-- 貓頭鷹守衛(靈感:格紋織品上的貓) -->
+    <svg viewBox="0 0 110 130" fill="none" stroke="#DCAA40" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M27 18 L18 4 L36 11"/><path d="M83 18 L92 4 L74 11"/>
+      <rect x="25" y="15" width="60" height="42" rx="5"/>
+      <path d="M30 24 l8 5 l8 -5 l9 5 l9 -5 l8 5 l8 -5"/>
+      <circle cx="44" cy="42" r="7.5"/><circle cx="66" cy="42" r="7.5"/>
+      <circle cx="44" cy="42" r="2.5" fill="#DCAA40"/><circle cx="66" cy="42" r="2.5" fill="#DCAA40"/>
+      <path d="M52 52 l3 -4 l3 4"/>
+      <rect x="33" y="57" width="44" height="32" rx="3"/>
+      <circle cx="43" cy="66" r="2.6"/><circle cx="55" cy="66" r="2.6"/><circle cx="67" cy="66" r="2.6"/>
+      <circle cx="43" cy="78" r="2.6"/><circle cx="55" cy="78" r="2.6"/><circle cx="67" cy="78" r="2.6"/>
+      <path d="M77 62 q20 6 16 24 q-2 10 -12 12"/>
+      <path d="M43 89 l-5 9 l10 0 l-5 9 M63 89 l-5 9 l10 0 l-5 9"/>
+      <path d="M30 112 h50"/>
+    </svg>
+  </div>
+  <p class="museo-cap">靈感:阿雷基帕博物館 · Siguas 火烙圖騰 「中央神祇」</p>
+</section>
+
+<p class="demo-label">Demo ② · 章節分隔帶 — 織品小人 frieze(用在秘魯章的段落之間)</p>
+<section class="frieze">
+  <div class="frieze-track" id="friezeTrack"></div>
+</section>
+
+<p class="demo-label">Demo ③ · 金句 × 圖騰(秘魯章的 pull-quote 樣式)</p>
+<section class="pq">
+  <div class="pq-glyph">
+    <svg viewBox="0 0 120 170" fill="none" stroke="#DC6749" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M48 38 C43 30 53 24 48 14 M60 36 C56 28 64 22 60 12 M72 38 C77 30 67 24 72 14"/>
+      <circle cx="48" cy="11" r="4.5"/><circle cx="60" cy="9" r="4.5"/><circle cx="72" cy="11" r="4.5"/>
+      <rect x="40" y="38" width="40" height="34" rx="6"/>
+      <circle cx="52" cy="52" r="6"/><circle cx="68" cy="52" r="6"/>
+      <circle cx="52" cy="52" r="2" fill="#DC6749"/><circle cx="68" cy="52" r="2" fill="#DC6749"/>
+      <path d="M50 64 h20"/><path d="M54 64 v4 M60 64 v4 M66 64 v4"/>
+      <path d="M42 76 L78 76 L86 118 L34 118 Z"/>
+      <path d="M42 88 l7 -6 l7 6 l7 -6 l7 6 l7 -6"/>
+      <circle cx="48" cy="106" r="3"/><circle cx="60" cy="106" r="3"/><circle cx="72" cy="106" r="3"/>
+      <path d="M42 80 L20 68 L12 58 M12 58 L4 54 M12 58 L8 64 M12 58 L14 50"/>
+      <path d="M78 80 L100 68 L108 58 M108 58 L116 54 M108 58 L112 64 M108 58 L106 50"/>
+      <path d="M48 118 L44 142 M72 118 L76 142"/>
+      <path d="M44 142 L34 146 M76 142 L86 146"/>
+    </svg>
+  </div>
+  <p class="pq-text">很多文物的歷史,跟殖民統治後的拼接。<br>有點難過,也有點諷刺——<br>因為整個 Tour 的結束點,在教堂。</p>
+  <p class="pq-src">太陽神殿 Qorikancha · 2026.07.01</p>
+</section>
+
+<script>
+// frieze:重複的小舞者(兩種姿勢交錯)
+var a='<svg viewBox="0 0 26 30" fill="none" stroke="#DC6749" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="height:34px"><rect x="8" y="3" width="10" height="8" rx="2"/><path d="M10.5 3 L9 0.5 M15.5 3 L17 0.5"/><rect x="9" y="11" width="8" height="10" rx="1.5"/><path d="M9.5 15 l3 -2.5 l3 2.5"/><path d="M9 12.5 L3 8 M17 12.5 L23 8"/><path d="M11 21 L9 27 L6.5 28 M15 21 L17 27 L19.5 28"/></svg>';
+var b='<svg viewBox="0 0 26 30" fill="none" stroke="#DCAA40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="height:34px"><rect x="8" y="3" width="10" height="8" rx="2"/><path d="M13 3 L13 0.5"/><rect x="9" y="11" width="8" height="10" rx="1.5"/><circle cx="13" cy="15" r="1.6"/><path d="M9 13 L3 17.5 M17 13 L23 17.5"/><path d="M11 21 L9 27 L6.5 28 M15 21 L17 27 L19.5 28"/></svg>';
+var t=document.getElementById('friezeTrack'),h='';
+for(var i=0;i<14;i++){h+=(i%2?b:a);}
+t.innerHTML=h;
+</script>
+
+</body>
+</html>

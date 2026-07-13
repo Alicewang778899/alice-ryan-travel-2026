@@ -83,6 +83,17 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .lead-drop,.pq-text,.museo-h,.ch-zh,.guides-head p,.lead-en{text-wrap:balance}
 .j-text,.card-desc,.desc,.note-text,.tipbox li,.g-card li,.info-list li,.ib li{text-wrap:pretty}
 
+/* 抄作業 tipbox:掛在 spread 正下方(同巴西章) */
+.tipbox{max-width:1200px;margin:-52px auto 96px;padding:0 28px}
+.tipbox-in{background:var(--paper);border:1.5px dashed rgba(220,103,73,.45);border-radius:18px;padding:22px 26px 18px;position:relative}
+.tipbox-in::before{content:'📝';position:absolute;top:-15px;left:26px;background:var(--cream);padding:0 8px;font-size:16px}
+.tipbox h5{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral-deep);margin-bottom:10px}
+.tipbox ul{list-style:none;columns:2;column-gap:34px}
+@media(max-width:760px){.tipbox ul{columns:1}}
+.tipbox li{font-size:13px;line-height:1.6;padding:5px 0 5px 16px;position:relative;break-inside:avoid}
+.tipbox li::before{content:'✦';position:absolute;left:0;top:8px;font-size:6px;color:var(--coral)}
+.tipbox li b{font-weight:600}
+
 /* 路線地圖(GeoJSON 生成,品牌手繪風) */
 .mapwrap{display:flex;flex-direction:column;align-items:center;padding:0 28px 92px;text-align:center}
 .map-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:26px}
@@ -210,10 +221,17 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   </div>
   <div class="journal">
     <span class="j-date">Jun 24 · Day 65 · 庫斯科</span>
-    <p class="j-text">一年一度的太陽祭 Inti Raymi!三個場地:太陽神殿、武器廣場、薩克塞華曼,導遊提前幫我們站好位置(這個很重要)。老實說第三場我就不太想看了,因為也看不太懂,但整個體會傳統祭典還是非常感動——看完直接回飯店睡了兩個小時。</p>
+    <p class="j-text">一年一度太陽祭 Inti Raymi!六月的秘魯是冬天,印加人認真擔心太陽跑太遠會一去不回,就在冬至這天把它「拴」住——克丘亞語 Intihuatana,字面意思就是綁住太陽😅 帝國四方的代表全部湧進庫斯科這個「宇宙的肚臍」,朝奉太陽、也朝奉太陽在人間的兒子(印加帝王本人)。我們 7:30 到太陽神殿卡位自以為勤勞,第一排的人凌晨 5 點就守在那了——看完直接回飯店睡了兩個小時。</p>
     <p class="j-sign">— Alice &amp; Ryan 的日記</p>
   </div>
 </section>
+
+<div class="tipbox fade">
+  <div class="tipbox-in">
+    <h5>抄作業 · 太陽祭 Inti Raymi</h5>
+    <ul><li><b>一天三會場</b> — 9:00 太陽神殿 → 11:00 武器廣場 → 14:00 薩克塞華曼,全跟完會累到靈魂出竅🫠</li><li><b>只挑一場就選武器廣場</b> — 跟旁邊當地居民買張塑膠椅坐著看,性價比和體驗感最高👌</li><li>第三會場<b>沒買票外圍幾乎看不到</b>,不推硬爬;沒體力就靠財力,官方座位票買下去很合理</li><li><b>整個六月都是庫斯科慶典月</b> — 天天有遊行,住宿別貪方便訂在武器廣場旁,會被吵死</li><li><b>羊駝牌大打折</b> — Sol Alpaca 這種名牌買起來,實測到阿雷基帕同款就沒折了🦙</li><li>人多的地方,顧好手機錢包</li></ul>
+  </div>
+</div>
 
 <!-- 庫斯科:Pisac -->
 <section class="spread rev fade">
